@@ -1,0 +1,96 @@
+
+.areas {
+    background-color: #8B591B;
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: flex-start;
+    color: white;
+    height:  30vh;
+}
+
+.price-detail {
+    display: flex;
+    justify-content: space-between;
+}
+
+.total-price {
+    font-weight: 600;
+}
+
+.line {
+    height: 2px;
+    width: 100%;
+    background-color: black;
+    margin: 6px 0;
+}
+
+form {
+    width: 100%;
+}
+
+.payment-detail-form {
+    display: flex;
+    flex-direction: column;
+}
+
+.payment-detail-form .input-field {
+    display: flex;
+    width: 60vw;
+    justify-content: space-between;
+    margin-bottom: 24px;
+    font-size: 20px;
+}
+
+.payment-detail-form .input-field span {
+    display: flex;
+    flex-direction: column;
+    width: 45%;
+}
+
+.payment-detail-form .input-field input {
+    margin-top: 12px;
+    height: 40px;
+    width: 100%;
+}
+
+.payment-detail-form .input-checkbox {
+    font-size: 20px;
+    display: flex;
+    flex-direction: column;
+}
+
+.payment-detail-form .input-checkbox div {
+    font-size: 15px;
+    margin-top: 12px;
+    display: flex;
+    flex-direction: column;
+    height: 50px;
+    justify-content: space-evenly;
+}
+
+.input-checkbox input[type=checkbox] {
+     border: none;
+    -webkit-border-radius: 20px;
+    -moz-border-radius: 20px;
+     border-radius: 20px;
+}
+
+.payment-button {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.payment-button input {
+    height: 50px;
+    background-color: #F5CB5C;
+    border: none;
+    border-radius: 15px;
+    padding: 12px;
+}
+
+.payment-button input:hover {
+    cursor: pointer;
+    background-color: #ffdc7c;
+}

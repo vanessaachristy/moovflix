@@ -1,0 +1,132 @@
+
+
+.areas {
+    background-color: #8B591B;
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.trapezoid {
+    position: relative;
+    width: 50vw;
+    height: 0vw;
+    border-top: 90px solid white;
+    border-left: 150px solid transparent;
+    border-right: 150px solid transparent;
+}
+
+.trapezoid .screen-display {
+    position: absolute;
+    top: -45px;
+    margin-left: 50%;
+}
+
+.areas .legend {
+    display: flex;
+    justify-content: space-evenly;
+    width: 50vw;
+    margin: 12px;
+} 
+
+.areas .legend .box {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    color: white;
+    font-size: 15px;
+}
+
+.box div {
+    margin-right: 6px;
+}
+
+.box .selected {
+    background-color: #F5CB5C;
+    width: 40px;
+    height: 30px;
+}
+
+.box .unavailable {
+    background-color: black;
+    width: 40px;
+    height: 30px;
+}
+.box .available {
+    background-color: white;
+    width: 40px;
+    height: 30px;
+}
+
+.sections {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    max-width: 70vw;
+    min-width: 60vw;;
+    margin: 24px;
+}
+
+.index-group {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 25vh;
+}
+
+.index-group .index {
+    color: white;
+    font-weight: 500;
+}
+
+.sections .column-group {
+    display: flex;
+    justify-content: space-between;
+    padding: 12px;
+    min-width: 100%;
+}
+
+.sections .column {
+    display: flex;
+    flex-direction: column;
+    justify-content: space-between;
+    height: 25vh;
+}
+
+.sections .row {
+    display: flex;
+    justify-content: space-evenly;
+    width: 30vw;
+}
+
+.row input {
+    display: none !important;
+}
+
+.row .seat-box {
+    background-color: white;
+    width: 2vw;
+    height: 30px;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    font-size: 10px;
+}
+
+.row .seat-box:hover {
+    cursor: pointer;
+}
+
+.row .seat-box span {
+    display: none;
+}
+
+.row .seat-box.unavailable {
+    background-color: black;
+}
+
+.row .seat-box.selected {
+    background-color: #F5CB5C;
+}
