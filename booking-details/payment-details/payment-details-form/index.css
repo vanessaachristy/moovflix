@@ -8,6 +8,8 @@
     align-items: flex-start;
     color: white;
     height:  30vh;
+    flex: 1 1 auto;
+
 }
 
 .price-detail {

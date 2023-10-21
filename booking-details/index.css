@@ -1,22 +1,5 @@
-header {
-    background-color: black;
-    height: 10vh;
-    position: sticky;
-    top: 0;
-    color: white;
-    z-index: 1000;
-}
-
-body {
-    margin: 0 !important;
-    font-family: 'Inter';
-    max-width: 100vw;
-    height: 100%;
-}
-
-
 .booking-details {
-    height: 100%;
+    min-height: 70vh;
     display: flex;
     flex-direction: column;
     max-width: 100vw;
@@ -30,6 +13,7 @@ body {
     display: flex;
     flex-direction: column;
     justify-content: space-between;
+    flex: 0 1 auto;
 }
 
 .booking-details .header .title {
@@ -99,56 +83,4 @@ body {
     width: 14px;
     height: 14px;
     padding-right: 6px;
-}
-
-
-footer {
-    background-color: black;
-}
-
-footer .content {
-    display: flex;
-    justify-content: space-between;
-    padding: 24px;
-    align-items: flex-end;
-    background-color: #191B24;
-    height: 10vh;
-}
-
-footer .content .left {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    max-width: 50%;
-    height: 70%;
-}
-
-footer .content .logo {
-    height: 60px;
-}
-
-footer .content .social {
-    display: flex;
-    justify-content: space-between;
-    width: 50%;
-}
-
-footer .content .right {
-    display: flex;
-    flex-direction: column;
-    justify-content: space-between;
-    text-align: right;
-    height: 60%;
-}
-
-footer .content .right a {
-    text-decoration: none;
-    color: #F5CB5C;
-}
-
-footer .copyright {
-    display: flex;
-    justify-content: center;
-    color: white;
-    padding: 12px;
 }

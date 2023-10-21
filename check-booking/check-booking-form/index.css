@@ -1,0 +1,85 @@
+
+.check-booking-form {
+    background-color: black;
+    display: flex;
+    align-items: center;
+    justify-content: flex-start;
+    padding: 24px;
+    flex: 1 1 auto;
+}
+
+.form-card {
+    display: flex;
+    flex-direction: column;
+    min-width: 80%;
+    border-radius: 20px;
+    overflow: hidden;
+}
+
+.form-card .title {
+    background-color: #8B591C;
+    padding: 24px;
+    color: white;
+    font-size: 40px;
+    font-weight: 500;
+}
+
+.form-card .form {
+    background-color: #F5CB5C;
+    padding: 24px;
+    display: flex;
+    flex-direction: column;
+}
+
+.form-card .form h3 {
+    margin: 6px 0;
+}
+
+.form-card .form p {
+    margin: 6px 0;
+}
+
+form {
+    margin-top: 12px;
+    width: 100%;
+}
+
+
+.input-field {
+    display: flex;
+    width: 80%;
+    justify-content: space-between;
+    margin: 12px 0 24px;
+    font-size: 20px;
+}
+
+.input-field span {
+    display: flex;
+    flex-direction: column;
+    width: 45%;
+}
+
+.input-field input {
+    margin-top: 12px;
+    height: 40px;
+    width: 100%;
+    border: none;
+    border-radius: 10px;
+    padding: 0 6px;
+}
+
+.check-button {
+    margin-top: 12px;
+    background-color: #8B591C;
+    color: #F5CB5C;
+    font-size: 15px;
+    border-radius: 10px;
+    height: 5vh;
+    border: none;
+    padding: 0 24px;
+}
+
+.check-button:hover {
+    background-color: black;
+    cursor: pointer;
+}

@@ -1,22 +1,30 @@
 <?php 
 
-    // $totalRows = 5;
-    // $totalColumns = 2;
-    // $totalEachRow = 10;
-   
-    // if($_SERVER["REQUEST_METHOD"] == "POST") {
-    //     $selectedList=array();
-    //     for ($ii = 0; $ii < count($_POST["seat"]); $ii++) {
-    //     $selected = strlen($_POST["seat"][$ii]) > 0;
-    //     if ($selected == 1) {
-    //             array_push($selectedList,$_POST["seat"][$ii] );
-    //         }
-    //     }
-    //     echo "<script>console.log(JSON.parse('" . json_encode($selectedList) . "'));</script>";
+    if($_SERVER["REQUEST_METHOD"] == "POST") {
+        $name = $_POST["name"];
+        $email = $_POST["email"];
+        $payment = $_POST["payment"];
+        $uniqueId = generateUniqueId();
+        echo "<script>console.log('email: " .$email. " uniqueID: " .$uniqueId. "');</script>";
 
-    // } else {
-    // echo '<script>console.log("End.")</script>';
-    // }
+    } else {
+        
+    }
+
+/**
+ * Generate unique booking ID
+ */
+function generateUniqueId() {
+    $letters = "ABCDEFGHJKMNPQRSTUXYabcdefghjkmnpqrstuxy0123456789";
+    $text = '';
+
+    for ($i = 0; $i < 24; $i++) {
+        $text .= $letters[rand(0, strlen($letters) - 1)];
+    }
+
+    return $text;
+}
+
 
 /**
  * Sanitize
@@ -35,10 +43,12 @@ function sanitize($data) {
     <head>
         <title>Choose Seating</title>
         <meta charset="UTF-8" />
+        <link rel="stylesheet" href="../../../common/index.css" />
+        <link rel="stylesheet" href="../../../footer/index.css" />
         <link rel="stylesheet" href="index.css" />
-        <link rel="stylesheet" href="../index.css" />
+        <link rel="stylesheet" href="../../index.css" />
         <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
-        <script type="text/javascript" src='./index.js'></script>
+        <script type="text/javascript" src='index.js'></script>
     </head>
 
     <header>
@@ -51,16 +61,16 @@ function sanitize($data) {
                 <span class="title">BOOKING DETAILS</span>
                 <div class="content">
                     <div class="image">
-                        <img src="../../assets/john-wick.png" width="92" height="134" />
+                        <img src="../../../assets/john-wick.png" width="92" height="134" />
                     </div>
                     <div class="movie-detail">
                         <span class="movie-title" id="title">John Wick 4</span>
-                        <span id="cinema-name"><img src='../../assets/location.svg' class="icon" />Cinema Name</span>
-                        <span id="show-date"><img src='../../assets/calendar.svg' class="icon" />22 September,
+                        <span id="cinema-name"><img src='../../../assets/location.svg' class="icon" />Cinema Name</span>
+                        <span id="show-date"><img src='../../../assets/calendar.svg' class="icon" />22 September,
                             2023</span>
-                        <span id="show-time"><img src='../../assets/time.svg' class="icon" />9.15 PM</span>
-                        <span id="tickets-total"><img src='../../assets/ticket.svg' class="icon" />2 Tickets</span>
-                        <span id="seat-numbers"><img src='../../assets/seat.svg' class="icon" />C12, C13</span>
+                        <span id="show-time"><img src='../../../assets/time.svg' class="icon" />9.15 PM</span>
+                        <span id="tickets-total"><img src='../../../assets/ticket.svg' class="icon" />2 Tickets</span>
+                        <span id="seat-numbers"><img src='../../../assets/seat.svg' class="icon" />C12, C13</span>
 
                     </div>
                     <div class="booking-detail">
@@ -69,13 +79,12 @@ function sanitize($data) {
                         <span class="price-detail">Booking Fee <span id="booking-fee">$0.50</span></span>
                         <span class="line"></span>
                         <span class="price-detail total-price">Total Price <span id="total-price">$16.50</span></span>
-                        <input class="proceed-btn" id="proceed-btn" type="submit" value="Proceed" />
 
                     </div>
                 </div>
             </div>
             <div class="areas">
-                <form id="payment-detail-form">
+                <form id="payment-detail-form" method="POST" action="index.php" onsubmit="return validateInput()">
                     <div class="payment-detail-form">
                         <div class="input-field">
                             <span><label for="buyer-name">Name</label> <input type="name" id="buyer-name" name="name"
@@ -86,9 +95,9 @@ function sanitize($data) {
                         <div class="input-checkbox">
                             <label for="payment-method">Payment Method</label>
                             <div>
-                                <span> <input type="checkbox" id="qrcode" name="qrcode" value="qrcode">
+                                <span> <input type="radio" id="qrcode" name="payment" value="qrcode" checked>
                                     <label for="qrcode">Paynow/Paylah QR Code</label></span>
-                                <span><input type="checkbox" id="card" name="card" value="card">
+                                <span><input type="radio" id="card" name="payment" value="card">
                                     <label for="card">Visa/Master Credit Card</label><br></span>
                             </div>
                         </div>
@@ -105,12 +114,12 @@ function sanitize($data) {
         <div class="content">
             <div class="left">
                 <div class="logo">
-                    <img src='../../assets/moovflixLogo.svg' />
+                    <img src='../../../assets/moovflixLogo.svg' />
                 </div>
                 <div class="social">
-                    <img src='../../assets/facebook.svg' />
-                    <img src='../../assets/mail.svg' />
-                    <img src='../../assets/twitter.svg' />
+                    <img src='../../../assets/facebook.svg' />
+                    <img src='../../../assets/mail.svg' />
+                    <img src='../../../assets/twitter.svg' />
                 </div>
             </div>
             <div class="right">

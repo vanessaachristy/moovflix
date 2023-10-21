@@ -7,6 +7,7 @@
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    flex: 1 1 auto;
 }
 
 .trapezoid {
@@ -129,4 +130,8 @@
 
 .row .seat-box.selected {
     background-color: #F5CB5C;
+}
+
+form {
+    min-height: 100% !important;
 }

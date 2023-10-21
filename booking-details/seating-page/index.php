@@ -35,10 +35,12 @@ function sanitize($data) {
     <head>
         <title>Choose Seating</title>
         <meta charset="UTF-8" />
+        <link rel="stylesheet" href="../../common/index.css" />
+        <link rel="stylesheet" href="../../footer/index.css" />
         <link rel="stylesheet" href="index.css" />
         <link rel="stylesheet" href="../index.css" />
         <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
-        <script type="text/javascript" src='./index.js'></script>
+        <script type="text/javascript" src='index.js'></script>
     </head>
 
     <header>
@@ -47,7 +49,7 @@ function sanitize($data) {
 
     <body>
         <div class="booking-details">
-            <form id="seatForm" method="POST" action="index.php">
+            <form id="seatForm" method="POST" action="index.php" class="booking-details">
 
                 <div class="header">
                     <span class="title">BOOKING DETAILS</span>
