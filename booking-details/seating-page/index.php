@@ -3,6 +3,22 @@
     $totalRows = 5;
     $totalColumns = 2;
     $totalEachRow = 10;
+
+    $servername = "localhost";
+    $username = "root";
+    $dbname = "moovflix";
+    $tablename = "Seating";
+
+    // Create connection
+    $conn = new mysqli($servername, $username, '', $dbname);
+
+    // Check connection
+    if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+    }
+    echo '<script>console.log("Connected")</script>';
+
+    $distinctRows = mysqli_query($conn, "SELECT DISTINCT rowNumber FROM ".$tablename." ORDER BY rowNumber DESC");  
    
     if($_SERVER["REQUEST_METHOD"] == "POST") {
         $selectedList=array();
@@ -27,6 +43,8 @@ function sanitize($data) {
 	$data = htmlspecialchars($data);
 	return $data;
 }
+
+mysqli_close($conn);
 
 ?>
 <!DOCTYPE html>
@@ -81,34 +99,37 @@ function sanitize($data) {
                     <div class="sections">
                         <div class='index-group'>
                             <?php
-                            for ($i = $totalRows-1; $i >= 0; $i--) {
-                                $char = chr($i + 65);
-                                echo "<div class='index'>{$char}</div>";
-                            }
+                              while($row = mysqli_fetch_assoc($distinctRows)) {
+
+                                echo "<div class='index'>{$row['rowNumber']}</div>";
+                            };
                         ?>
                         </div>
                         <div class='column-group'>
                             <?php 
+                            $allRows = mysqli_query($conn, "SELECT * FROM ".$tablename." ORDER BY rowNumber DESC");  
+                          
                         for ($x = 1; $x <= $totalColumns; $x++) {
+                            $distinctRows = mysqli_query($conn, "SELECT DISTINCT rowNumber FROM ".$tablename." ORDER BY rowNumber DESC");  
                             echo '
                              <div class="column" id="'.$x.'">
                                 ';
-                                for ($y = 1; $y <= $totalRows; $y++) {
-                                    $idx = $totalRows - $y;
-                                    $rowIdx = chr($idx + 65);
-                                      echo '
-                                        <div class="row" id="'.$rowIdx.'" onchange={onRowChange()}>
+                                while($row = mysqli_fetch_assoc($distinctRows)) {
+                                        echo '
+                                        <div class="row" id="'.$row["rowNumber"].'" onchange={onRowChange()}>
                                             ';
-                                            for ($z = 1; $z <= $totalEachRow; $z++) {
-                                                $prefix = $totalEachRow * ($x-1);
-                                                $seatIdx = $prefix + $z;
-                                                echo '
-                                                <div id="'.$rowIdx.''.$seatIdx.'" onclick={onSeatSelected('.$rowIdx.''.$seatIdx.')} onmouseover={onSeatHover('.$rowIdx.''.$seatIdx.')} onmouseleave={onSeatHoverEnd('.$rowIdx.''.$seatIdx.')} class="seat-box"><span>'.$rowIdx.''.$seatIdx.'</span><input id="input-'.$rowIdx.''.$seatIdx.'" name="seat[]" value="" readOnly></input></div>
+                                            $eachRows = mysqli_query($conn, "SELECT * FROM $tablename WHERE rowNumber = '" . $row["rowNumber"] . "' AND seatIdx <= " . ($x * $totalEachRow) . " AND seatIdx > " . (($x - 1) * $totalEachRow) . " ORDER BY seatIdx DESC");
+                                            $eachRowIdx = 0; 
+                                            while ($eachRow = mysqli_fetch_assoc($eachRows)) {
+                                                $idx = $eachRow["seatIdx"];
+                                                if ($idx <= $x*10) {
+                                                     echo '
+                                                <div id="'.$eachRow['seatNumber'].'" onclick={onSeatSelected('.$eachRow['seatNumber'].')} onmouseover={onSeatHover('.$eachRow['seatNumber'].')} onmouseleave={onSeatHoverEnd('.$eachRow['seatNumber'].')} class="seat-box"><span>'.$eachRow['seatNumber'].'</span><input id="input-'.$eachRow['seatNumber'].'" name="seat[]" value="" readOnly></input></div>
                                             ';
-                                            }
-                                            echo '
-                                        </div>
-                                    ';
+                                                }
+                                            };
+                                        echo '</div>';
+
                                 };
                             echo '
                             </div>
