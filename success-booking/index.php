@@ -1,5 +1,15 @@
-<?php 
-   
+<?php
+
+session_start();
+
+$bookingID = "";
+// Access the session variable
+if (isset($_SESSION['bookingID'])) {
+    $bookingID = $_SESSION['bookingID'];
+} else {
+    echo '<script>console.log("Booking ID session variable not set.")</script>';
+}
+
 
 ?>
 <!DOCTYPE html>
@@ -23,9 +33,11 @@
         <div class="success">
             <h1>Your booking is successfully created!</h1>
             <p>Please check your email for a booking confirmation details. </p>
-            <p>Booking ID: XXXXXXXXXXXX </p>
+            <p>Booking ID: <?= $bookingID ?> </p>
             <img src="../assets/check.svg" />
-            <input class="home-button" type="button" value="BACK TO HOME" onclick={homeButtonOnClick()} />
+            <form action="logout.php" method="post">
+                <input class="home-button" type="submit" value="BACK TO HOME" />
+            </form>
         </div>
     </body>
     <footer>

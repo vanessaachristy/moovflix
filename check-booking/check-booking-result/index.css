@@ -21,6 +21,16 @@
     margin: 24px 0;
 }
 
+.not-found {
+    display: flex;
+    flex-direction: column;
+    color: white;
+}
+
+.not-found span {
+    font-size: 15px;
+}
+
 .booking-card {
     display: flex;
     width: 60%;

@@ -116,7 +116,7 @@
     font-size: 10px;
 }
 
-.row .seat-box:hover {
+.row .seat-box.available:hover {
     cursor: pointer;
 }
 
@@ -126,6 +126,7 @@
 
 .row .seat-box.unavailable {
     background-color: black;
+    cursor: not-allowed;
 }
 
 .row .seat-box.selected {

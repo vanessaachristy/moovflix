@@ -1,50 +1,77 @@
-<?php 
+<?php
+session_start();
 
-    $totalRows = 5;
-    $totalColumns = 2;
-    $totalEachRow = 10;
+$totalRows = 5;
+$totalColumns = 2;
+$totalEachRow = 10;
 
-    $servername = "localhost";
-    $username = "root";
-    $dbname = "moovflix";
-    $tablename = "Seating";
+$servername = "localhost";
+$username = "root";
+$dbname = "moovflix";
+$tablename = "Seating";
 
-    // Create connection
-    $conn = new mysqli($servername, $username, '', $dbname);
+// Create connection
+$conn = new mysqli($servername, $username, '', $dbname);
 
-    // Check connection
-    if ($conn->connect_error) {
+// Check connection
+if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
-    }
-    echo '<script>console.log("Connected")</script>';
+}
+echo '<script>console.log("Connected")</script>';
 
-    $distinctRows = mysqli_query($conn, "SELECT DISTINCT rowNumber FROM ".$tablename." ORDER BY rowNumber DESC");  
-   
-    if($_SERVER["REQUEST_METHOD"] == "POST") {
-        $selectedList=array();
-        for ($ii = 0; $ii < count($_POST["seat"]); $ii++) {
+$distinctRows = mysqli_query($conn, "SELECT DISTINCT rowNumber FROM " . $tablename . " ORDER BY rowNumber DESC");
+$referenceID = generateUniqueId();
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $selectedList = array();
+    for ($ii = 0; $ii < count($_POST["seat"]); $ii++) {
         $selected = strlen($_POST["seat"][$ii]) > 0;
         if ($selected == 1) {
-                array_push($selectedList,$_POST["seat"][$ii] );
-            }
+            array_push($selectedList, $_POST["seat"][$ii]);
+            $seatNumber[$ii] = sanitize($_POST["seat"][$ii]);
+            $timestamp = date("Y-m-d H:i:s"); // Create a timestamp
+            $randomShowID = "your_show_id"; // Replace with an actual show ID
+            // Assuming $conn is your database connection
+            $query = "INSERT INTO Booking (showID, seatID, created, completed, referenceID) VALUES ('$randomShowID', '" . $seatNumber[$ii] . "', '$timestamp', 0, '$referenceID')";
+            $seatQuery = "UPDATE Seating SET available = 0, bookingID = '" . $referenceID . "' WHERE seatNumber = '" . $seatNumber[$ii] . "'";
+            $conn->query($query);
+            $conn->query($seatQuery);
         }
-        echo "<script>console.log(JSON.parse('" . json_encode($selectedList) . "'));</script>";
-
-    } else {
-    echo '<script>console.log("End.")</script>';
     }
+    $_SESSION['bookingID'] = $referenceID;
+    echo '<script>console.log("Database update success.")</script>';
+    echo "<script>console.log(JSON.parse('" . json_encode($selectedList) . "'));</script>";
+    echo "<script>console.log('" . $_SESSION["bookingID"] . "');</script>";
+    echo "<script>window.location.pathname = 'moovflix/booking-details/payment-details/payment-details-form/index.php'</script>";
+
+} else {
+    echo '<script>console.log("End.")</script>';
+}
+
+/**
+ * Generate unique booking ID
+ */
+function generateUniqueId()
+{
+    $letters = "ABCDEFGHJKMNPQRSTUXYabcdefghjkmnpqrstuxy0123456789";
+    $text = '';
+
+    for ($i = 0; $i < 24; $i++) {
+        $text .= $letters[rand(0, strlen($letters) - 1)];
+    }
+
+    return $text;
+}
 
 /**
  * Sanitize
  */
-function sanitize($data) {
-	$data = trim($data);
-	$data = stripslashes($data);
-	$data = htmlspecialchars($data);
-	return $data;
+function sanitize($data)
+{
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
 }
-
-mysqli_close($conn);
 
 ?>
 <!DOCTYPE html>
@@ -99,43 +126,54 @@ mysqli_close($conn);
                     <div class="sections">
                         <div class='index-group'>
                             <?php
-                              while($row = mysqli_fetch_assoc($distinctRows)) {
+                            while ($row = mysqli_fetch_assoc($distinctRows)) {
 
                                 echo "<div class='index'>{$row['rowNumber']}</div>";
-                            };
-                        ?>
+                            }
+                            ;
+                            ?>
                         </div>
                         <div class='column-group'>
-                            <?php 
-                            $allRows = mysqli_query($conn, "SELECT * FROM ".$tablename." ORDER BY rowNumber DESC");  
-                          
-                        for ($x = 1; $x <= $totalColumns; $x++) {
-                            $distinctRows = mysqli_query($conn, "SELECT DISTINCT rowNumber FROM ".$tablename." ORDER BY rowNumber DESC");  
-                            echo '
-                             <div class="column" id="'.$x.'">
-                                ';
-                                while($row = mysqli_fetch_assoc($distinctRows)) {
-                                        echo '
-                                        <div class="row" id="'.$row["rowNumber"].'" onchange={onRowChange()}>
-                                            ';
-                                            $eachRows = mysqli_query($conn, "SELECT * FROM $tablename WHERE rowNumber = '" . $row["rowNumber"] . "' AND seatIdx <= " . ($x * $totalEachRow) . " AND seatIdx > " . (($x - 1) * $totalEachRow) . " ORDER BY seatIdx DESC");
-                                            $eachRowIdx = 0; 
-                                            while ($eachRow = mysqli_fetch_assoc($eachRows)) {
-                                                $idx = $eachRow["seatIdx"];
-                                                if ($idx <= $x*10) {
-                                                     echo '
-                                                <div id="'.$eachRow['seatNumber'].'" onclick={onSeatSelected('.$eachRow['seatNumber'].')} onmouseover={onSeatHover('.$eachRow['seatNumber'].')} onmouseleave={onSeatHoverEnd('.$eachRow['seatNumber'].')} class="seat-box"><span>'.$eachRow['seatNumber'].'</span><input id="input-'.$eachRow['seatNumber'].'" name="seat[]" value="" readOnly></input></div>
-                                            ';
-                                                }
-                                            };
-                                        echo '</div>';
+                            <?php
+                            $allRows = mysqli_query($conn, "SELECT * FROM " . $tablename . " ORDER BY rowNumber DESC");
 
-                                };
-                            echo '
+                            for ($x = 1; $x <= $totalColumns; $x++) {
+                                $distinctRows = mysqli_query($conn, "SELECT DISTINCT rowNumber FROM " . $tablename . " ORDER BY rowNumber DESC");
+                                echo '
+                             <div class="column" id="' . $x . '">
+                                ';
+                                while ($row = mysqli_fetch_assoc($distinctRows)) {
+                                    echo '
+                                        <div class="row" id="' . $row["rowNumber"] . '" onchange={onRowChange()}>
+                                            ';
+                                    $eachRows = mysqli_query($conn, "SELECT * FROM $tablename WHERE rowNumber = '" . $row["rowNumber"] . "' AND seatIdx <= " . ($x * $totalEachRow) . " AND seatIdx > " . (($x - 1) * $totalEachRow) . " ORDER BY seatIdx DESC");
+                                    $eachRowIdx = 0;
+                                    while ($eachRow = mysqli_fetch_assoc($eachRows)) {
+                                        $idx = $eachRow["seatIdx"];
+                                        if ($idx <= $x * 10) {
+                                            if ($eachRow['available'] == 1) {
+                                                echo '
+                                                <div id="' . $eachRow['seatNumber'] . '" onclick={onSeatSelected(' . $eachRow['seatNumber'] . ')} onmouseover={onSeatHover(' . $eachRow['seatNumber'] . ')} onmouseleave={onSeatHoverEnd(' . $eachRow['seatNumber'] . ')} class="seat-box available"><span>' . $eachRow['seatNumber'] . '</span><input id="input-' . $eachRow['seatNumber'] . '" name="seat[]" value="" readOnly></input></div>
+                                            ';
+                                            } else {
+                                                echo '
+                                                <div id="' . $eachRow['seatNumber'] . '" onclick={onSeatSelected(' . $eachRow['seatNumber'] . ')} onmouseover={onSeatHover(' . $eachRow['seatNumber'] . ')} onmouseleave={onSeatHoverEnd(' . $eachRow['seatNumber'] . ')} class="seat-box unavailable"><span>' . $eachRow['seatNumber'] . '</span><input id="input-' . $eachRow['seatNumber'] . '" name="seat[]" value="" readOnly></input></div>
+                                            ';
+                                            }
+
+                                        }
+                                    }
+                                    ;
+                                    echo '</div>';
+
+                                }
+                                ;
+                                echo '
                             </div>
                             ';
-                        };
-                    ?>
+                            }
+                            ;
+                            ?>
                         </div>
                     </div>
                     <div class="legend">

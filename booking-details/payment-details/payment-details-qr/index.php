@@ -1,14 +1,59 @@
-<?php 
+<?php
+
+session_start();
+
+$bookingID = "";
+$screenName = "Golden Village JP";
+$screenDate = date("Y-m-d");
+$screenTime = date("H:i A");
+$seatIDList = array();
+$seatPrice = 0;
+$bookingFee = 0.5;
+$totalPayment = $bookingFee + count($seatIDList) * $seatPrice;
+
+// Access the session variable
+if (isset($_SESSION['bookingID']) && isset($_SESSION["screenName"]) && isset($_SESSION["screenDate"]) && isset($_SESSION["screenTime"]) && isset($_SESSION["seatIDList"]) && isset($_SESSION["seatPrice"]) && isset($_SESSION["bookingFee"]) && isset($_SESSION["totalPayment"])) {
+    $bookingID = $_SESSION['bookingID'];
+    $screenName = $_SESSION["screenName"];
+    $screenDate = $_SESSION["screenDate"];
+    $screenTime = $_SESSION["screenTime"];
+    $seatIDList = $_SESSION["seatIDList"];
+    $seatPrice = $_SESSION["seatPrice"];
+    $bookingFee = $_SESSION["bookingFee"];
+    $totalPayment = $_SESSION["totalPayment"];
+} else {
+    echo '<script>console.log("One or more session variables are not set.")</script>';
+}
+;
 
 
+$servername = "localhost";
+$username = "root";
+$dbname = "moovflix";
 
-    if($_SERVER["REQUEST_METHOD"] == "POST") {
-        $redirectUrl = 'moovflix/success-booking/';
-        echo '<script>window.location.pathname = "' . $redirectUrl . '";</script>';
+// Create connection
+$conn = new mysqli($servername, $username, '', $dbname);
 
+// Check connection
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+echo '<script>console.log("Connected")</script>';
+
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    $completeBookingQuery = "UPDATE Booking SET completed = 1 WHERE referenceID = '" . $bookingID . "'";
+    $result = $conn->query($completeBookingQuery);
+    if ($result) {
+        // If the update was successful, redirect to another page
+        header('Location: http://localhost:8000/moovflix/success-booking/index.php');
+        exit; // Make sure to exit to prevent further script execution
     } else {
-        
+        // Handle the case where the update was not successful
+        echo "Database update failed: " . mysqli_error($conn);
     }
+    ;
+}
 
 
 
@@ -16,11 +61,12 @@
 /**
  * Sanitize
  */
-function sanitize($data) {
-	$data = trim($data);
-	$data = stripslashes($data);
-	$data = htmlspecialchars($data);
-	return $data;
+function sanitize($data)
+{
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
 }
 
 ?>
@@ -53,24 +99,32 @@ function sanitize($data) {
                         </div>
                         <div class="movie-detail">
                             <span class="movie-title" id="title">John Wick 4</span>
-                            <span id="cinema-name"><img src='../../../assets/location.svg' class="icon" />Cinema
-                                Name</span>
-                            <span id="show-date"><img src='../../../assets/calendar.svg' class="icon" />22 September,
-                                2023</span>
-                            <span id="show-time"><img src='../../../assets/time.svg' class="icon" />9.15 PM</span>
-                            <span id="tickets-total"><img src='../../../assets/ticket.svg' class="icon" />2
-                                Tickets</span>
-                            <span id="seat-numbers"><img src='../../../assets/seat.svg' class="icon" />C12, C13</span>
-
+                            <span id="cinema-name"><img src='../../../assets/location.svg' class="icon" />
+                                <?= $screenName ?>
+                            </span>
+                            <span id="show-date"><img src='../../../assets/calendar.svg' class="icon" />
+                                <?= $screenDate ?>
+                            </span>
+                            <span id="show-time"><img src='../../../assets/time.svg' class="icon" />
+                                <?= $screenTime ?>
+                            </span>
+                            <span id="tickets-total"><img src='../../../assets/ticket.svg' class="icon" />
+                                <?= count($seatIDList) ?> Tickets
+                            </span>
+                            <span id="seat-numbers"><img src='../../../assets/seat.svg' class="icon" />
+                                <?= implode(', ', $seatIDList) ?>
+                            </span>
                         </div>
+
                     </div>
                     <div class="booking-detail">
                         <span class="total-title">Total Payment</span>
-                        <span class="price-detail">Ticket Price <span id="ticket-price">$16.00</span></span>
-                        <span class="price-detail">Booking Fee <span id="booking-fee">$0.50</span></span>
+                        <span class="price-detail">Ticket Price <span id="ticket-price">$<?= $seatPrice ?>
+                                x<?= count($seatIDList) ?></span></span>
+                        <span class="price-detail">Booking Fee <span id="booking-fee">$<?= $bookingFee ?></span></span>
                         <span class="line"></span>
-                        <span class="price-detail total-price">Total Price <span id="total-price">$16.50</span></span>
-
+                        <span class="price-detail total-price">Total Price <span
+                                id="total-price">$<?= $totalPayment ?></span></span>
 
                     </div>
                 </div>
@@ -79,8 +133,8 @@ function sanitize($data) {
                 <div class="qr-display">
                     <span>Paynow/Paylah QR Code</span>
                     <div class="qr-image"><img src="../../../assets/mockQR.png" /></div>
-                    <span id="booking-ID">Booking ID: duKXT6bgXtYk6DjxRYxcF2Pf</span>
-                    <span class="amount">$XX.XX</span>
+                    <span id="booking-ID">Booking ID: <?= $bookingID ?></span>
+                    <span class="amount">$<?= $totalPayment ?></span>
 
                 </div>
                 <form id="confirmPaymentForm" action="index.php" method="POST">
