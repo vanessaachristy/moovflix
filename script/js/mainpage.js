@@ -1,12 +1,13 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     let currentIndex = 0;
     let carouselInterval;
     function fetchMovies() {
         fetch('script/php/get_movies.php')
-            .then(response => response.json())
+            .then(response =>
+                response.json())
             .then(data => {
                 updateCarousel(data);
-                updateMovieList(data); 
+                updateMovieList(data);
             })
             .catch(error => console.error('Error fetching movies:', error));
     }
@@ -38,46 +39,21 @@ document.addEventListener("DOMContentLoaded", function() {
 
         updateContent(currentIndex);
 
-        const bookButton = document.getElementById('bookButton');
-
-        bookButton.addEventListener('click', () => {
-            const movieId = movies[currentIndex].id; 
-            const url = `moviedetails.html?id=${movieId}`;
-            window.location.href = url;
-        });
-
         const prevButton = document.getElementById('prev-button');
         const nextButton = document.getElementById('next-button');
 
         prevButton.addEventListener('click', (event) => {
-            event.preventDefault(); 
+            event.preventDefault();
             clearInterval(carouselInterval);
             currentIndex = (currentIndex - 1 + movies.length) % movies.length;
             updateContent(currentIndex);
         });
 
         nextButton.addEventListener('click', (event) => {
-            event.preventDefault(); 
+            event.preventDefault();
             clearInterval(carouselInterval);
             currentIndex = (currentIndex + 1) % movies.length;
             updateContent(currentIndex);
-        });
-
-        function startCarouselAutoSwipe() {
-            clearInterval(carouselInterval);
-
-            carouselInterval = setInterval(() => {
-                currentIndex = (currentIndex + 1) % movies.length;
-                updateContent(currentIndex);
-            }, 2000); 
-        }
-
-        startCarouselAutoSwipe();
-
-        document.addEventListener('click', (event) => {
-            if (event.target !== prevButton && event.target !== nextButton) {
-                startCarouselAutoSwipe();
-            }
         });
     }
 
@@ -119,6 +95,6 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         });
     }
-    
+
     fetchMovies();
 });

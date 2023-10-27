@@ -1,10 +1,9 @@
 <?php
 $servername = "localhost";
-$username = "Jovalenci";
-$password = "JovalenciIE4717";
+$username = "root";
 $database = "moovlix";
 
-$mysqli = new mysqli($servername, $username, $password, $database);
+$mysqli = new mysqli($servername, $username, $database);
 
 if ($mysqli->connect_error) {
     die("Connection failed: " . $mysqli->connect_error);

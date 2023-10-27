@@ -7,7 +7,7 @@ $totalEachRow = 10;
 
 $servername = "localhost";
 $username = "root";
-$dbname = "moovflix";
+$dbname = "moovlix";
 $tablename = "Seating";
 
 // Create connection
@@ -19,27 +19,38 @@ if ($conn->connect_error) {
 }
 echo '<script>console.log("Connected")</script>';
 
+
 $distinctRows = mysqli_query($conn, "SELECT DISTINCT rowNumber FROM " . $tablename . " ORDER BY rowNumber DESC");
 $referenceID = generateUniqueId();
+$selectedList = array();
+$price = 0;
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $selectedList = array();
     for ($ii = 0; $ii < count($_POST["seat"]); $ii++) {
         $selected = strlen($_POST["seat"][$ii]) > 0;
         if ($selected == 1) {
-            array_push($selectedList, $_POST["seat"][$ii]);
+            array_push($selectedList, sanitize($_POST["seat"][$ii]));
             $seatNumber[$ii] = sanitize($_POST["seat"][$ii]);
             $timestamp = date("Y-m-d H:i:s"); // Create a timestamp
             $randomShowID = "your_show_id"; // Replace with an actual show ID
-            // Assuming $conn is your database connection
-            $query = "INSERT INTO Booking (showID, seatID, created, completed, referenceID) VALUES ('$randomShowID', '" . $seatNumber[$ii] . "', '$timestamp', 0, '$referenceID')";
-            $seatQuery = "UPDATE Seating SET available = 0, bookingID = '" . $referenceID . "' WHERE seatNumber = '" . $seatNumber[$ii] . "'";
-            $conn->query($query);
-            $conn->query($seatQuery);
+            ;
+            // $seatQuery = "UPDATE Seating SET available = 0, bookingID = '" . $referenceID . "' WHERE seatNumber = '" . $seatNumber[$ii] . "'";
+            // $conn->query($query);
+            // $conn->query($seatQuery);
         }
     }
+    $query = 'SELECT price FROM Seating WHERE seatNumber = "' . $selectedList[0] . '"';
+    $priceQuery = $conn->query($query);
+    while ($row = mysqli_fetch_assoc($priceQuery)) {
+        $price = $row['price'];
+    }
     $_SESSION['bookingID'] = $referenceID;
+    $_SESSION['seatSelections'] = $selectedList;
+    $_SESSION['showID'] = "random_ID";
+    $_SESSION['seatPrice'] = $price;
+
     echo '<script>console.log("Database update success.")</script>';
-    echo "<script>console.log(JSON.parse('" . json_encode($selectedList) . "'));</script>";
+    echo "<script>console.log('" . $_SESSION["seatSelections"] . "');</script>";
     echo "<script>console.log('" . $_SESSION["bookingID"] . "');</script>";
     echo "<script>window.location.pathname = 'moovflix/booking-details/payment-details/payment-details-form/index.php'</script>";
 
@@ -80,7 +91,7 @@ function sanitize($data)
     <head>
         <title>Choose Seating</title>
         <meta charset="UTF-8" />
-        <link rel="stylesheet" href="../../common/index.css" />
+        <link rel="stylesheet" href="../../header/index.css" />
         <link rel="stylesheet" href="../../footer/index.css" />
         <link rel="stylesheet" href="index.css" />
         <link rel="stylesheet" href="../index.css" />
@@ -88,14 +99,18 @@ function sanitize($data)
         <script type="text/javascript" src='index.js'></script>
     </head>
 
-    <header>
-        Header
-    </header>
+    <div class="navigation">
+        <img src="../../img/logo.svg" class="logo">
+        <div class="links">
+            <a href="../../index.html"><img src="../../img/movieslogo.svg"></a>
+            <a href="../../cinema.html"><img src="../../img/cinemaslogo.svg"></a>
+            <a href="../../check-booking/check-booking-form/index.php"><img src="../../img/checkbookinglogo.svg"></a>
+        </div>
+    </div>
 
     <body>
         <div class="booking-details">
             <form id="seatForm" method="POST" action="index.php" class="booking-details">
-
                 <div class="header">
                     <span class="title">BOOKING DETAILS</span>
                     <div class="content">
