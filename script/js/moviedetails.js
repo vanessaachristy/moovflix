@@ -54,9 +54,11 @@ document.addEventListener("DOMContentLoaded", function () {
             currentCinemaBox = document.createElement('div');
             currentCinemaBox.classList.add('cinema-box');
 
-            const cinemaName = document.createElement('h2');
-            cinemaName.textContent = screen.cinema_name;
-            currentCinemaBox.appendChild(cinemaName);
+            const cinemaLocationName = document.createElement('div'); 
+            cinemaLocationName.classList.add('cinema-location-name'); 
+
+            cinemaLocationName.innerHTML = `<img src="img/location.png" class="location-name-icon"><h2 id="cinema-name">${screen.cinema_name}</h2>`; 
+            currentCinemaBox.appendChild(cinemaLocationName);
 
             const dateCarousel = document.createElement('div');
             dateCarousel.classList.add('date-carousel');

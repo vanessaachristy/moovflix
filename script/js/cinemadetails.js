@@ -38,9 +38,13 @@ document.addEventListener("DOMContentLoaded", function () {
             currentMovieBox = document.createElement('div');
             currentMovieBox.classList.add('cinema-box', 'movie-box');
 
-            const movieName = document.createElement('h2');
-            movieName.textContent = movies.movie_name;
-            currentMovieBox.appendChild(movieName);
+            const movieName = movies.movie_name; 
+            const movieLanguage = movies.languages; 
+            const movieRating = movies.rating; 
+            
+            const movieTitle = document.createElement('h2');
+            movieTitle.innerHTML = `${movieName} &#40;<span class="languages">${movieLanguage}</span>&#41; <span class="rating">${movieRating}</span>`;
+            currentMovieBox.appendChild(movieTitle);
 
             const dateCarousel = document.createElement('div');
             dateCarousel.classList.add('date-carousel');
