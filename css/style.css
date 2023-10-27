@@ -308,12 +308,13 @@ h2{
 
 .movie-carousel{
     width: 1330px; 
-    height: 759px; 
+    height: 100%; 
     background-color: #1A1B24; 
     margin-left: auto; 
     margin-right: auto; 
     margin-bottom: 80px; 
-    padding-top: 25px; 
+    padding-top: 5px;
+    padding-bottom:  60px; 
 }
 
 .cinema-box{
@@ -367,7 +368,7 @@ h2{
     margin-left: 40px; 
     margin-top: 10px; 
     overflow-wrap: break-word; 
-    width: 123px;
+    width: 133px;
     height: 49px;
 }
 
