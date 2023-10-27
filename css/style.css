@@ -22,7 +22,7 @@ body{
      background-color: #1A1B24;
 }
 
-.logo{
+.navigation .logo{
     display: flex;
     align-items: center;
     gap: 10px;
@@ -133,7 +133,7 @@ h3{
 }
 
 .direction{
-    width: 1332px; height: 41.26px; left: -70px; top: -172px; position: relative;
+    width: 100vw; height: 41.26px; left: -70px; top: -172px; position: relative;
 }
 
 .arrow{
@@ -211,6 +211,10 @@ h2{
 .movie-list-details .line{
     width: 15px;
     border: 1px black solid; 
+}
+
+.cinema-list{
+    margin-bottom: 60px; 
 }
 
 .cinema-pic{
@@ -308,12 +312,13 @@ h2{
 
 .movie-carousel{
     width: 1330px; 
-    height: 759px; 
+    height: 100%; 
     background-color: #1A1B24; 
     margin-left: auto; 
     margin-right: auto; 
     margin-bottom: 80px; 
-    padding-top: 25px; 
+    padding-top: 5px;
+    padding-bottom:  60px; 
 }
 
 .cinema-box{
@@ -367,7 +372,7 @@ h2{
     margin-left: 40px; 
     margin-top: 10px; 
     overflow-wrap: break-word; 
-    width: 123px;
+    width: 133px;
     height: 49px;
 }
 

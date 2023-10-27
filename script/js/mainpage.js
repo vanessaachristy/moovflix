@@ -1,4 +1,6 @@
 document.addEventListener("DOMContentLoaded", function () {
+    let currentIndex = 0;
+    let carouselInterval;
     function fetchMovies() {
         fetch('script/php/get_movies.php')
             .then(response =>
@@ -21,8 +23,6 @@ document.addEventListener("DOMContentLoaded", function () {
         const actor4 = document.getElementById('actor4');
         const moviePoster = document.getElementById('movie-poster');
 
-        let currentIndex = 0;
-
         function updateContent(index) {
             const movie = movies[index];
             title.textContent = movie.movie_name;
@@ -42,14 +42,16 @@ document.addEventListener("DOMContentLoaded", function () {
         const prevButton = document.getElementById('prev-button');
         const nextButton = document.getElementById('next-button');
 
-        prevButton.addEventListener('click', () => {
+        prevButton.addEventListener('click', (event) => {
             event.preventDefault();
+            clearInterval(carouselInterval);
             currentIndex = (currentIndex - 1 + movies.length) % movies.length;
             updateContent(currentIndex);
         });
 
-        nextButton.addEventListener('click', () => {
+        nextButton.addEventListener('click', (event) => {
             event.preventDefault();
+            clearInterval(carouselInterval);
             currentIndex = (currentIndex + 1) % movies.length;
             updateContent(currentIndex);
         });

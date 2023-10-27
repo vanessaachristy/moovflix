@@ -1,62 +1,46 @@
 document.addEventListener("DOMContentLoaded", function () {
     const urlParams = new URLSearchParams(window.location.search);
-    const movieId = urlParams.get("id");
+    const cinemaId = urlParams.get("id");
 
-    function fetchMovieDetails(movieId) {
-        fetch(`script/php/get_movies_details.php?id=${movieId}`)
+    function fetchCinemaDetails(cinemaId) {
+        fetch(`script/php/get_cinema_details.php?id=${cinemaId}`)
             .then(response => response.json())
             .then(data => {
-                updateMovieDetails(data); 
-            })
-            .catch(error => console.error('Error fetching movies:', error));
-    }
-
-    function updateMovieDetails(movieDetails){
-        const title = document.getElementById('movie-title');
-        const genre = document.getElementById('movie-genre');
-        const language = document.getElementById('movie-language');
-        const duration = document.getElementById('movie-duration');
-        const poster = document.getElementById('movie-poster'); 
-        const rating = document.getElementById('movie-rating'); 
-        const director = document.getElementById('movie-director'); 
-        const cast = document.getElementById('movie-cast'); 
-        const synopsis = document.getElementById('movie-synopsis'); 
-
-        title.textContent = movieDetails.movie_name; 
-        genre.textContent = movieDetails.genre; 
-        language.textContent = movieDetails.languages; 
-        duration.textContent = movieDetails.duration; 
-        poster.src = movieDetails.poster; 
-        rating.textContent = movieDetails.rating; 
-        director.textContent = movieDetails.director; 
-        cast.textContent = movieDetails.cast; 
-        synopsis.textContent = movieDetails.synopsis; 
-    }
-
-    function fetchCinemas() {
-        fetch('script/php/get_cinemas.php')
-            .then(response => response.json())
-            .then(data => {
-                updateCinemaCarouselList(data); 
+                updateCinemaDetails(data); 
             })
             .catch(error => console.error('Error fetching cinemas:', error));
     }
 
-    function updateCinemaCarouselList(cinemas) {
+    function updateCinemaDetails(cinemaDetails){
+        const cinemaName = document.getElementById('cinema-name');
+
+        cinemaName.textContent = cinemaDetails.cinema_name; 
+    }
+
+    function fetchMovies() {
+        fetch('script/php/get_movies.php')
+            .then(response => response.json())
+            .then(data => {
+                updateMovieCarouselList(data); 
+            })
+            .catch(error => console.error('Error fetching movies:', error));
+    }
+
+    function updateMovieCarouselList(movies) {
         const movieCarouselContainer = document.getElementById('movie-carousel-container');
 
         movieCarouselContainer.innerHTML = '';
 
-        let currentCinemaBox = null;
+        let currentMovieBox = null;
 
-        cinemas.forEach((screen, index) => {
+        movies.forEach((movies, index) => {
             
-            currentCinemaBox = document.createElement('div');
-            currentCinemaBox.classList.add('cinema-box');
+            currentMovieBox = document.createElement('div');
+            currentMovieBox.classList.add('cinema-box', 'movie-box');
 
-            const cinemaName = document.createElement('h2');
-            cinemaName.textContent = screen.cinema_name;
-            currentCinemaBox.appendChild(cinemaName);
+            const movieName = document.createElement('h2');
+            movieName.textContent = movies.movie_name;
+            currentMovieBox.appendChild(movieName);
 
             const dateCarousel = document.createElement('div');
             dateCarousel.classList.add('date-carousel');
@@ -72,21 +56,22 @@ document.addEventListener("DOMContentLoaded", function () {
             <a href="#" id="nextDate" role="button"><img class="next-arrow next-arrow-right" src="img/arrow-right.svg" alt=""></a>
             `;
 
-            const cinemaTime = document.createElement('div'); 
-            cinemaTime.classList.add('cinema-time-list'); 
+            const movieTime = document.createElement('div'); 
+            movieTime.classList.add('cinema-time-list', 'movie-time-list'); 
 
-            cinemaTime.innerHTML = `
-                    <input type="button" class="cinema-time" value="xx:xx">
-                    <input type="button" class="cinema-time" value="xx:xx">
-                    <input type="button" class="cinema-time" value="xx:xx">
+            movieTime.innerHTML = `
+                    <img src="${movies.poster}" alt="" class="movie-picture">
+                    <input type="button" class="cinema-time movie-time" value="xx:xx">
+                    <input type="button" class="cinema-time movie-time" value="xx:xx">
+                    <input type="button" class="cinema-time movie-time" value="xx:xx">
             `;
     
-            currentCinemaBox.appendChild(dateCarousel);
-            currentCinemaBox.appendChild(cinemaTime);
+            currentMovieBox.appendChild(dateCarousel);
+            currentMovieBox.appendChild(movieTime);
     
-            movieCarouselContainer.appendChild(currentCinemaBox);
+            movieCarouselContainer.appendChild(currentMovieBox);
 
-            setupDateCarousel(currentCinemaBox.querySelector('.date-carousel'), index + 1);
+            setupDateCarousel(currentMovieBox.querySelector('.date-carousel'), index + 1);
 
         });
     }
@@ -103,7 +88,7 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    function setupDateCarousel(dateCarousel, cinemaIndex) {
+    function setupDateCarousel(dateCarousel, movieIndex) {
         const nextButton = dateCarousel.querySelector("#nextDate");
         const prevButton = dateCarousel.querySelector("#prevDate");
     
@@ -130,6 +115,6 @@ document.addEventListener("DOMContentLoaded", function () {
     }
     
 
-    fetchMovieDetails(movieId);
-    fetchCinemas()
+    fetchCinemaDetails(cinemaId);
+    fetchMovies()
 });
