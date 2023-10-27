@@ -1,75 +1,105 @@
 <!DOCTYPE html>
-<html Lang="en"> 
+<html Lang="en">
+
     <head>
         <title>Moovlix</title>
         <meta charset="UTF-8">
         <link rel="stylesheet" href="css/style.css">
         <script type="text/javascript" src="script/js/moviedetails.js"></script>
     </head>
-<body>
-    <div class="navigation">
-        <img src="img/logo.svg" class="logo">
-        <div class="links">
-            <a href="index.html"><img src="img/movieslogo.svg"></a>
-            <a href="cinema.html"><img src="img/cinemaslogo.svg"></a>
-            <a href=""><img src="img/checkbookinglogo.svg"></a>
-        </div>
-    </div>
-    <div class="movie-synopsis">
-        <img src="img/taylorswift-poster.png" class="poster" id="movie-poster">
-        <div class="detailing">
-            <h2 id="movie-title">Title of The Movies</h2>
-            <div class="details-row">
-                <div class="details-column">
-                    <h3>Genre: <span class="moredetails" id="movie-genre">FANTASY</span></h3>
-                    <h3 class="column-two">Running Time: <span class="moredetails" id="movie-duration">xx minutes</span></h3>
-                </div>
-                <div class="details-column">
-                    <h3>Rating: <span class="moredetails" id="movie-rating">xxxxxx</span></h3>
-                    <h3 class="column-two">Language: <span class="moredetails" id="movie-language">xxxxxx</span></h3>
-                </div>
+
+    <body>
+        <div class="navigation">
+            <img src="img/logo.svg" class="logo">
+            <div class="links">
+                <a href="index.html"><img src="img/movieslogo.svg"></a>
+                <a href="cinema.html"><img src="img/cinemaslogo.svg"></a>
+                <a href="check-booking/check-booking-form/index.php"><img src="img/checkbookinglogo.svg"></a>
             </div>
-            <h3>Director: <span class="moredetails" id="movie-director">xxxxxx</span></h3>
-            <h3>Cast: <span class="moredetails" id="movie-cast">xxxxxx</span></h3>
-            <h3 class="synopsis">Synopsis: <br><span class="moredetails" id="movie-synopsis">Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat.</span></h3>
         </div>
+        <div class="movie-synopsis">
+            <img src="img/taylorswift-poster.png" class="poster" id="movie-poster">
+            <div class="detailing">
+                <h2 id="movie-title">Title of The Movies</h2>
+                <div class="details-row">
+                    <div class="details-column">
+                        <h3>Genre: <span class="moredetails" id="movie-genre">FANTASY</span></h3>
+                        <h3 class="column-two">Running Time: <span class="moredetails" id="movie-duration">xx
+                                minutes</span></h3>
+                    </div>
+                    <div class="details-column">
+                        <h3>Rating: <span class="moredetails" id="movie-rating">xxxxxx</span></h3>
+                        <h3 class="column-two">Language: <span class="moredetails" id="movie-language">xxxxxx</span>
+                        </h3>
+                    </div>
+                </div>
+                <h3>Director: <span class="moredetails" id="movie-director">xxxxxx</span></h3>
+                <h3>Cast: <span class="moredetails" id="movie-cast">xxxxxx</span></h3>
+                <h3 class="synopsis">Synopsis: <br><span class="moredetails" id="movie-synopsis">Lorem ipsum dolor sit
+                        amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna
+                        aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea
+                        commodo consequat.</span></h3>
+            </div>
         </div>
         <div class="movie-carousel" id="movie-carousel-container">
             <div class="cinema-box">
                 <h2>CINEMA 1</h2>
-                    <div class="date-carousel" id="date-carousel-1">
-                            <a href="#" id="prevDate" role="button"><img class="next-arrow" src="img/left-arrow.svg" alt=""></a>
-                            <a href="#" role="button" class="date-items"><h3>Friday, 20 October</h3></a>
-                            <a href="#" role="button" class="date-items"><h3>Saturday, 21 October</h3></a>
-                            <a href="#" role="button"class="date-items"><h3>Sunday, 22 October</h3></a>
-                            <a href="#" role="button"class="date-items"><h3>Monday, 23 October</h3></a>
-                            <a href="#" role="button"class="date-items"><h3>Thursday, 24 October</h3></a>
-                            <a href="#" id="nextDate" role="button"><img class="next-arrow next-arrow-right" src="img/arrow-right.svg" alt=""></a>
-                    </div>
-                    <div class="cinema-time-list"> 
-                        <input type="button" class="cinema-time" value="xx:xx">
-                        <input type="button" class="cinema-time" value="xx:xx">
-                        <input type="button" class="cinema-time" value="xx:xx">
-                    </div>
+                <div class="date-carousel" id="date-carousel-1">
+                    <a href="#" id="prevDate" role="button"><img class="next-arrow" src="img/left-arrow.svg" alt=""></a>
+                    <a href="#" role="button" class="date-items">
+                        <h3>Friday, 20 October</h3>
+                    </a>
+                    <a href="#" role="button" class="date-items">
+                        <h3>Saturday, 21 October</h3>
+                    </a>
+                    <a href="#" role="button" class="date-items">
+                        <h3>Sunday, 22 October</h3>
+                    </a>
+                    <a href="#" role="button" class="date-items">
+                        <h3>Monday, 23 October</h3>
+                    </a>
+                    <a href="#" role="button" class="date-items">
+                        <h3>Thursday, 24 October</h3>
+                    </a>
+                    <a href="#" id="nextDate" role="button"><img class="next-arrow next-arrow-right"
+                            src="img/arrow-right.svg" alt=""></a>
+                </div>
+                <div class="cinema-time-list">
+                    <input type="button" class="cinema-time" value="xx:xx">
+                    <input type="button" class="cinema-time" value="xx:xx">
+                    <input type="button" class="cinema-time" value="xx:xx">
+                </div>
             </div>
             <div class="cinema-box">
                 <h2>CINEMA 2</h2>
-                    <div class="date-carousel" id="date-carousel-2">
-                            <a href="#" id="prevDate" role="button"><img class="next-arrow" src="img/left-arrow.svg" alt=""></a>
-                            <a href="#" role="button" class="date-items"><h3>Friday, 20 October</h3></a>
-                            <a href="#" role="button" class="date-items"><h3>Saturday, 21 October</h3></a>
-                            <a href="#" role="button"class="date-items"><h3>Sunday, 22 October</h3></a>
-                            <a href="#" role="button"class="date-items"><h3>Monday, 23 October</h3></a>
-                            <a href="#" role="button"class="date-items"><h3>Thursday, 24 October</h3></a>
-                            <a href="#" id="nextDate" role="button"><img class="next-arrow next-arrow-right" src="img/arrow-right.svg" alt=""></a>
-                    </div>
-                    <div class="cinema-time-list"> 
-                        <input type="button" class="cinema-time" value="xx:xx">
-                        <input type="button" class="cinema-time" value="xx:xx">
-                        <input type="button" class="cinema-time" value="xx:xx">
-                    </div>
+                <div class="date-carousel" id="date-carousel-2">
+                    <a href="#" id="prevDate" role="button"><img class="next-arrow" src="img/left-arrow.svg" alt=""></a>
+                    <a href="#" role="button" class="date-items">
+                        <h3>Friday, 20 October</h3>
+                    </a>
+                    <a href="#" role="button" class="date-items">
+                        <h3>Saturday, 21 October</h3>
+                    </a>
+                    <a href="#" role="button" class="date-items">
+                        <h3>Sunday, 22 October</h3>
+                    </a>
+                    <a href="#" role="button" class="date-items">
+                        <h3>Monday, 23 October</h3>
+                    </a>
+                    <a href="#" role="button" class="date-items">
+                        <h3>Thursday, 24 October</h3>
+                    </a>
+                    <a href="#" id="nextDate" role="button"><img class="next-arrow next-arrow-right"
+                            src="img/arrow-right.svg" alt=""></a>
+                </div>
+                <div class="cinema-time-list">
+                    <input type="button" class="cinema-time" value="xx:xx">
+                    <input type="button" class="cinema-time" value="xx:xx">
+                    <input type="button" class="cinema-time" value="xx:xx">
+                </div>
             </div>
         </div>
-    
-</body>
+
+    </body>
+
 </html>
