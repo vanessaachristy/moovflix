@@ -30,8 +30,14 @@ document.addEventListener("DOMContentLoaded", function() {
                 <div class="cinema-location">
                     <img src="img/location.png" class="location-icon"><h3>${screen.cinema_location}</h3>
                 </div>
-                <input type="button" class="showtimes" value="Showtimes">
+                <input type="button" class="showtimes" value="Showtimes" data-cinema-id="${screen.id}">
             `;
+
+            cinemaElement.querySelector('.showtimes').addEventListener('click', (event) => {
+                const cinemaId = event.currentTarget.getAttribute('data-cinema-id');
+                const url = `cinemadetails.html?id=${cinemaId}`;
+                window.location.href = url;
+            });
 
             currentCinemaRow.appendChild(cinemaElement);
 
