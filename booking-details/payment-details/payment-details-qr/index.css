@@ -1,0 +1,102 @@
+
+.booking-details {
+    flex-direction: row;
+}
+
+.booking-details .header {
+    height: auto;
+    min-width: 50vw;
+    justify-content: flex-start;
+}
+
+.header .content {
+    flex-direction: column;
+    align-items: flex-start;
+    justify-content: space-between;
+    min-height: 50%;
+    padding: 36px 0;
+}
+
+.header .content .top {
+    display: flex;
+    min-width: 60%;
+    justify-content: space-between;
+    align-items: flex-end;
+}
+
+
+.header .content .booking-detail {
+    margin-top: 24px;
+    align-self: center;
+    background-color: white;
+    padding: 24px;
+    border-radius: 20px;
+    min-width: 50%;
+}
+
+.areas {
+    background-color: #8B591B;
+    padding: 32px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    color: white;
+    height:  auto;
+    flex: 1 1 auto;
+}
+
+.price-detail {
+    display: flex;
+    justify-content: space-between;
+}
+
+.total-price {
+    font-weight: 600;
+}
+
+.line {
+    height: 2px;
+    width: 100%;
+    background-color: black;
+    margin: 6px 0;
+}
+
+.areas .qr-display {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+}
+
+.qr-display .qr-image {
+    width: 60%;
+    height: auto;
+    background-color: white;
+    padding: 6px;
+    border-radius: 12px;
+    margin: 12px;
+}
+
+.qr-display .amount {
+    font-weight: 600;
+    margin-top: 12px;
+}
+
+.qr-image img {
+    width: 100%;
+    height: 100%;
+}
+
+.confirm-button {
+    margin-top: 36px;
+    height: 50px;
+    background-color: #F5CB5C;
+    border: none;
+    border-radius: 15px;
+    padding: 2px 12px;
+}
+
+.confirm-button:hover {
+    cursor: pointer;
+    background-color: #ffdc7c;
+}
