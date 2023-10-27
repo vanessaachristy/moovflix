@@ -10,17 +10,27 @@ $seatIDList = array();
 $seatPrice = 0;
 $bookingFee = 0.5;
 $totalPayment = $bookingFee + count($seatIDList) * $seatPrice;
+$name = "";
+$email = "";
+$payment = "";
+$showID = "";
+
+
 
 // Access the session variable
-if (isset($_SESSION['bookingID']) && isset($_SESSION["screenName"]) && isset($_SESSION["screenDate"]) && isset($_SESSION["screenTime"]) && isset($_SESSION["seatIDList"]) && isset($_SESSION["seatPrice"]) && isset($_SESSION["bookingFee"]) && isset($_SESSION["totalPayment"])) {
+if (isset($_SESSION['bookingID']) && isset($_SESSION["screenName"]) && isset($_SESSION["screenDate"]) && isset($_SESSION["screenTime"]) && isset($_SESSION["seatSelections"]) && isset($_SESSION["seatPrice"]) && isset($_SESSION["bookingFee"]) && isset($_SESSION["totalPayment"]) && isset($_SESSION["name"]) && isset($_SESSION["email"]) && isset($_SESSION["payment"]) && isset($_SESSION['showID'])) {
     $bookingID = $_SESSION['bookingID'];
     $screenName = $_SESSION["screenName"];
     $screenDate = $_SESSION["screenDate"];
     $screenTime = $_SESSION["screenTime"];
-    $seatIDList = $_SESSION["seatIDList"];
+    $seatIDList = $_SESSION["seatSelections"];
     $seatPrice = $_SESSION["seatPrice"];
     $bookingFee = $_SESSION["bookingFee"];
     $totalPayment = $_SESSION["totalPayment"];
+    $name = $_SESSION["name"];
+    $email = $_SESSION["email"];
+    $payment = $_SESSION["payment"];
+    $showID = $_SESSION['showID'];
 } else {
     echo '<script>console.log("One or more session variables are not set.")</script>';
 }
@@ -42,16 +52,25 @@ echo '<script>console.log("Connected")</script>';
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $completeBookingQuery = "UPDATE Booking SET completed = 1 WHERE referenceID = '" . $bookingID . "'";
-    $result = $conn->query($completeBookingQuery);
-    if ($result) {
-        // If the update was successful, redirect to another page
-        header('Location: http://localhost:8000/moovflix/success-booking/index.php');
-        exit; // Make sure to exit to prevent further script execution
-    } else {
-        // Handle the case where the update was not successful
-        echo "Database update failed: " . mysqli_error($conn);
+    $timestamp = date("Y-m-d H:i:s");
+    $ii = 0;
+    while ($ii < count($seatIDList)) {
+
+        $completeBookingQuery = "INSERT INTO Booking (showID, seatID, created, completed, referenceID, name, email, payment) VALUES ('$showID', '" . $seatIDList[$ii] . "', '$timestamp', 1, '$bookingID', '$name', '$email', '$payment')";
+        $seatQuery = "UPDATE Seating SET available = 0, bookingID = '" . $bookingID . "' WHERE seatNumber = '" . $seatIDList[$ii] . "'";
+        $result = $conn->query($completeBookingQuery);
+        $seatResult = $conn->query($seatQuery);
+        if ($result && $seatResult) {
+            $ii++;
+        } else {
+            // Handle the case where the update was not successful
+            echo "Database update failed: " . mysqli_error($conn);
+        }
+        ;
     }
+    // If the update was successful, redirect to another page
+    header('Location: http://localhost:8000/moovflix/success-booking/index.php');
+    exit; // Make sure to exit to prevent further script execution
     ;
 }
 
@@ -136,13 +155,20 @@ function sanitize($data)
                 </div>
             </div>
             <div class="areas">
-                <div class="qr-display">
+                <?php
+                if ($payment === 'qrcode') {
+                    echo '
+                         <div class="qr-display">
                     <span>Paynow/Paylah QR Code</span>
                     <div class="qr-image"><img src="../../../assets/mockQR.png" /></div>
-                    <span id="booking-ID">Booking ID: <?= $bookingID ?></span>
-                    <span class="amount">$<?= $totalPayment ?></span>
+                    <span id="booking-ID">Booking ID:' . $bookingID . '</span>
+                    <span class="amount">$' . $totalPayment . '</span>
 
-                </div>
+            </div>';
+                }
+
+                ?>
+
                 <form id="confirmPaymentForm" action="index.php" method="POST">
                     <input class="confirm-button" type="submit" name="confirmPayment" value="CONFIRM PAYMENT" />
                 </form>

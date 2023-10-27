@@ -1,10 +1,11 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     function fetchMovies() {
         fetch('script/php/get_movies.php')
-            .then(response => response.json())
+            .then(response =>
+                response.json())
             .then(data => {
                 updateCarousel(data);
-                updateMovieList(data); 
+                updateMovieList(data);
             })
             .catch(error => console.error('Error fetching movies:', error));
     }
@@ -42,13 +43,13 @@ document.addEventListener("DOMContentLoaded", function() {
         const nextButton = document.getElementById('next-button');
 
         prevButton.addEventListener('click', () => {
-            event.preventDefault(); 
+            event.preventDefault();
             currentIndex = (currentIndex - 1 + movies.length) % movies.length;
             updateContent(currentIndex);
         });
 
         nextButton.addEventListener('click', () => {
-            event.preventDefault(); 
+            event.preventDefault();
             currentIndex = (currentIndex + 1) % movies.length;
             updateContent(currentIndex);
         });
@@ -92,6 +93,6 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         });
     }
-    
+
     fetchMovies();
 });
