@@ -22,7 +22,7 @@ body{
      background-color: #1A1B24;
 }
 
-.logo{
+.navigation .logo{
     display: flex;
     align-items: center;
     gap: 10px;
@@ -211,6 +211,10 @@ h2{
 .movie-list-details .line{
     width: 15px;
     border: 1px black solid; 
+}
+
+.cinema-list{
+    margin-bottom: 60px; 
 }
 
 .cinema-pic{
