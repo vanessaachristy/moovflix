@@ -3,7 +3,7 @@ $servername = "localhost";
 $username = "root";
 $database = "moovlix";
 
-$mysqli = new mysqli($servername, $username, $database);
+$mysqli = new mysqli($servername, $username, '', $database);
 
 if ($mysqli->connect_error) {
     die("Connection failed: " . $mysqli->connect_error);
@@ -19,9 +19,10 @@ if ($result->num_rows > 0) {
         $movies[] = $row;
     }
 }
+// Return movie information as JSON
+
+echo json_encode($movies);
 
 $mysqli->close();
 
-// Return movie information as JSON
-echo json_encode($movies);
 ?>
