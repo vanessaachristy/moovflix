@@ -12,6 +12,8 @@ document.addEventListener("DOMContentLoaded", function() {
     }
 
     function updateCarousel(movies) {
+        const firstFiveMovies = movies.slice(0, 5);
+
         const title = document.getElementById('movie-title');
         const genre = document.getElementById('movie-genre');
         const language = document.getElementById('movie-language');
@@ -23,7 +25,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const moviePoster = document.getElementById('movie-poster');
 
         function updateContent(index) {
-            const movie = movies[index];
+            const movie = firstFiveMovies[index];
             title.textContent = movie.movie_name;
             genre.textContent = movie.genre;
             language.textContent = movie.languages;
@@ -41,7 +43,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const bookButton = document.getElementById('bookButton');
 
         bookButton.addEventListener('click', () => {
-            const movieId = movies[currentIndex].id; 
+            const movieId = firstFiveMovies[currentIndex].id; 
             const url = `moviedetails.html?id=${movieId}`;
             window.location.href = url;
         });
@@ -52,14 +54,14 @@ document.addEventListener("DOMContentLoaded", function() {
         prevButton.addEventListener('click', (event) => {
             event.preventDefault(); 
             clearInterval(carouselInterval);
-            currentIndex = (currentIndex - 1 + movies.length) % movies.length;
+            currentIndex = (currentIndex - 1 + firstFiveMovies.length) % firstFiveMovies.length;
             updateContent(currentIndex);
         });
 
         nextButton.addEventListener('click', (event) => {
             event.preventDefault(); 
             clearInterval(carouselInterval);
-            currentIndex = (currentIndex + 1) % movies.length;
+            currentIndex = (currentIndex + 1) % firstFiveMovies.length;
             updateContent(currentIndex);
         });
 
@@ -67,7 +69,7 @@ document.addEventListener("DOMContentLoaded", function() {
             clearInterval(carouselInterval);
 
             carouselInterval = setInterval(() => {
-                currentIndex = (currentIndex + 1) % movies.length;
+                currentIndex = (currentIndex + 1) % firstFiveMovies.length;
                 updateContent(currentIndex);
             }, 2000); 
         }
