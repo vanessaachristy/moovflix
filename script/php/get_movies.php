@@ -1,7 +1,7 @@
 <?php
 $servername = "localhost";
-$username = "Jovalenci";
-$password = "JovalenciIE4717";
+$username = "root";
+$password = "";
 $database = "moovlix";
 
 $mysqli = new mysqli($servername, $username, $password, $database);
