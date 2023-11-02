@@ -1,54 +1,60 @@
 <!DOCTYPE html>
-<html Lang="en"> 
+<html Lang="en">
+
     <head>
         <title>Moovlix</title>
         <meta charset="UTF-8">
         <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="header/index.css">
+        <link rel="stylesheet" href="footer/index.css" />
         <script type="text/javascript" src="script/js/mainpage.js"></script>
     </head>
-<body>
-    <div class="navigation">
-        <a href="index.html"><img src="img/logo.svg" class="logo"></a>
-        <div class="links">
-            <a href="index.html"><img src="img/movieslogo.svg"></a>
-            <a href="cinema.html"><img src="img/cinemaslogo.svg"></a>
-            <a href=""><img src="img/checkbookinglogo.svg"></a>
+
+    <body>
+        <div class="navigation">
+            <a href="index.html"><img src="img/logo.svg" class="logo"></a>
+            <div class="links">
+                <a href="index.html"><img src="img/movieslogo.svg"></a>
+                <a href="cinema.html"><img src="img/cinemaslogo.svg"></a>
+                <a href="check-booking/check-booking-form/index.php"><img src="img/checkbookinglogo.svg"></a>
+            </div>
         </div>
-    </div>
-    <div class="home" id="movie-carousel">
-        <img class="movie" src="img/avatar.png" id="movie-poster">
-        <section class="title">
-            <h1 id="movie-title">Avatar: The Way of Water</h1>
-            <div class="subtitle">
-                <input class="book" type="button" value="BOOK NOW" id="bookButton">
-                <div class="movie-details">
-                    <h3 class="details" id="movie-genre">Action</h3>
-                    <div class="line"></div>
-                    <h3 class="details" id="movie-language">English</h3>
-                    <div class="line"></div>
-                    <h3 class="details" id="movie-duration">3H 12Min</h3>
+        <div class="home" id="movie-carousel">
+            <img class="movie" src="img/avatar.png" id="movie-poster">
+            <section class="title">
+                <h1 id="movie-title">Avatar: The Way of Water</h1>
+                <div class="subtitle">
+                    <input class="book" type="button" value="BOOK NOW" id="bookButton">
+                    <div class="movie-details">
+                        <h3 class="details" id="movie-genre">Action</h3>
+                        <div class="line"></div>
+                        <h3 class="details" id="movie-language">English</h3>
+                        <div class="line"></div>
+                        <h3 class="details" id="movie-duration">3H 12Min</h3>
+                    </div>
                 </div>
-            </div>
-            <div class="actor">
-                <div class="row first-row">
-                    <h3 id="actor1">Zoe Saldana</h3>
-                    <h3 id="actor2">Sam Worthington</h3>
+                <div class="actor">
+                    <div class="row first-row">
+                        <h3 id="actor1">Zoe Saldana</h3>
+                        <h3 id="actor2">Sam Worthington</h3>
+                    </div>
+                    <div class="row">
+                        <h3 id="actor3">Sigourney Weaver</h3>
+                        <h3 id="actor4">Michelle Rodriguez</h3>
+                    </div>
                 </div>
-                <div class="row">
-                    <h3 id="actor3">Sigourney Weaver</h3>
-                    <h3 id="actor4">Michelle Rodriguez</h3>
+                <div class="direction">
+                    <a href="#" role="button" id="prev-button"><img class="arrow" src="img/arrow.png" alt=""></a>
+                    <a href="#" role="button" id="next-button"><img class="arrow arrow-right" src="img/arrow.png"
+                            alt=""></a>
                 </div>
-            </div>
-            <div class="direction">
-                <a href="#" role="button" id="prev-button"><img class="arrow" src="img/arrow.png" alt=""></a>
-                <a href="#" role="button" id="next-button"><img class="arrow arrow-right" src="img/arrow.png" alt=""></a>
-            </div>
-        </section>
-    </div>
+            </section>
+        </div>
         <section class="movie-list" id="movie-list-container">
             <div class="movie-row">
-                <a href="#" role="button"><div class="movie-name">
-                    <img src="img/taylorswift-poster.png" class="movie-pic">
+                <a href="#" role="button">
+                    <div class="movie-name">
+                        <img src="img/taylorswift-poster.png" class="movie-pic">
                         <h2>TAYLOR SWIFT ERAS TOUR</h2>
                         <div class="movie-details movie-list-details">
                             <h3 class="details">Concert</h3>
@@ -57,67 +63,101 @@
                             <div class="line"></div>
                             <h3 class="details">2H 48Min</h3>
                         </div>
-                </div></a>
-                <a href="#" role="button"><div class="movie-name">
-                    <img src="img/taylorswift-poster.png" class="movie-pic">
-                    <h2>TAYLOR SWIFT ERAS TOUR</h2>
-                    <div class="movie-details movie-list-details">
-                        <h3 class="details">Concert</h3>
-                        <div class="line"></div>
-                        <h3 class="details">English</h3>
-                        <div class="line"></div>
-                        <h3 class="details">2H 48Min</h3>
+                    </div>
+                </a>
+                <a href="#" role="button">
+                    <div class="movie-name">
+                        <img src="img/taylorswift-poster.png" class="movie-pic">
+                        <h2>TAYLOR SWIFT ERAS TOUR</h2>
+                        <div class="movie-details movie-list-details">
+                            <h3 class="details">Concert</h3>
+                            <div class="line"></div>
+                            <h3 class="details">English</h3>
+                            <div class="line"></div>
+                            <h3 class="details">2H 48Min</h3>
                         </div>
-                </div></a>
-                <a href="#" role="button"><div class="movie-name">
-                    <img src="img/taylorswift-poster.png" class="movie-pic">
-                    <h2>TAYLOR SWIFT ERAS TOUR</h2>
-                    <div class="movie-details movie-list-details">
-                        <h3 class="details">Concert</h3>
-                        <div class="line"></div>
-                        <h3 class="details">English</h3>
-                        <div class="line"></div>
-                        <h3 class="details">2H 48Min</h3>
+                    </div>
+                </a>
+                <a href="#" role="button">
+                    <div class="movie-name">
+                        <img src="img/taylorswift-poster.png" class="movie-pic">
+                        <h2>TAYLOR SWIFT ERAS TOUR</h2>
+                        <div class="movie-details movie-list-details">
+                            <h3 class="details">Concert</h3>
+                            <div class="line"></div>
+                            <h3 class="details">English</h3>
+                            <div class="line"></div>
+                            <h3 class="details">2H 48Min</h3>
                         </div>
-                </div></a>
+                    </div>
+                </a>
             </div>
             <div class="movie-row">
-                <a href="#" role="button"><div class="movie-name">
-                    <img src="img/johnwick-poster.png" class="movie-pic">
-                    <h2>JOHN WICK 4</h2>
-                    <div class="movie-details movie-list-details">
-                        <h3 class="details">Action</h3>
-                        <div class="line"></div>
-                        <h3 class="details">English</h3>
-                        <div class="line"></div>
-                        <h3 class="details">2H 30Min</h3>
+                <a href="#" role="button">
+                    <div class="movie-name">
+                        <img src="img/johnwick-poster.png" class="movie-pic">
+                        <h2>JOHN WICK 4</h2>
+                        <div class="movie-details movie-list-details">
+                            <h3 class="details">Action</h3>
+                            <div class="line"></div>
+                            <h3 class="details">English</h3>
+                            <div class="line"></div>
+                            <h3 class="details">2H 30Min</h3>
                         </div>
-                </div></a>
-                <a href="#" role="button"><div class="movie-name">
-                    <img src="img/johnwick-poster.png" class="movie-pic">
-                    <h2>JOHN WICK 4</h2>
-                    <div class="movie-details movie-list-details">
-                        <h3 class="details">Action</h3>
-                        <div class="line"></div>
-                        <h3 class="details">English</h3>
-                        <div class="line"></div>
-                        <h3 class="details">2H 30Min</h3>
+                    </div>
+                </a>
+                <a href="#" role="button">
+                    <div class="movie-name">
+                        <img src="img/johnwick-poster.png" class="movie-pic">
+                        <h2>JOHN WICK 4</h2>
+                        <div class="movie-details movie-list-details">
+                            <h3 class="details">Action</h3>
+                            <div class="line"></div>
+                            <h3 class="details">English</h3>
+                            <div class="line"></div>
+                            <h3 class="details">2H 30Min</h3>
                         </div>
-                </div></a>
-                <a href="#" role="button"><div class="movie-name">
-                    <img src="img/johnwick-poster.png" class="movie-pic">
-                    <h2>JOHN WICK 4</h2>
-                    <div class="movie-details movie-list-details">
-                        <h3 class="details">Action</h3>
-                        <div class="line"></div>
-                        <h3 class="details">English</h3>
-                        <div class="line"></div>
-                        <h3 class="details">2H 30Min</h3>
+                    </div>
+                </a>
+                <a href="#" role="button">
+                    <div class="movie-name">
+                        <img src="img/johnwick-poster.png" class="movie-pic">
+                        <h2>JOHN WICK 4</h2>
+                        <div class="movie-details movie-list-details">
+                            <h3 class="details">Action</h3>
+                            <div class="line"></div>
+                            <h3 class="details">English</h3>
+                            <div class="line"></div>
+                            <h3 class="details">2H 30Min</h3>
                         </div>
-                </div></a>
+                    </div>
+                </a>
             </div>
-        </div>
-    </section>
-    
-</body>
+            </div>
+        </section>
+
+        <footer>
+            <div class="content">
+                <div class="left">
+                    <div class="logo">
+                        <img src='assets/moovflixLogo.svg' />
+                    </div>
+                    <div class="social">
+                        <img src='assets/facebook.svg' />
+                        <img src='assets/mail.svg' />
+                        <img src='assets/twitter.svg' />
+                    </div>
+                </div>
+                <div class="right">
+                    <a href="https://google.com">MOVIES</a>
+                    <a href="https://google.com">CINEMAS</a>
+                    <a href="https://google.com">CHECK BOOKING</a>
+                </div>
+            </div>
+            <div class="copyright">Copyright &copy 2023 MoovFlix</div>
+
+        </footer>
+
+    </body>
+
 </html>

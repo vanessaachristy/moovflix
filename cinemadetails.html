@@ -1,63 +1,114 @@
 <!DOCTYPE html>
-<html Lang="en"> 
+<html Lang="en">
+
     <head>
         <title>Moovlix</title>
         <meta charset="UTF-8">
         <link rel="stylesheet" href="css/style.css">
+        <link rel="stylesheet" href="header/index.css">
+        <link rel="stylesheet" href="footer/index.css" />
+        <script type="text/javascript" src="script/js/moviedetails.js"></script>
         <script type="text/javascript" src="script/js/cinemadetails.js"></script>
     </head>
-<body>
-    <div class="navigation">
-        <a href="index.html"><img src="img/logo.svg" class="logo"></a>
-        <div class="links">
-            <a href="index.html"><img src="img/movieslogo.svg"></a>
-            <a href="cinema.html"><img src="img/cinemaslogo.svg"></a>
-            <a href=""><img src="img/checkbookinglogo.svg"></a>
+
+    <body>
+        <div class="navigation">
+            <img src="img/logo.svg" class="logo">
+            <div class="links">
+                <a href="index.html"><img src="img/movieslogo.svg"></a>
+                <a href="cinema.html"><img src="img/cinemaslogo.svg"></a>
+                <a href="check-booking/check-booking-form/index.php"><img src="img/checkbookinglogo.svg"></a>
+            </div>
         </div>
-    </div>
-    <div class="cinema-names">
-        <img src="img/location-yellow.png" alt="">
-        <h2 id="cinema-name">Cinema Names</h2>
-    </div>
+        <div class="cinema-names">
+            <img src="img/location-yellow.png" alt="">
+            <h2 id="cinema-name">Cinema Names</h2>
+        </div>
         <div class="cinema-carousel" id="movie-carousel-container">
             <div class="cinema-box movie-box">
-                <h2>Title of Movie 1 &#40;<span class="languages">Languages</span>&#41; <span class="rating">Rating</span></h2>
-                    <div class="date-carousel" id="date-carousel-1">
-                            <a href="#" id="prevDate" role="button"><img class="next-arrow" src="img/left-arrow.svg" alt=""></a>
-                            <a href="#" role="button" class="date-items"><h3>Friday, 20 October</h3></a>
-                            <a href="#" role="button" class="date-items"><h3>Saturday, 21 October</h3></a>
-                            <a href="#" role="button"class="date-items"><h3>Sunday, 22 October</h3></a>
-                            <a href="#" role="button"class="date-items"><h3>Monday, 23 October</h3></a>
-                            <a href="#" role="button"class="date-items"><h3>Thursday, 24 October</h3></a>
-                            <a href="#" id="nextDate" role="button"><img class="next-arrow next-arrow-right" src="img/arrow-right.svg" alt=""></a>
-                    </div>
-                    <div class="cinema-time-list movie-time-list"> 
-                        <img src="img/taylorswift-poster.png" alt="" class="movie-picture">
-                        <input type="button" class="cinema-time movie-time" value="xx:xx">
-                        <input type="button" class="cinema-time movie-time" value="xx:xx">
-                        <input type="button" class="cinema-time movie-time" value="xx:xx">
-                    </div>
+                <h2>Title of Movie 1 &#40;<span class="languages">Languages</span>&#41; <span
+                        class="rating">Rating</span></h2>
+                <div class="date-carousel" id="date-carousel-1">
+                    <a href="#" id="prevDate" role="button"><img class="next-arrow" src="img/left-arrow.svg" alt=""></a>
+                    <a href="#" role="button" class="date-items">
+                        <h3>Friday, 20 October</h3>
+                    </a>
+                    <a href="#" role="button" class="date-items">
+                        <h3>Saturday, 21 October</h3>
+                    </a>
+                    <a href="#" role="button" class="date-items">
+                        <h3>Sunday, 22 October</h3>
+                    </a>
+                    <a href="#" role="button" class="date-items">
+                        <h3>Monday, 23 October</h3>
+                    </a>
+                    <a href="#" role="button" class="date-items">
+                        <h3>Thursday, 24 October</h3>
+                    </a>
+                    <a href="#" id="nextDate" role="button"><img class="next-arrow next-arrow-right"
+                            src="img/arrow-right.svg" alt=""></a>
+                </div>
+                <div class="cinema-time-list movie-time-list">
+                    <img src="img/taylorswift-poster.png" alt="" class="movie-picture">
+                    <input type="button" class="cinema-time movie-time" value="xx:xx">
+                    <input type="button" class="cinema-time movie-time" value="xx:xx">
+                    <input type="button" class="cinema-time movie-time" value="xx:xx">
+                </div>
             </div>
             <div class="cinema-box movie-box">
                 <h2>Title of Movie 2 (Languages) Rating</h2>
-                    <div class="date-carousel" id="date-carousel-2">
-                            <a href="#" id="prevDate" role="button"><img class="next-arrow" src="img/left-arrow.svg" alt=""></a>
-                            <a href="#" role="button" class="date-items"><h3>Friday, 20 October</h3></a>
-                            <a href="#" role="button" class="date-items"><h3>Saturday, 21 October</h3></a>
-                            <a href="#" role="button"class="date-items"><h3>Sunday, 22 October</h3></a>
-                            <a href="#" role="button"class="date-items"><h3>Monday, 23 October</h3></a>
-                            <a href="#" role="button"class="date-items"><h3>Thursday, 24 October</h3></a>
-                            <a href="#" id="nextDate" role="button"><img class="next-arrow next-arrow-right" src="img/arrow-right.svg" alt=""></a>
-                    </div>
-                    <div class="cinema-time-list movie-time-list"> 
-                        <img src="img/johnwick-poster.png" alt="" class="movie-picture">
-                        <input type="button" class="cinema-time movie-time" value="xx:xx">
-                        <input type="button" class="cinema-time movie-time" value="xx:xx">
-                        <input type="button" class="cinema-time movie-time" value="xx:xx">
-                    </div>
+                <div class="date-carousel" id="date-carousel-2">
+                    <a href="#" id="prevDate" role="button"><img class="next-arrow" src="img/left-arrow.svg" alt=""></a>
+                    <a href="#" role="button" class="date-items">
+                        <h3>Friday, 20 October</h3>
+                    </a>
+                    <a href="#" role="button" class="date-items">
+                        <h3>Saturday, 21 October</h3>
+                    </a>
+                    <a href="#" role="button" class="date-items">
+                        <h3>Sunday, 22 October</h3>
+                    </a>
+                    <a href="#" role="button" class="date-items">
+                        <h3>Monday, 23 October</h3>
+                    </a>
+                    <a href="#" role="button" class="date-items">
+                        <h3>Thursday, 24 October</h3>
+                    </a>
+                    <a href="#" id="nextDate" role="button"><img class="next-arrow next-arrow-right"
+                            src="img/arrow-right.svg" alt=""></a>
+                </div>
+                <div class="cinema-time-list movie-time-list">
+                    <img src="img/johnwick-poster.png" alt="" class="movie-picture">
+                    <input type="button" class="cinema-time movie-time" value="xx:xx">
+                    <input type="button" class="cinema-time movie-time" value="xx:xx">
+                    <input type="button" class="cinema-time movie-time" value="xx:xx">
+                </div>
             </div>
-            
+
         </div>
-    
-</body>
+
+        <footer>
+            <div class="content">
+                <div class="left">
+                    <div class="logo">
+                        <img src='assets/moovflixLogo.svg' />
+                    </div>
+                    <div class="social">
+                        <img src='assets/facebook.svg' />
+                        <img src='assets/mail.svg' />
+                        <img src='assets/twitter.svg' />
+                    </div>
+                </div>
+                <div class="right">
+                    <a href="https://google.com">MOVIES</a>
+                    <a href="https://google.com">CINEMAS</a>
+                    <a href="https://google.com">CHECK BOOKING</a>
+                </div>
+            </div>
+            <div class="copyright">Copyright &copy 2023 MoovFlix</div>
+
+        </footer>
+
+    </body>
+
 </html>
