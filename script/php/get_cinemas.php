@@ -3,7 +3,7 @@ $servername = "localhost";
 $username = "root";
 $database = "moovlix";
 
-$mysqli = new mysqli($servername, $username, $database);
+$mysqli = new mysqli($servername, $username, '', $database);
 
 if ($mysqli->connect_error) {
     die("Connection failed: " . $mysqli->connect_error);
