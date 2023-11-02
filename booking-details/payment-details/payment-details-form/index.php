@@ -2,16 +2,22 @@
 session_start();
 
 $bookingID = "";
+$seatSelections = array();
+$showID = "";
+$seatPrice = 0;
 // Access the session variable
 if (isset($_SESSION['bookingID'])) {
     $bookingID = $_SESSION['bookingID'];
+    $seatSelections = $_SESSION['seatSelections'];
+    $showID = $_SESSION['showID'];
+    $seatPrice = $_SESSION['seatPrice'];
 } else {
     echo '<script>console.log("Booking ID session variable not set.")</script>';
 }
 
 $servername = "localhost";
 $username = "root";
-$dbname = "moovflix";
+$dbname = "moovlix";
 
 // Create connection
 $conn = new mysqli($servername, $username, '', $dbname);
@@ -22,59 +28,55 @@ if ($conn->connect_error) {
 }
 echo '<script>console.log("Connected")</script>';
 
-$fetchBookingQuery = 'SELECT showID, seatID, referenceID FROM `Booking` WHERE referenceID = "' . $bookingID . '" ORDER BY seatID';
-$bookingDetails = $conn->query($fetchBookingQuery);
+// $fetchBookingQuery = 'SELECT showID, seatID, referenceID FROM `Booking` WHERE referenceID = "' . $bookingID . '" ORDER BY seatID';
+// $bookingDetails = $conn->query($fetchBookingQuery);
 
-$fetchPriceQuery = 'SELECT price, bookingID FROM `Seating` WHERE bookingID = "' . $bookingID . '" GROUP BY price, bookingID';
-$priceDetails = $conn->query($fetchPriceQuery);
+// $fetchPriceQuery = 'SELECT price, bookingID FROM `Seating` WHERE bookingID = "' . $bookingID . '" GROUP BY price, bookingID';
+// $fetchPriceQuery = 'SELECT price FROM `Seating` WHERE seatNumber = "' . $seatSelections[0] . '" GROUP BY price';
+// $priceDetails = $conn->query($fetchPriceQuery);
 
 $screenName = "Golden Village JP";
 $screenDate = date("Y-m-d");
 $screenTime = date("H:i A");
-$seatIDList = array();
-$seatPrice = 0;
+$seatIDList = $seatSelections;
 $bookingFee = 0.5;
 $totalPayment = $bookingFee + count($seatIDList) * $seatPrice;
+$name = "";
+$email = "";
+$payment = "";
 
-while ($row = mysqli_fetch_assoc($bookingDetails)) {
-    array_push($seatIDList, $row["seatID"]);
-}
-;
-while ($row = mysqli_fetch_assoc($priceDetails)) {
-    $seatPrice = $row["price"];
-    $totalPayment = $bookingFee + count($seatIDList) * $seatPrice;
-}
+// while ($row = mysqli_fetch_assoc($priceDetails)) {
+//     $seatPrice = $row["price"];
+//     $totalPayment = $bookingFee + count($seatIDList) * $seatPrice;
+// }
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = $_POST["name"];
     $email = $_POST["email"];
     $payment = $_POST["payment"];
 
-    $updateBookingQuery = "UPDATE Booking SET name = '" . $name . "', email = '" . $email . "',  payment = '" . $payment . "'  WHERE referenceID = '" . $bookingID . "'";
-    $result = $conn->query($updateBookingQuery);
-    if ($result) {
-        // If the update was successful, redirect to another page
-        header('Location: http://localhost:8000/moovflix/booking-details/payment-details/payment-details-qr/index.php');
-        exit; // Make sure to exit to prevent further script execution
-    } else {
-        // Handle the case where the update was not successful
-        echo "Database update failed: " . mysqli_error($conn);
-    }
-    ;
+    $_SESSION["seatSelections"] = $seatIDList;
+    $_SESSION["bookingID"] = $bookingID;
+    $_SESSION["screenName"] = $screenName;
+    $_SESSION["screenDate"] = $screenDate;
+    $_SESSION["screenTime"] = $screenTime;
+    $_SESSION["seatPrice"] = $seatPrice;
+    $_SESSION["bookingFee"] = $bookingFee;
+    $_SESSION["email"] = $email;
+    $_SESSION["name"] = $name;
+    $_SESSION["totalPayment"] = $totalPayment;
+    $_SESSION["payment"] = $payment;
+    $_SESSION["showID"] = $showID;
+
+    // $updateBookingQuery = "UPDATE Booking SET name = '" . $name . "', email = '" . $email . "',  payment = '" . $payment . "'  WHERE referenceID = '" . $bookingID . "'";
+    // $result = $conn->query($updateBookingQuery);
+
+    // If the update was successful, redirect to another page
+    header('Location: http://localhost:8000/moovflix/booking-details/payment-details/payment-details-qr/index.php');
+    exit; // Make sure to exit to prevent further script execution
+
 }
 ;
-
-$_SESSION["screenName"] = $screenName;
-$_SESSION["screenDate"] = $screenDate;
-$_SESSION["screenTime"] = $screenTime;
-$_SESSION["seatIDList"] = $seatIDList;
-$_SESSION["seatPrice"] = $seatPrice;
-$_SESSION["bookingFee"] = $bookingFee;
-$_SESSION["totalPayment"] = $totalPayment;
-
-
-
-
 
 /**
  * Sanitize
@@ -94,7 +96,7 @@ function sanitize($data)
     <head>
         <title>Choose Seating</title>
         <meta charset="UTF-8" />
-        <link rel="stylesheet" href="../../../common/index.css" />
+        <link rel="stylesheet" href="../../../header/index.css" />
         <link rel="stylesheet" href="../../../footer/index.css" />
         <link rel="stylesheet" href="index.css" />
         <link rel="stylesheet" href="../../index.css" />
@@ -102,9 +104,16 @@ function sanitize($data)
         <script type="text/javascript" src='index.js'></script>
     </head>
 
-    <header>
-        Header
-    </header>
+
+    <div class="navigation">
+        <img src="../../../img/logo.svg" class="logo">
+        <div class="links">
+            <a href="../../../index.html"><img src="../../../img/movieslogo.svg"></a>
+            <a href="../../../cinema.html"><img src="../../../img/cinemaslogo.svg"></a>
+            <a href="../../../check-booking/check-booking-form/index.php"><img
+                    src="../../../img/checkbookinglogo.svg"></a>
+        </div>
+    </div>
 
     <body>
         <div class="booking-details">
@@ -117,7 +126,7 @@ function sanitize($data)
                     <div class="movie-detail">
                         <span class="movie-title" id="title">John Wick 4</span>
                         <span id="cinema-name"><img src='../../../assets/location.svg' class="icon" />
-                            <?= $screenName ?>
+                            <?= $showID ?>
                         </span>
                         <span id="show-date"><img src='../../../assets/calendar.svg' class="icon" />
                             <?= $screenDate ?>
@@ -126,10 +135,10 @@ function sanitize($data)
                             <?= $screenTime ?>
                         </span>
                         <span id="tickets-total"><img src='../../../assets/ticket.svg' class="icon" />
-                            <?= count($seatIDList) ?> Tickets
+                            <?= count($seatSelections) ?> Tickets
                         </span>
                         <span id="seat-numbers"><img src='../../../assets/seat.svg' class="icon" />
-                            <?= implode(', ', $seatIDList) ?>
+                            <?= implode(', ', $seatSelections) ?>
                         </span>
 
                     </div>
@@ -139,8 +148,8 @@ function sanitize($data)
                                 x<?= count($seatIDList) ?></span></span>
                         <span class="price-detail">Booking Fee <span id="booking-fee">$<?= $bookingFee ?></span></span>
                         <span class="line"></span>
-                        <span class="price-detail total-price">Total Price <span
-                                id="total-price">$<?= $totalPayment ?></span></span>
+                        <span class="price-detail total-price">Total Price <span id="total-price">$<?= $totalPayment
+                            ?></span></span>
 
                     </div>
                 </div>

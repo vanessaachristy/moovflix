@@ -9,6 +9,6 @@ $_SESSION = array();
 session_destroy();
 
 // Redirect to a page after session is destroyed (optional)
-header("Location: http://localhost:8000/moovflix/booking-details/seating-page/index.php");
+header("Location: http://localhost:8000/moovflix/index.html");
 exit();
 ?>

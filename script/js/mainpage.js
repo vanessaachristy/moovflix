@@ -1,12 +1,13 @@
-document.addEventListener("DOMContentLoaded", function() {
+document.addEventListener("DOMContentLoaded", function () {
     let currentIndex = 0;
     let carouselInterval;
     function fetchMovies() {
         fetch('script/php/get_movies.php')
-            .then(response => response.json())
+            .then(response =>
+                response.json())
             .then(data => {
                 updateCarousel(data);
-                updateMovieList(data); 
+                updateMovieList(data);
             })
             .catch(error => console.error('Error fetching movies:', error));
     }
@@ -43,7 +44,7 @@ document.addEventListener("DOMContentLoaded", function() {
         const bookButton = document.getElementById('bookButton');
 
         bookButton.addEventListener('click', () => {
-            const movieId = firstFiveMovies[currentIndex].id; 
+            const movieId = firstFiveMovies[currentIndex].id;
             const url = `moviedetails.html?id=${movieId}`;
             window.location.href = url;
         });
@@ -52,14 +53,14 @@ document.addEventListener("DOMContentLoaded", function() {
         const nextButton = document.getElementById('next-button');
 
         prevButton.addEventListener('click', (event) => {
-            event.preventDefault(); 
+            event.preventDefault();
             clearInterval(carouselInterval);
             currentIndex = (currentIndex - 1 + firstFiveMovies.length) % firstFiveMovies.length;
             updateContent(currentIndex);
         });
 
         nextButton.addEventListener('click', (event) => {
-            event.preventDefault(); 
+            event.preventDefault();
             clearInterval(carouselInterval);
             currentIndex = (currentIndex + 1) % firstFiveMovies.length;
             updateContent(currentIndex);
@@ -71,7 +72,7 @@ document.addEventListener("DOMContentLoaded", function() {
             carouselInterval = setInterval(() => {
                 currentIndex = (currentIndex + 1) % firstFiveMovies.length;
                 updateContent(currentIndex);
-            }, 2000); 
+            }, 2000);
         }
 
         startCarouselAutoSwipe();
@@ -121,6 +122,6 @@ document.addEventListener("DOMContentLoaded", function() {
             }
         });
     }
-    
+
     fetchMovies();
 });

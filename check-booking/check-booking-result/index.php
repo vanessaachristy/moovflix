@@ -2,7 +2,7 @@
 
 $servername = "localhost";
 $username = "root";
-$dbname = "moovflix";
+$dbname = "moovlix";
 
 // Create connection
 $conn = new mysqli($servername, $username, '', $dbname);
@@ -47,16 +47,21 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <head>
         <title>Choose Seating</title>
         <meta charset="UTF-8" />
-        <link rel="stylesheet" href="../../common/index.css" />
+        <link rel="stylesheet" href="../../header/index.css" />
         <link rel="stylesheet" href="../../footer/index.css" />
         <link rel="stylesheet" href="index.css" />
         <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
         <script type="text/javascript" src='index.js'></script>
     </head>
 
-    <header>
-        Header
-    </header>
+    <div class="navigation">
+        <img src="../../img/logo.svg" class="logo">
+        <div class="links">
+            <a href="../../index.html"><img src="../../img/movieslogo.svg"></a>
+            <a href="../../cinema.html"><img src="../../img/cinemaslogo.svg"></a>
+            <a href="index.php"><img src="../../img/checkbookinglogo.svg"></a>
+        </div>
+    </div>
 
     <body>
         <div class="check-booking-result">
