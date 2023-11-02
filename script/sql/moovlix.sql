@@ -33,12 +33,45 @@ CREATE TABLE `Booking` (
   `seatID` varchar(50) DEFAULT NULL,
   `created` timestamp NOT NULL DEFAULT current_timestamp() ON UPDATE current_timestamp(),
   `name` varchar(250) DEFAULT NULL,
-  `email` va (1, 'Avatar: The Way of Water', 'ADVENTURE','img/avatar.png', 'Set more than a decade after the events of the first film, "Avatar: The Way of Water" begins to tell the story of the Sully family (Jake, Neytiri, and their kids), the trouble that follows them, the lengths they go to keep each other safe, the battles they fight to stay alive, and the tragedies they endure.', 'Zoe Saldana, Sam Worthington, Sigourney Weaver, Michelle Rodriguez', 'James Cameron', 'ENGLISH', '3H 12Min', 'PG13', 'img/avatar-poster.png' ),
+  `email` varchar(500) DEFAULT NULL,
+  `completed` tinyint(1) DEFAULT NULL,
+  `referenceID` char(24) DEFAULT NULL,
+  `payment` varchar(50) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
+--
+-- Table structure for table `movie`
+--
+
+CREATE TABLE `movie` (
+  `id` int(11) NOT NULL,
+  `movie_name` varchar(50) NOT NULL,
+  `genre` varchar(50) NOT NULL,
+  `banner` varchar(250) DEFAULT NULL,
+  `synopsis` varchar(500) NOT NULL,
+  `cast` varchar(500) NOT NULL,
+  `director` varchar(50) NOT NULL,
+  `languages` varchar(50) NOT NULL,
+  `duration` varchar(50) DEFAULT NULL,
+  `rating` varchar(50) DEFAULT NULL,
+  `poster` varchar(250) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+--
+-- Dumping data for table `movie`
+--
+
+INSERT INTO movie (id, movie_name, genre, banner, synopsis, cast, director, languages, duration, rating, poster)
+VALUES 
+    (1, 'Avatar: The Way of Water', 'ADVENTURE','img/avatar.png', 'Set more than a decade after the events of the first film, "Avatar: The Way of Water" begins to tell the story of the Sully family (Jake, Neytiri, and their kids), the trouble that follows them, the lengths they go to keep each other safe, the battles they fight to stay alive, and the tragedies they endure.', 'Zoe Saldana, Sam Worthington, Sigourney Weaver, Michelle Rodriguez', 'James Cameron', 'ENGLISH', '3H 12Min', 'PG13', 'img/avatar-poster.png' ),
     (2, 'Taylor Swift Eras Tour', 'CONCERT', 'img/taylorswift.png', 'The cultural phenomenon continues on the big screen! Immerse yourself in this once-in-a-lifetime concert film experience with a breathtaking, cinematic view of the history-making tour. Taylor Swift Eras Tour attire and friendship bracelets are strongly encouraged!', 'Taylor Swift', 'Sam Wrench', 'ENGLISH', '2H 48Min', 'TBA', 'img/taylorswift-poster.png'), 
     (3, 'A Haunting In Venice', 'MYSTERY', 'img/hauntingvenice.png', 'Belgian sleuth Hercule Poirot investigates a murder while attending a Halloween seance at a haunted palazzo in Venice, Italy.', 'Tina Fey, Jamie Dornan, Michelle Yeoh, Kenneth Branagh', 'Kenneth Branagh','ENGLISH', '1H 43Min', 'PG13', 'img/hauntingvenice-poster.png'),
     (4, 'John Wick 4', 'ACTION', 'img/johnwick4.png', 'John Wick uncovers a path to defeating The High Table. But before he can earn his freedom, Wick must face off against a new enemy with powerful alliances across the globe and forces that turn old friends into foes.', 'Keanu Reeves, Donnie Yen, Bill Skarsgard, Laurence Fishburne', 'Chad Stahelski', 'ENGLISH', '2H 30Min', 'PG1.9', 'img/johnwick-poster.png'), 
-    (5, 'Disney Pixar Elemental', 'ANIMATION', 'img/elemental.png', 'In a city where fire, water, land, and air residents live together, a fiery young woman and a go-with-the-flow guy discover something elemental: how much they actually have in common.', 'Leah Lewis, Mamoudou Athie, Ronnie Del Carmen', 'Peter Sohn', 'ENGLISH', '1H 42Min', 'PG13', 'img/elemental-poster.png'), );
+    (5, 'Disney Pixar Elemental', 'ANIMATION', 'img/elemental.png', 'In a city where fire, water, land, and air residents live together, a fiery young woman and a go-with-the-flow guy discover something elemental: how much they actually have in common.', 'Leah Lewis, Mamoudou Athie, Ronnie Del Carmen', 'Peter Sohn', 'ENGLISH', '1H 42Min', 'PG13', 'img/elemental-poster.png'), 
     (6, 'Oppenheimer', 'THRILLER', 'img/oppenheimer.png', 'The film follows the story of American scientist J. Robert Oppenheimer and his role in the development of the atomic bomb.', 'Cillian Murphy, Emily Blunt, Robert Downey Jr., Matt Damon', 'Christopher Nolan', 'ENGLISH', '3H', 'PG13', 'img/oppenheimer-poster.png'), 
+
 -- --------------------------------------------------------
 
 --
