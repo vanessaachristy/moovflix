@@ -35,9 +35,11 @@ echo '<script>console.log("Connected")</script>';
 // $fetchPriceQuery = 'SELECT price FROM `Seating` WHERE seatNumber = "' . $seatSelections[0] . '" GROUP BY price';
 // $priceDetails = $conn->query($fetchPriceQuery);
 
-$screenName = "Golden Village JP";
-$screenDate = date("Y-m-d");
-$screenTime = date("H:i A");
+$screenName = $_SESSION['cinemaName'];
+$screenDate = $_SESSION['showDate'];
+$screenTime = $_SESSION['showTime'];
+$movieName = $_SESSION['movieName'];
+$moviePoster = $_SESSION['moviePoster'];
 $seatIDList = $seatSelections;
 $bookingFee = 0.5;
 $totalPayment = $bookingFee + count($seatIDList) * $seatPrice;
@@ -54,7 +56,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = $_POST["name"];
     $email = $_POST["email"];
     $payment = $_POST["payment"];
-
     $_SESSION["seatSelections"] = $seatIDList;
     $_SESSION["bookingID"] = $bookingID;
     $_SESSION["screenName"] = $screenName;
@@ -67,6 +68,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $_SESSION["totalPayment"] = $totalPayment;
     $_SESSION["payment"] = $payment;
     $_SESSION["showID"] = $showID;
+    $_SESSION["movieName"] = $movieName;
+    $_SESSION["moviePoster"] = $moviePoster;
 
     // $updateBookingQuery = "UPDATE Booking SET name = '" . $name . "', email = '" . $email . "',  payment = '" . $payment . "'  WHERE referenceID = '" . $bookingID . "'";
     // $result = $conn->query($updateBookingQuery);
@@ -106,7 +109,7 @@ function sanitize($data)
 
 
     <div class="navigation">
-    <a href="../../index.html"><img src="../../img/logo.svg" class="logo"></a>
+        <a href="../../index.html"><img src="../../../img/logo.svg" class="logo"></a>
         <div class="links">
             <a href="../../../index.html"><img src="../../../img/movieslogo.svg"></a>
             <a href="../../../cinema.html"><img src="../../../img/cinemaslogo.svg"></a>
@@ -121,12 +124,12 @@ function sanitize($data)
                 <span class="title">BOOKING DETAILS</span>
                 <div class="content">
                     <div class="image">
-                        <img src="../../../assets/john-wick.png" width="92" height="134" />
+                        <img src="../../../<?php echo $moviePoster; ?>" width="92" height="134" />
                     </div>
                     <div class="movie-detail">
-                        <span class="movie-title" id="title">John Wick 4</span>
+                        <span class="movie-title" id="title"><?= $movieName ?></span>
                         <span id="cinema-name"><img src='../../../assets/location.svg' class="icon" />
-                            <?= $showID ?>
+                            <?= $screenName ?>
                         </span>
                         <span id="show-date"><img src='../../../assets/calendar.svg' class="icon" />
                             <?= $screenDate ?>

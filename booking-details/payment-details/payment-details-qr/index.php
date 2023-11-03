@@ -18,23 +18,40 @@ $showID = "";
 
 
 // Access the session variable
-if (isset($_SESSION['bookingID']) && isset($_SESSION["screenName"]) && isset($_SESSION["screenDate"]) && isset($_SESSION["screenTime"]) && isset($_SESSION["seatSelections"]) && isset($_SESSION["seatPrice"]) && isset($_SESSION["bookingFee"]) && isset($_SESSION["totalPayment"]) && isset($_SESSION["name"]) && isset($_SESSION["email"]) && isset($_SESSION["payment"]) && isset($_SESSION['showID'])) {
-    $bookingID = $_SESSION['bookingID'];
-    $screenName = $_SESSION["screenName"];
-    $screenDate = $_SESSION["screenDate"];
-    $screenTime = $_SESSION["screenTime"];
-    $seatIDList = $_SESSION["seatSelections"];
-    $seatPrice = $_SESSION["seatPrice"];
-    $bookingFee = $_SESSION["bookingFee"];
-    $totalPayment = $_SESSION["totalPayment"];
-    $name = $_SESSION["name"];
-    $email = $_SESSION["email"];
-    $payment = $_SESSION["payment"];
-    $showID = $_SESSION['showID'];
-} else {
-    echo '<script>console.log("One or more session variables are not set.")</script>';
-}
-;
+$bookingID = $_SESSION['bookingID'];
+$seatIDList = $_SESSION["seatSelections"];
+$seatPrice = $_SESSION["seatPrice"];
+$bookingFee = $_SESSION["bookingFee"];
+$totalPayment = $_SESSION["totalPayment"];
+$name = $_SESSION["name"];
+$email = $_SESSION["email"];
+$payment = $_SESSION["payment"];
+$showID = $_SESSION['showID'];
+$screenName = $_SESSION['cinemaName'];
+$screenDate = $_SESSION['showDate'];
+$screenTime = $_SESSION['showTime'];
+$movieName = $_SESSION['movieName'];
+$moviePoster = $_SESSION['moviePoster'];
+
+$today = date('Y-m-d');
+
+// if (isset($_SESSION['bookingID']) && isset($_SESSION["screenName"]) && isset($_SESSION["screenDate"]) && isset($_SESSION["screenTime"]) && isset($_SESSION["seatSelections"]) && isset($_SESSION["seatPrice"]) && isset($_SESSION["bookingFee"]) && isset($_SESSION["totalPayment"]) && isset($_SESSION["name"]) && isset($_SESSION["email"]) && isset($_SESSION["payment"]) && isset($_SESSION['showID'])) {
+//     $bookingID = $_SESSION['bookingID'];
+//     $screenName = $_SESSION["screenName"];
+//     $screenDate = $_SESSION["screenDate"];
+//     $screenTime = $_SESSION["screenTime"];
+//     $seatIDList = $_SESSION["seatSelections"];
+//     $seatPrice = $_SESSION["seatPrice"];
+//     $bookingFee = $_SESSION["bookingFee"];
+//     $totalPayment = $_SESSION["totalPayment"];
+//     $name = $_SESSION["name"];
+//     $email = $_SESSION["email"];
+//     $payment = $_SESSION["payment"];
+//     $showID = $_SESSION['showID'];
+// } else {
+//     echo '<script>console.log("One or more session variables are not set.")</script>';
+// }
+// ;
 
 
 $servername = "localhost";
@@ -49,6 +66,9 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 echo '<script>console.log("Connected")</script>';
+
+echo '<script>console.log("' . $showID . '")</script>';
+
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -104,7 +124,7 @@ function sanitize($data)
     </head>
 
     <div class="navigation">
-    <a href="../../index.html"><img src="../../img/logo.svg" class="logo"></a>
+        <a href="../../index.html"><img src="../../../img/logo.svg" class="logo"></a>
         <div class="links">
             <a href="../../../index.html"><img src="../../../img/movieslogo.svg"></a>
             <a href="../../../cinema.html"><img src="../../../img/cinemaslogo.svg"></a>
@@ -120,10 +140,10 @@ function sanitize($data)
                 <div class="content">
                     <div class="top">
                         <div class="image">
-                            <img src="../../../assets/john-wick.png" width="92" height="134" />
+                            <img src="../../../<?php echo $moviePoster; ?>" width="92" height="134" />
                         </div>
                         <div class="movie-detail">
-                            <span class="movie-title" id="title">John Wick 4</span>
+                            <span class="movie-title" id="title"><?= $movieName ?></span>
                             <span id="cinema-name"><img src='../../../assets/location.svg' class="icon" />
                                 <?= $screenName ?>
                             </span>
@@ -165,7 +185,23 @@ function sanitize($data)
                     <span class="amount">$' . $totalPayment . '</span>
 
             </div>';
+                } else {
+                    echo ' <form">
+                    <div class="card-detail-form">
+                            <span><label for="name">Name on card</label> <input type="name" id="name" name="name"
+                                    placeholder="Card owner name" required size="30"></span>
+                              <span><label for="card-number">Card Number</label> <input type="text" onchange="validateCreditCard()" maxlength="16" id="card-number" name="card-number"
+                                    placeholder="Card number" required size="16"></span>
+                            <span><label for="cvv">CVV</label> <input  type="text" onchange="validateCVV()" maxlength="3" id="cvv" name="cvv"
+                                    placeholder="CVV" required size="3"></span>
+                              <span><label for="expiry">Expiry date</label> <input type="date" min=' . $today . ' id="expiry" name="expiry"
+                                    ></span>
+                          
+                    </div>
+                  
+                </form>';
                 }
+                ;
 
                 ?>
 

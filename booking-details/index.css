@@ -74,9 +74,18 @@
     border: none;
 }
 
+
 .booking-details .proceed-btn:hover {
     background-color: black;
     cursor: pointer;
+}
+
+.proceed-btn:disabled {
+    cursor: not-allowed;
+}
+
+.proceed-btn:disabled:hover {
+    cursor: not-allowed;
 }
 
 .booking-details .icon {
