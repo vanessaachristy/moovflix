@@ -6,38 +6,38 @@ document.addEventListener("DOMContentLoaded", function () {
         fetch(`script/php/get_movies_details.php?id=${movieId}`)
             .then(response => response.json())
             .then(data => {
-                updateMovieDetails(data); 
+                updateMovieDetails(data);
             })
             .catch(error => console.error('Error fetching movies:', error));
     }
 
-    function updateMovieDetails(movieDetails){
+    function updateMovieDetails(movieDetails) {
         const title = document.getElementById('movie-title');
         const genre = document.getElementById('movie-genre');
         const language = document.getElementById('movie-language');
         const duration = document.getElementById('movie-duration');
-        const poster = document.getElementById('movie-poster'); 
-        const rating = document.getElementById('movie-rating'); 
-        const director = document.getElementById('movie-director'); 
-        const cast = document.getElementById('movie-cast'); 
-        const synopsis = document.getElementById('movie-synopsis'); 
+        const poster = document.getElementById('movie-poster');
+        const rating = document.getElementById('movie-rating');
+        const director = document.getElementById('movie-director');
+        const cast = document.getElementById('movie-cast');
+        const synopsis = document.getElementById('movie-synopsis');
 
-        title.textContent = movieDetails.movie_name; 
-        genre.textContent = movieDetails.genre; 
-        language.textContent = movieDetails.languages; 
-        duration.textContent = movieDetails.duration; 
-        poster.src = movieDetails.poster; 
-        rating.textContent = movieDetails.rating; 
-        director.textContent = movieDetails.director; 
-        cast.textContent = movieDetails.cast; 
-        synopsis.textContent = movieDetails.synopsis; 
+        title.textContent = movieDetails.movie_name;
+        genre.textContent = movieDetails.genre;
+        language.textContent = movieDetails.languages;
+        duration.textContent = movieDetails.duration;
+        poster.src = movieDetails.poster;
+        rating.textContent = movieDetails.rating;
+        director.textContent = movieDetails.director;
+        cast.textContent = movieDetails.cast;
+        synopsis.textContent = movieDetails.synopsis;
     }
 
     function fetchCinemas() {
         fetch('script/php/get_cinemas.php')
             .then(response => response.json())
             .then(data => {
-                updateCinemaCarouselList(data); 
+                updateCinemaCarouselList(data);
             })
             .catch(error => console.error('Error fetching cinemas:', error));
     }
@@ -46,7 +46,7 @@ document.addEventListener("DOMContentLoaded", function () {
         fetch(`script/php/get_shows_movies.php?id=${movieId}`)
             .then(response => response.json())
             .then(data => {
-                callback(data); 
+                callback(data);
             })
             .catch(error => console.error('Error fetching shows:', error));
     }
@@ -59,14 +59,14 @@ document.addEventListener("DOMContentLoaded", function () {
         let currentCinemaBox = null;
 
         cinemas.forEach((screen, index) => {
-            
+
             currentCinemaBox = document.createElement('div');
             currentCinemaBox.classList.add('cinema-box');
 
-            const cinemaLocationName = document.createElement('div'); 
-            cinemaLocationName.classList.add('cinema-location-name'); 
+            const cinemaLocationName = document.createElement('div');
+            cinemaLocationName.classList.add('cinema-location-name');
 
-            cinemaLocationName.innerHTML = `<img src="img/location.png" class="location-name-icon"><h2 id="cinema-name">${screen.cinema_name}</h2>`; 
+            cinemaLocationName.innerHTML = `<img src="img/location.png" class="location-name-icon"><h2 id="cinema-name">${screen.cinema_name}</h2>`;
             currentCinemaBox.appendChild(cinemaLocationName);
 
             const dateCarousel = document.createElement('div');
@@ -83,8 +83,8 @@ document.addEventListener("DOMContentLoaded", function () {
             <a href="#" class="nextDate" id="nextDate" role="button"><img class="next-arrow next-arrow-right" src="img/arrow-right.svg" alt=""></a>
             `;
 
-            const cinemaTime = document.createElement('div'); 
-            cinemaTime.classList.add('cinema-time-list'); 
+            const cinemaTime = document.createElement('div');
+            cinemaTime.classList.add('cinema-time-list');
 
             cinemaTime.innerHTML = `
                     <input type="button" class="cinema-time" value="xx:xx">
@@ -93,7 +93,8 @@ document.addEventListener("DOMContentLoaded", function () {
             `;
 
             const dateItems = dateCarousel.querySelectorAll('.date-items');
-            const cinemaTimeButtons = cinemaTime.querySelectorAll('.cinema-time');
+            const cinemaTimeButtons = cinemaTime.querySelectorAll('.cinema-time')
+
 
             dateItems.forEach((dateItem) => {
                 dateItem.addEventListener('click', (event) => {
@@ -103,21 +104,26 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     fetchShows(movieId, (data) => {
                         const showsByDate = {};
-
+                        const showIDs = {};
                         for (let i = 0; i < data.length; i++) {
                             const show = data[i];
-
                             if (screen.id === show.screenID && formattedSelectedDate === show.dates.split(' ')[0]) {
                                 const showTime = show.dates.split(' ')[1].slice(0, 5);
                                 showsByDate[showTime] = showsByDate[showTime] || 0;
                                 showsByDate[showTime]++;
+                                showIDs[showTime] = show.id;
                             }
                         }
 
                         cinemaTimeButtons.forEach((button, index) => {
                             const showTimes = Object.keys(showsByDate);
+
                             if (index < showTimes.length) {
                                 button.value = showTimes[index];
+                                button.id = showIDs[showTimes[index]];
+                                button.onclick = () => {
+                                    redirectToSeating(showIDs[showTimes[index]]);
+                                }
                                 button.style.display = 'block';
                             } else {
                                 button.style.display = 'none';
@@ -126,11 +132,11 @@ document.addEventListener("DOMContentLoaded", function () {
                     });
                 });
             });
-            
-    
+
+
             currentCinemaBox.appendChild(dateCarousel);
             currentCinemaBox.appendChild(cinemaTime);
-    
+
             movieCarouselContainer.appendChild(currentCinemaBox);
 
             setupDateCarousel(currentCinemaBox.querySelector('.date-carousel'), index + 1);
@@ -143,19 +149,19 @@ document.addEventListener("DOMContentLoaded", function () {
         const date = new Date(selectedDateText);
 
         const currentDate = new Date();
-    
+
         const year = currentDate.getFullYear();
         const month = String(date.getMonth() + 1).padStart(2, '0');
         const day = String(date.getDate()).padStart(2, '0');
-    
+
         return `${year}-${month}-${day}`;
     }
-    
+
 
     function updateDates(carousel, currentDateIndex) {
         const dateItems = carousel.querySelectorAll('.date-items h3');
-        const today = new Date(); 
-        today.setHours(0,0,0,0); 
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
         dateItems.forEach((item, index) => {
             const date = new Date(today);
             date.setDate(today.getDate() + currentDateIndex + index);
@@ -167,9 +173,9 @@ document.addEventListener("DOMContentLoaded", function () {
     function setupDateCarousel(dateCarousel, cinemaIndex) {
         const nextButton = dateCarousel.querySelector("#nextDate");
         const prevButton = dateCarousel.querySelector("#prevDate");
-    
+
         let currentDateIndex = 0;
-        let firstDateIndex = 0; 
+        let firstDateIndex = 0;
         const dateItems = dateCarousel.querySelectorAll('.date-items h3');
 
         const updateSelection = (index) => {
@@ -197,23 +203,23 @@ document.addEventListener("DOMContentLoaded", function () {
                 event.preventDefault();
                 updateSelection(index);
             });
-            if(index === currentDateIndex){
+            if (index === currentDateIndex) {
                 setTimeout(() => {
-                    dateItem.click(); 
+                    dateItem.click();
                 }, 0);
             }
         });
-    
+
         nextButton.addEventListener("click", function (event) {
             event.preventDefault();
             if (currentDateIndex < 14) {
-                updateSelection(firstDateIndex); 
+                updateSelection(firstDateIndex);
                 updateDateItems();
                 currentDateIndex++;
                 updateDates(dateCarousel, currentDateIndex);
             }
         });
-    
+
         prevButton.addEventListener("click", function (event) {
             event.preventDefault();
             if (currentDateIndex > 0) {
@@ -223,13 +229,22 @@ document.addEventListener("DOMContentLoaded", function () {
                 updateDateItems();
             }
         });
-    
+
         updateDates(dateCarousel, currentDateIndex);
         updateSelection(firstDateIndex);
     }
-    
+
 
     fetchMovieDetails(movieId);
-    fetchCinemas()
-    
+    fetchCinemas();
+
+    function redirectToSeating(showID) {
+        const url = `booking-details/seating-page/index.php?id=${showID}`;
+        window.location.href = `${url}`
+
+    }
+
 });
+
+
+

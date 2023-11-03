@@ -117,3 +117,7 @@
 .edit-btn:hover {
     cursor: pointer;
 }
+
+.edit-btn img {
+    padding-left: 6px;
+}

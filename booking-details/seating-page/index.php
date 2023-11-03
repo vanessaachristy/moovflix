@@ -21,20 +21,18 @@ if ($conn->connect_error) {
 }
 echo '<script>console.log("Connected")</script>';
 
+// $to = "vanessa@localhost";
+// $subject = "My subject";
+// $txt = "Hello world!";
+// $headers = "From: moovlix@localhost" . "\r\n";
 
+// // $smtpServer = 'localhost';
+// // $smtpPort = 25; // The SMTP server's port
 
-$to = "vanessa@localhost";
-$subject = "My subject";
-$txt = "Hello world!";
-$headers = "From: moovlix@localhost" . "\r\n";
+// // ini_set('SMTP', $smtpServer);
+// // ini_set('smtp_port', $smtpPort);
 
-// $smtpServer = 'localhost';
-// $smtpPort = 25; // The SMTP server's port
-
-// ini_set('SMTP', $smtpServer);
-// ini_set('smtp_port', $smtpPort);
-
-mail($to, $subject, $txt, $headers);
+// mail($to, $subject, $txt, $headers);
 
 
 $distinctRows = mysqli_query($conn, "SELECT DISTINCT rowNumber FROM " . $tablename . " ORDER BY rowNumber DESC");
@@ -42,6 +40,51 @@ $referenceID = generateUniqueId();
 $selectedList = array();
 $price = 0;
 
+
+$showID = 0;
+$cinemaID = 0;
+$cinemaName = "";
+$showDate = "";
+$showTime = "";
+$movieID = 0;
+$movieName = "";
+$moviePoster = "";
+
+if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+    $showID = $_GET["id"];
+    $showQuery = 'SELECT * from shows WHERE id ="' . $showID . '"';
+    $showResults = $conn->query($showQuery);
+
+    while ($row = mysqli_fetch_assoc($showResults)) {
+        $cinemaID = $row["screenID"];
+        $movieID = $row["movieID"];
+        $showDate = explode(" ", $row["dates"])[0];
+        $showTime = explode(" ", $row["dates"])[1];
+    }
+
+
+    $screenQuery = 'SELECT * from screen WHERE id = "' . $cinemaID . '"';
+    $screenResults = $conn->query($screenQuery);
+    while ($row = mysqli_fetch_assoc($screenResults)) {
+        $cinemaName = $row['cinema_name'];
+    }
+
+    $movieQuery = 'SELECT * from movie WHERE id = "' . $movieID . '"';
+
+    $movieResults = $conn->query($movieQuery);
+    while ($row = mysqli_fetch_assoc($movieResults)) {
+        $movieName = $row['movie_name'];
+        $moviePoster = $row['poster'];
+    }
+
+    $_SESSION['cinemaName'] = $cinemaName;
+    $_SESSION['showDate'] = $showDate;
+    $_SESSION['showTime'] = $showTime;
+    $_SESSION['seatPrice'] = $price;
+    $_SESSION['movieName'] = $movieName;
+    $_SESSION['moviePoster'] = $moviePoster;
+    $_SESSION['showID'] = $showID;
+}
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     for ($ii = 0; $ii < count($_POST["seat"]); $ii++) {
@@ -52,7 +95,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             $timestamp = date("Y-m-d H:i:s"); // Create a timestamp
             $randomShowID = "your_show_id"; // Replace with an actual show ID
             ;
-            // $seatQuery = "UPDATE Seating SET available = 0, bookingID = '" . $referenceID . "' WHERE seatNumber = '" . $seatNumber[$ii] . "'";
+            // $seatQuery = "UPDATE Seating SET available = 0, bookingID = '" . $referenceID . "' WHERE seatNumber = '" .
+            $seatNumber[$ii] . "'";
             // $conn->query($query);
             // $conn->query($seatQuery);
         }
@@ -62,18 +106,30 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     while ($row = mysqli_fetch_assoc($priceQuery)) {
         $price = $row['price'];
     }
+
     $_SESSION['bookingID'] = $referenceID;
     $_SESSION['seatSelections'] = $selectedList;
-    $_SESSION['showID'] = "random_ID";
-    $_SESSION['seatPrice'] = $price;
+    $_SESSION["seatPrice"] = $price;
 
-    echo '<script>console.log("Database update success.")</script>';
-    echo "<script>console.log('" . $_SESSION["seatSelections"] . "');</script>";
-    echo "<script>console.log('" . $_SESSION["bookingID"] . "');</script>";
-    echo "<script>window.location.pathname = 'moovflix/booking-details/payment-details/payment-details-form/index.php'</script>";
+
+    echo "
+    <script>
+    console.log('" . $_SESSION["seatSelections"] . "');
+    </script>";
+    echo "
+    <script>
+    console.log('" . $_SESSION["cinemaName"] . "');
+    </script>";
+    echo "
+    <script>
+    window.location.pathname = 'moovflix/booking-details/payment-details/payment-details-form/index.php'
+    </script>";
 
 } else {
-    echo '<script>console.log("End.")</script>';
+    echo '
+    <script>
+    console.log("End.")
+    </script>';
 }
 
 /**
@@ -87,22 +143,16 @@ function generateUniqueId()
     for ($i = 0; $i < 24; $i++) {
         $text .= $letters[rand(0, strlen($letters) - 1)];
     }
-
     return $text;
-}
-
-/**
- * Sanitize
- */
+} /** * Sanitize */
 function sanitize($data)
 {
     $data = trim($data);
     $data = stripslashes($data);
     $data = htmlspecialchars($data);
-    return $data;
-}
-
-?>
+    return
+        $data;
+} ?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -118,7 +168,7 @@ function sanitize($data)
     </head>
 
     <div class="navigation">
-    <a href="../../index.html"><img src="../../img/logo.svg" class="logo"></a>
+        <a href="../../index.html"><img src="../../img/logo.svg" class="logo"></a>
         <div class="links">
             <a href="../../index.html"><img src="../../img/movieslogo.svg"></a>
             <a href="../../cinema.html"><img src="../../img/cinemaslogo.svg"></a>
@@ -133,15 +183,15 @@ function sanitize($data)
                     <span class="title">BOOKING DETAILS</span>
                     <div class="content">
                         <div class="image">
-                            <img src="../../assets/john-wick.png" width="92" height="134" />
+                            <img src="../../<?php echo $moviePoster; ?>" width="92" height="134" />
                         </div>
                         <div class="movie-detail">
-                            <span class="movie-title" id="title">John Wick 4</span>
-                            <span id="cinema-name"><img src='../../assets/location.svg' class="icon" />Cinema
-                                Name</span>
-                            <span id="show-date"><img src='../../assets/calendar.svg' class="icon" />22 September,
-                                2023</span>
-                            <span id="show-time"><img src='../../assets/time.svg' class="icon" />9.15 PM</span>
+                            <span class="movie-title" id="title"><?= $movieName ?></span>
+                            <span id="cinema-name"><img src='../../assets/location.svg'
+                                    class="icon" /><?= $cinemaName ?></span>
+                            <span id="show-date"><img src='../../assets/calendar.svg'
+                                    class="icon" /><?= $showDate ?></span>
+                            <span id="show-time"><img src='../../assets/time.svg' class="icon" /><?= $showTime ?></span>
                         </div>
                         <div class="booking-detail">
                             <span class="total-title">Total Booking</span>

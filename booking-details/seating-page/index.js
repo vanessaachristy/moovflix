@@ -28,7 +28,17 @@ function onSeatSelected(seatIdx) {
         input.value = `${idx}`;
         selectionList.push(idx);
     }
+    let btn = document.getElementById("proceed-btn");
+    if (selectionList.length == 0) {
+        btn.disabled = true;
+    } else {
+        btn.disabled = false;
+    }
     let totalTickets = document.getElementById('total-tickets');
     totalTickets.innerHTML = `${selectionList.length} Tickets`
+}
 
+window.onload = () => {
+    let btn = document.getElementById("proceed-btn");
+    btn.disabled = true;
 }

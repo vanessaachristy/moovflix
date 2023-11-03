@@ -19,9 +19,6 @@ $showID = "";
 
 // Access the session variable
 $bookingID = $_SESSION['bookingID'];
-$screenName = $_SESSION["screenName"];
-$screenDate = $_SESSION["screenDate"];
-$screenTime = $_SESSION["screenTime"];
 $seatIDList = $_SESSION["seatSelections"];
 $seatPrice = $_SESSION["seatPrice"];
 $bookingFee = $_SESSION["bookingFee"];
@@ -30,6 +27,11 @@ $name = $_SESSION["name"];
 $email = $_SESSION["email"];
 $payment = $_SESSION["payment"];
 $showID = $_SESSION['showID'];
+$screenName = $_SESSION['cinemaName'];
+$screenDate = $_SESSION['showDate'];
+$screenTime = $_SESSION['showTime'];
+$movieName = $_SESSION['movieName'];
+$moviePoster = $_SESSION['moviePoster'];
 
 $today = date('Y-m-d');
 
@@ -64,6 +66,9 @@ if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 echo '<script>console.log("Connected")</script>';
+
+echo '<script>console.log("' . $showID . '")</script>';
+
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
@@ -119,7 +124,7 @@ function sanitize($data)
     </head>
 
     <div class="navigation">
-    <a href="../../index.html"><img src="../../img/logo.svg" class="logo"></a>
+        <a href="../../index.html"><img src="../../../img/logo.svg" class="logo"></a>
         <div class="links">
             <a href="../../../index.html"><img src="../../../img/movieslogo.svg"></a>
             <a href="../../../cinema.html"><img src="../../../img/cinemaslogo.svg"></a>
@@ -135,10 +140,10 @@ function sanitize($data)
                 <div class="content">
                     <div class="top">
                         <div class="image">
-                            <img src="../../../assets/john-wick.png" width="92" height="134" />
+                            <img src="../../../<?php echo $moviePoster; ?>" width="92" height="134" />
                         </div>
                         <div class="movie-detail">
-                            <span class="movie-title" id="title">John Wick 4</span>
+                            <span class="movie-title" id="title"><?= $movieName ?></span>
                             <span id="cinema-name"><img src='../../../assets/location.svg' class="icon" />
                                 <?= $screenName ?>
                             </span>
