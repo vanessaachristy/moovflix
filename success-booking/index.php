@@ -26,7 +26,7 @@ if (isset($_SESSION['bookingID'])) {
     </head>
 
     <div class="navigation">
-        <img src="../img/logo.svg" class="logo">
+    <a href="../../index.html"><img src="../../img/logo.svg" class="logo"></a>
         <div class="links">
             <a href="../index.html"><img src="../img/movieslogo.svg"></a>
             <a href="../cinema.html"><img src="../img/cinemaslogo.svg"></a>

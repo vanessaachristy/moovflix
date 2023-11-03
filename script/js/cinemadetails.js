@@ -26,6 +26,15 @@ document.addEventListener("DOMContentLoaded", function () {
             .catch(error => console.error('Error fetching movies:', error));
     }
 
+    function fetchShows(cinemaId, callback) {
+        fetch(`script/php/get_shows_cinemas.php?id=${cinemaId}`)
+            .then(response => response.json())
+            .then(data => {
+                callback(data); 
+            })
+            .catch(error => console.error('Error fetching shows:', error));
+    }
+
     function updateMovieCarouselList(movies) {
         const movieCarouselContainer = document.getElementById('movie-carousel-container');
 
@@ -69,6 +78,43 @@ document.addEventListener("DOMContentLoaded", function () {
                     <input type="button" class="cinema-time movie-time" value="xx:xx">
                     <input type="button" class="cinema-time movie-time" value="xx:xx">
             `;
+
+            const dateItems = dateCarousel.querySelectorAll('.date-items');
+            const movieTimeButtons = movieTime.querySelectorAll('.cinema-time', '.movie-time');
+
+            dateItems.forEach((dateItem) => {
+                dateItem.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    const selectedDateText = dateItem.querySelector('h3').textContent;
+                    const formattedSelectedDate = formatDateForComparison(selectedDateText);
+
+                    fetchShows(cinemaId, (data) => {
+                        const showsByDate = {};
+
+                        console.log(data); 
+
+                        for (let i = 0; i < data.length; i++) {
+                            const show = data[i];
+
+                            if (movies.id === show.movieID && formattedSelectedDate === show.dates.split(' ')[0]) {
+                                const showTime = show.dates.split(' ')[1].slice(0, 5);
+                                showsByDate[showTime] = showsByDate[showTime] || 0;
+                                showsByDate[showTime]++;
+                            }
+                        }
+
+                        movieTimeButtons.forEach((button, index) => {
+                            const showTimes = Object.keys(showsByDate);
+                            if (index < showTimes.length) {
+                                button.value = showTimes[index];
+                                button.style.display = 'block';
+                            } else {
+                                button.style.display = 'none';
+                            }
+                        });
+                    });
+                });
+            });
     
             currentMovieBox.appendChild(dateCarousel);
             currentMovieBox.appendChild(movieTime);
@@ -78,6 +124,18 @@ document.addEventListener("DOMContentLoaded", function () {
             setupDateCarousel(currentMovieBox.querySelector('.date-carousel'), index + 1);
 
         });
+    }
+
+    function formatDateForComparison(selectedDateText) {
+        const date = new Date(selectedDateText);
+
+        const currentDate = new Date();
+    
+        const year = currentDate.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+    
+        return `${year}-${month}-${day}`;
     }
 
     function updateDates(carousel, currentDateIndex) {
@@ -92,15 +150,51 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    function setupDateCarousel(dateCarousel, movieIndex) {
+    function setupDateCarousel(dateCarousel, cinemaIndex) {
         const nextButton = dateCarousel.querySelector("#nextDate");
         const prevButton = dateCarousel.querySelector("#prevDate");
     
         let currentDateIndex = 0;
+        let firstDateIndex = 0; 
+        const dateItems = dateCarousel.querySelectorAll('.date-items h3');
+
+        const updateSelection = (index) => {
+            dateItems.forEach((item, i) => {
+                if (i === index) {
+                    item.style.color = "#F5CB5C";
+                } else {
+                    item.style.color = "#FFFFFF";
+                }
+            });
+        };
+
+        const updateDateItems = () => {
+            dateItems.forEach((dateItem, index) => {
+                if (index === firstDateIndex) {
+                    setTimeout(() => {
+                        dateItem.click();
+                    }, 0);
+                }
+            });
+        };
+
+        dateItems.forEach((dateItem, index) => {
+            dateItem.addEventListener('click', (event) => {
+                event.preventDefault();
+                updateSelection(index);
+            });
+            if(index === currentDateIndex){
+                setTimeout(() => {
+                    dateItem.click(); 
+                }, 0);
+            }
+        });
     
         nextButton.addEventListener("click", function (event) {
             event.preventDefault();
             if (currentDateIndex < 14) {
+                updateSelection(firstDateIndex); 
+                updateDateItems();
                 currentDateIndex++;
                 updateDates(dateCarousel, currentDateIndex);
             }
@@ -111,11 +205,13 @@ document.addEventListener("DOMContentLoaded", function () {
             if (currentDateIndex > 0) {
                 currentDateIndex--;
                 updateDates(dateCarousel, currentDateIndex);
+                updateSelection(firstDateIndex);
+                updateDateItems();
             }
         });
     
-        // Initialize the date carousel for the current cinema
         updateDates(dateCarousel, currentDateIndex);
+        updateSelection(firstDateIndex);
     }
     
 
