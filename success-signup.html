@@ -1,0 +1,61 @@
+<!DOCTYPE html>
+<html Lang="en">
+
+    <head>
+        <title>Moovlix</title>
+        <meta charset="UTF-8">
+        <link rel="stylesheet" href="success-booking/index.css" />
+        <link rel="stylesheet" href="header/index.css">
+        <link rel="stylesheet" href="footer/index.css" />
+        <link href='https://fonts.googleapis.com/css?family=Inter' rel='stylesheet'>
+    </head>
+
+    <body>
+        <div class="navigation">
+            <a href="index.html"><img src="img/logo.svg" class="logo"></a>
+            <div class="links">
+                <a href="index.html"><img src="img/movieslogo.svg"></a>
+                <a href="cinema.html"><img src="img/cinemaslogo.svg"></a>
+                <a href="check-booking/check-booking-form/index.php"><img src="img/checkbookinglogo.svg"></a>
+            </div>
+        </div>
+
+        <div class="success">
+            <h1>Your account is successfully created!</h1>
+            <p>Please click continue to log in and book a movie ticket. </p>
+            <img src="assets/check.svg" />
+                <input class="home-button" type="submit" value="CONTINUE" id="continueButton" />
+        </div>
+
+        <footer>
+            <div class="content">
+                <div class="left">
+                    <div class="logo">
+                        <img src='assets/moovflixLogo.svg' />
+                    </div>
+                    <div class="social">
+                        <img src='assets/facebook.svg' />
+                        <img src='assets/mail.svg' />
+                        <img src='assets/twitter.svg' />
+                    </div>
+                </div>
+                <div class="right">
+                    <a href="https://google.com">MOVIES</a>
+                    <a href="https://google.com">CINEMAS</a>
+                    <a href="https://google.com">CHECK BOOKING</a>
+                </div>
+            </div>
+            <div class="copyright">Copyright &copy 2023 MoovFlix</div>
+
+        </footer>
+
+    </body>
+
+    <script>
+        document.getElementById("continueButton").addEventListener("click", function() {
+            window.location.href = "login.php";
+        });
+        </script> 
+        
+
+</html>
