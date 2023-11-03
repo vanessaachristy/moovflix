@@ -185,9 +185,9 @@ function sanitize($data)
                     <div class="card-detail-form">
                             <span><label for="name">Name on card</label> <input type="name" id="name" name="name"
                                     placeholder="Card owner name" required size="30"></span>
-                              <span><label for="card-number">Card Number</label> <input type="number" id="card-number" name="card-number"
+                              <span><label for="card-number">Card Number</label> <input type="text" onchange="validateCreditCard()" maxlength="16" id="card-number" name="card-number"
                                     placeholder="Card number" required size="16"></span>
-                            <span><label for="cvv">CVV</label> <input type="number" id="cvv" name="cvv"
+                            <span><label for="cvv">CVV</label> <input  type="text" onchange="validateCVV()" maxlength="3" id="cvv" name="cvv"
                                     placeholder="CVV" required size="3"></span>
                               <span><label for="expiry">Expiry date</label> <input type="date" min=' . $today . ' id="expiry" name="expiry"
                                     ></span>

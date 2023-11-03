@@ -33,7 +33,7 @@
 
 .booking-card {
     display: flex;
-    width: 60%;
+    width: 80%;
     border-radius: 10px;
     overflow: hidden;
     min-height: 250px;
@@ -43,7 +43,7 @@
 .booking-card .details {
     display: flex;
     flex-direction: column;
-    min-width: 60%;
+    min-width: 40%;
     justify-content: flex-start;
     align-items: flex-start;
     background-color: #F5CB5C;
@@ -112,4 +112,8 @@
     display: flex;
     justify-content: flex-end;
     width: 50%;
+    padding-bottom: 12px;
+}
+.edit-btn:hover {
+    cursor: pointer;
 }

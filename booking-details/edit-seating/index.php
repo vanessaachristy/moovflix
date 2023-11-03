@@ -38,44 +38,6 @@ $_SESSION['$seatSelections'] = $seatSelections;
 $_SESSION['$totalSelected'] = $totalSelected;
 $_SESSION['bookingID'] = $bookingID;
 
-// if ($_SERVER["REQUEST_METHOD"] == "POST") {
-//     for ($ii = 0; $ii < count($seatSelections); $ii++) {
-//         $oldSeatQuery = "UPDATE Seating SET available = 1, bookingID = '" . $bookingID . "' WHERE seatNumber = '" . $seatSelections[$ii] . "'";
-//         $conn->query($oldSeatQuery);
-//     }
-//     for ($ii = 0; $ii < count($_POST["seat"]); $ii++) {
-//         $selected = strlen($_POST["seat"][$ii]) > 0;
-//         if ($selected == 1) {
-//             array_push($selectedList, sanitize($_POST["seat"][$ii]));
-//             $seatNumber[$ii] = sanitize($_POST["seat"][$ii]);
-//             $timestamp = date("Y-m-d H:i:s"); // Create a timestamp
-//             $randomShowID = "your_show_id"; // Replace with an actual show ID
-
-//             $newSeatQuery = "UPDATE Seating SET available = 0, bookingID = '" . $bookingID . "' WHERE seatNumber = '" . $seatNumber[$ii] . "'";
-//             $conn->query($query);
-//             $conn->query($newSeatQuery);
-//         }
-//     }
-//     $query = 'SELECT price FROM Seating WHERE seatNumber = "' . $selectedList[0] . '"';
-//     $priceQuery = $conn->query($query);
-//     while ($row = mysqli_fetch_assoc($priceQuery)) {
-//         $price = $row['price'];
-//     }
-//     $_SESSION['bookingID'] = $bookingID;
-//     $_SESSION['seatSelections'] = $selectedList;
-//     $_SESSION['showID'] = "random_ID";
-//     $_SESSION['seatPrice'] = $price;
-
-//     echo '<script>console.log("Database update success.")</script>';
-//     echo "<script>console.log('selections seats " . json_encode($_SESSION["seatSelections"]) . "');</script>";
-//     echo "<script>console.log('" . $_SESSION["bookingID"] . "');</script>";
-//     echo "<script>window.location.pathname = 'moovflix/success-update/index.php'</script>";
-
-// } else {
-//     echo '<script>console.log("End.")</script>';
-// }
-
-
 /**
  * Sanitize
  */

@@ -37,7 +37,7 @@ function onSeatSelected(seatIdx, selectedSeats) {
         selectionList = selectionList.filter(a => a !== idx);
         console.log(selectionList)
     } else {
-        alert("You've reached your selected seats limit!")
+        alert("You've reached your selected seats limit! Please unselect the seat you've chosen first!")
     }
     let totalTickets = document.getElementById('total-tickets');
     totalTickets.innerHTML = `${selectionList.length} Tickets`
@@ -56,6 +56,6 @@ function resetSelectedSeats(seatArray) {
     for (let i = 0; i < seatArray.length; i++) {
         let seat = document.getElementById(seatArray[i]);
         seat.className = "seat-box available";
-        seat.style.backgroundColor = "gray";
+        seat.style.backgroundColor = "#F5CB5C";
     }
 }
