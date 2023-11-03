@@ -42,6 +42,15 @@ document.addEventListener("DOMContentLoaded", function () {
             .catch(error => console.error('Error fetching cinemas:', error));
     }
 
+    function fetchShows(movieId, callback) {
+        fetch(`script/php/get_shows_movies.php?id=${movieId}`)
+            .then(response => response.json())
+            .then(data => {
+                callback(data); 
+            })
+            .catch(error => console.error('Error fetching shows:', error));
+    }
+
     function updateCinemaCarouselList(cinemas) {
         const movieCarouselContainer = document.getElementById('movie-carousel-container');
 
@@ -65,13 +74,13 @@ document.addEventListener("DOMContentLoaded", function () {
             dateCarousel.id = 'date-carousel-' + (index + 1);
 
             dateCarousel.innerHTML = `
-            <a href="#" id="prevDate" role="button"><img class="next-arrow" src="img/left-arrow.svg" alt=""></a>
+            <a href="#" class="prevDate" id="prevDate" role="button"><img class="next-arrow" src="img/left-arrow.svg" alt=""></a>
             <a href="#" role="button" class="date-items"><h3>Friday, 20 October</h3></a>
             <a href="#" role="button" class="date-items"><h3>Saturday, 21 October</h3></a>
             <a href="#" role="button"class="date-items"><h3>Sunday, 22 October</h3></a>
             <a href="#" role="button"class="date-items"><h3>Monday, 23 October</h3></a>
             <a href="#" role="button"class="date-items"><h3>Thursday, 24 October</h3></a>
-            <a href="#" id="nextDate" role="button"><img class="next-arrow next-arrow-right" src="img/arrow-right.svg" alt=""></a>
+            <a href="#" class="nextDate" id="nextDate" role="button"><img class="next-arrow next-arrow-right" src="img/arrow-right.svg" alt=""></a>
             `;
 
             const cinemaTime = document.createElement('div'); 
@@ -82,6 +91,42 @@ document.addEventListener("DOMContentLoaded", function () {
                     <input type="button" class="cinema-time" value="xx:xx">
                     <input type="button" class="cinema-time" value="xx:xx">
             `;
+
+            const dateItems = dateCarousel.querySelectorAll('.date-items');
+            const cinemaTimeButtons = cinemaTime.querySelectorAll('.cinema-time');
+
+            dateItems.forEach((dateItem) => {
+                dateItem.addEventListener('click', (event) => {
+                    event.preventDefault();
+                    const selectedDateText = dateItem.querySelector('h3').textContent;
+                    const formattedSelectedDate = formatDateForComparison(selectedDateText);
+
+                    fetchShows(movieId, (data) => {
+                        const showsByDate = {};
+
+                        for (let i = 0; i < data.length; i++) {
+                            const show = data[i];
+
+                            if (screen.id === show.screenID && formattedSelectedDate === show.dates.split(' ')[0]) {
+                                const showTime = show.dates.split(' ')[1].slice(0, 5);
+                                showsByDate[showTime] = showsByDate[showTime] || 0;
+                                showsByDate[showTime]++;
+                            }
+                        }
+
+                        cinemaTimeButtons.forEach((button, index) => {
+                            const showTimes = Object.keys(showsByDate);
+                            if (index < showTimes.length) {
+                                button.value = showTimes[index];
+                                button.style.display = 'block';
+                            } else {
+                                button.style.display = 'none';
+                            }
+                        });
+                    });
+                });
+            });
+            
     
             currentCinemaBox.appendChild(dateCarousel);
             currentCinemaBox.appendChild(cinemaTime);
@@ -90,8 +135,22 @@ document.addEventListener("DOMContentLoaded", function () {
 
             setupDateCarousel(currentCinemaBox.querySelector('.date-carousel'), index + 1);
 
+
         });
     }
+
+    function formatDateForComparison(selectedDateText) {
+        const date = new Date(selectedDateText);
+
+        const currentDate = new Date();
+    
+        const year = currentDate.getFullYear();
+        const month = String(date.getMonth() + 1).padStart(2, '0');
+        const day = String(date.getDate()).padStart(2, '0');
+    
+        return `${year}-${month}-${day}`;
+    }
+    
 
     function updateDates(carousel, currentDateIndex) {
         const dateItems = carousel.querySelectorAll('.date-items h3');
@@ -110,10 +169,46 @@ document.addEventListener("DOMContentLoaded", function () {
         const prevButton = dateCarousel.querySelector("#prevDate");
     
         let currentDateIndex = 0;
+        let firstDateIndex = 0; 
+        const dateItems = dateCarousel.querySelectorAll('.date-items h3');
+
+        const updateSelection = (index) => {
+            dateItems.forEach((item, i) => {
+                if (i === index) {
+                    item.style.color = "#F5CB5C";
+                } else {
+                    item.style.color = "#FFFFFF";
+                }
+            });
+        };
+
+        const updateDateItems = () => {
+            dateItems.forEach((dateItem, index) => {
+                if (index === firstDateIndex) {
+                    setTimeout(() => {
+                        dateItem.click();
+                    }, 0);
+                }
+            });
+        };
+
+        dateItems.forEach((dateItem, index) => {
+            dateItem.addEventListener('click', (event) => {
+                event.preventDefault();
+                updateSelection(index);
+            });
+            if(index === currentDateIndex){
+                setTimeout(() => {
+                    dateItem.click(); 
+                }, 0);
+            }
+        });
     
         nextButton.addEventListener("click", function (event) {
             event.preventDefault();
             if (currentDateIndex < 14) {
+                updateSelection(firstDateIndex); 
+                updateDateItems();
                 currentDateIndex++;
                 updateDates(dateCarousel, currentDateIndex);
             }
@@ -124,14 +219,17 @@ document.addEventListener("DOMContentLoaded", function () {
             if (currentDateIndex > 0) {
                 currentDateIndex--;
                 updateDates(dateCarousel, currentDateIndex);
+                updateSelection(firstDateIndex);
+                updateDateItems();
             }
         });
     
-        // Initialize the date carousel for the current cinema
         updateDates(dateCarousel, currentDateIndex);
+        updateSelection(firstDateIndex);
     }
     
 
     fetchMovieDetails(movieId);
     fetchCinemas()
+    
 });

@@ -51,11 +51,22 @@ body{
 }
 
 .title{
-    width: 992px; height: 238px; left: 124px; top: 400px; position: absolute;
+    width: 992px; 
+    height: 238px; 
+    left: 124px; 
+    top: 400px; 
+    position: absolute;
 }
 
 h1{
-    left: 0px; top: -29px; position: absolute; color: white; font-size: 80px; font-family: Inter; font-weight: 700; word-wrap: break-word;
+    left: 0px; 
+    top: -29px; 
+    position: absolute; 
+    color: white; 
+    font-size: 80px; 
+    font-family: Inter; 
+    font-weight: 700; 
+    word-wrap: break-word;
 }
 
 .subtitle{
@@ -273,6 +284,7 @@ h2{
 
 .detailing{
     margin-bottom: 140px; 
+    margin-top: -10px ;
 }
 
 .details-row{
@@ -306,6 +318,10 @@ h2{
 
 .details-column .column-two{
     white-space: nowrap; 
+}
+
+h3.cast{
+    width: 679px !important; 
 }
 
 .synopsis{
