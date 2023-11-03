@@ -30,4 +30,5 @@ function onSeatSelected(seatIdx) {
     }
     let totalTickets = document.getElementById('total-tickets');
     totalTickets.innerHTML = `${selectionList.length} Tickets`
+
 }

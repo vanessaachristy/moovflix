@@ -18,23 +18,38 @@ $showID = "";
 
 
 // Access the session variable
-if (isset($_SESSION['bookingID']) && isset($_SESSION["screenName"]) && isset($_SESSION["screenDate"]) && isset($_SESSION["screenTime"]) && isset($_SESSION["seatSelections"]) && isset($_SESSION["seatPrice"]) && isset($_SESSION["bookingFee"]) && isset($_SESSION["totalPayment"]) && isset($_SESSION["name"]) && isset($_SESSION["email"]) && isset($_SESSION["payment"]) && isset($_SESSION['showID'])) {
-    $bookingID = $_SESSION['bookingID'];
-    $screenName = $_SESSION["screenName"];
-    $screenDate = $_SESSION["screenDate"];
-    $screenTime = $_SESSION["screenTime"];
-    $seatIDList = $_SESSION["seatSelections"];
-    $seatPrice = $_SESSION["seatPrice"];
-    $bookingFee = $_SESSION["bookingFee"];
-    $totalPayment = $_SESSION["totalPayment"];
-    $name = $_SESSION["name"];
-    $email = $_SESSION["email"];
-    $payment = $_SESSION["payment"];
-    $showID = $_SESSION['showID'];
-} else {
-    echo '<script>console.log("One or more session variables are not set.")</script>';
-}
-;
+$bookingID = $_SESSION['bookingID'];
+$screenName = $_SESSION["screenName"];
+$screenDate = $_SESSION["screenDate"];
+$screenTime = $_SESSION["screenTime"];
+$seatIDList = $_SESSION["seatSelections"];
+$seatPrice = $_SESSION["seatPrice"];
+$bookingFee = $_SESSION["bookingFee"];
+$totalPayment = $_SESSION["totalPayment"];
+$name = $_SESSION["name"];
+$email = $_SESSION["email"];
+$payment = $_SESSION["payment"];
+$showID = $_SESSION['showID'];
+
+$today = date('Y-m-d');
+
+// if (isset($_SESSION['bookingID']) && isset($_SESSION["screenName"]) && isset($_SESSION["screenDate"]) && isset($_SESSION["screenTime"]) && isset($_SESSION["seatSelections"]) && isset($_SESSION["seatPrice"]) && isset($_SESSION["bookingFee"]) && isset($_SESSION["totalPayment"]) && isset($_SESSION["name"]) && isset($_SESSION["email"]) && isset($_SESSION["payment"]) && isset($_SESSION['showID'])) {
+//     $bookingID = $_SESSION['bookingID'];
+//     $screenName = $_SESSION["screenName"];
+//     $screenDate = $_SESSION["screenDate"];
+//     $screenTime = $_SESSION["screenTime"];
+//     $seatIDList = $_SESSION["seatSelections"];
+//     $seatPrice = $_SESSION["seatPrice"];
+//     $bookingFee = $_SESSION["bookingFee"];
+//     $totalPayment = $_SESSION["totalPayment"];
+//     $name = $_SESSION["name"];
+//     $email = $_SESSION["email"];
+//     $payment = $_SESSION["payment"];
+//     $showID = $_SESSION['showID'];
+// } else {
+//     echo '<script>console.log("One or more session variables are not set.")</script>';
+// }
+// ;
 
 
 $servername = "localhost";
@@ -165,7 +180,23 @@ function sanitize($data)
                     <span class="amount">$' . $totalPayment . '</span>
 
             </div>';
+                } else {
+                    echo ' <form">
+                    <div class="card-detail-form">
+                            <span><label for="name">Name on card</label> <input type="name" id="name" name="name"
+                                    placeholder="Card owner name" required size="30"></span>
+                              <span><label for="card-number">Card Number</label> <input type="number" id="card-number" name="card-number"
+                                    placeholder="Card number" required size="16"></span>
+                            <span><label for="cvv">CVV</label> <input type="number" id="cvv" name="cvv"
+                                    placeholder="CVV" required size="3"></span>
+                              <span><label for="expiry">Expiry date</label> <input type="date" min=' . $today . ' id="expiry" name="expiry"
+                                    ></span>
+                          
+                    </div>
+                  
+                </form>';
                 }
+                ;
 
                 ?>
 

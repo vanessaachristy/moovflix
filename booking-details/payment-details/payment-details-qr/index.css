@@ -100,3 +100,27 @@
     cursor: pointer;
     background-color: #ffdc7c;
 }
+
+.card-detail-form {
+    display: flex;
+    flex-direction: column;
+    background-color: #F5CB5C;
+    padding: 24px;
+    border-radius: 10px;
+}
+
+.card-detail-form span {
+    display: flex;
+    flex-direction: column;
+    padding-bottom: 12px;
+}
+
+.card-detail-form span label {
+    color: #8B591B;
+}
+
+.card-detail-form input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}

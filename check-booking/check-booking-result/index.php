@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 $servername = "localhost";
 $username = "root";
 $dbname = "moovlix";
@@ -27,7 +29,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($bookingData) {
         while ($row = mysqli_fetch_assoc($bookingData)) {
             $showID = $row['showID'];
-            echo '<script>console.log("' . $row["seatID"] . '")</script>';
             array_push($seatIDs, $row["seatID"]);
         }
     }
@@ -38,6 +39,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     ;
 }
 ;
+
+$_SESSION['seatSelections'] = $seatIDs;
+$_SESSION['bookingID'] = $bookingID;
+
 
 ?>
 
@@ -105,6 +110,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
         </div>
         <div class="qr-code">
+        <div onclick={editSeatingOnClick()} class="edit-btn"><img src="../../assets/edit.svg"/></div>
             <div class="qr-image">
                 <img src="../../assets/mockQR.png" />
             </div>

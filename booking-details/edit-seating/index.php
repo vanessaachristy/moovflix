@@ -1,6 +1,7 @@
 <?php
 
 
+
 session_start();
 
 $totalRows = 5;
@@ -21,75 +22,59 @@ if ($conn->connect_error) {
 }
 echo '<script>console.log("Connected")</script>';
 
+$seatSelections = $_SESSION['seatSelections'];
+$totalSelected = count($seatSelections);
+$bookingID = $_SESSION['bookingID'];
 
+echo '<script>console.log("' . $bookingID . '")</script>';
 
-$to = "vanessa@localhost";
-$subject = "My subject";
-$txt = "Hello world!";
-$headers = "From: moovlix@localhost" . "\r\n";
-
-// $smtpServer = 'localhost';
-// $smtpPort = 25; // The SMTP server's port
-
-// ini_set('SMTP', $smtpServer);
-// ini_set('smtp_port', $smtpPort);
-
-mail($to, $subject, $txt, $headers);
-
+echo '<script>window.onload = () => resetSelectedSeats(' . json_encode($seatSelections) . ')</script>';
 
 $distinctRows = mysqli_query($conn, "SELECT DISTINCT rowNumber FROM " . $tablename . " ORDER BY rowNumber DESC");
-$referenceID = generateUniqueId();
 $selectedList = array();
-$price = 0;
+$price = 12.5;
 
+$_SESSION['$seatSelections'] = $seatSelections;
+$_SESSION['$totalSelected'] = $totalSelected;
+$_SESSION['bookingID'] = $bookingID;
 
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    for ($ii = 0; $ii < count($_POST["seat"]); $ii++) {
-        $selected = strlen($_POST["seat"][$ii]) > 0;
-        if ($selected == 1) {
-            array_push($selectedList, sanitize($_POST["seat"][$ii]));
-            $seatNumber[$ii] = sanitize($_POST["seat"][$ii]);
-            $timestamp = date("Y-m-d H:i:s"); // Create a timestamp
-            $randomShowID = "your_show_id"; // Replace with an actual show ID
-            ;
-            // $seatQuery = "UPDATE Seating SET available = 0, bookingID = '" . $referenceID . "' WHERE seatNumber = '" . $seatNumber[$ii] . "'";
-            // $conn->query($query);
-            // $conn->query($seatQuery);
-        }
-    }
-    $query = 'SELECT price FROM Seating WHERE seatNumber = "' . $selectedList[0] . '"';
-    $priceQuery = $conn->query($query);
-    while ($row = mysqli_fetch_assoc($priceQuery)) {
-        $price = $row['price'];
-    }
-    $_SESSION['bookingID'] = $referenceID;
-    $_SESSION['seatSelections'] = $selectedList;
-    $_SESSION['showID'] = "random_ID";
-    $_SESSION['seatPrice'] = $price;
+// if ($_SERVER["REQUEST_METHOD"] == "POST") {
+//     for ($ii = 0; $ii < count($seatSelections); $ii++) {
+//         $oldSeatQuery = "UPDATE Seating SET available = 1, bookingID = '" . $bookingID . "' WHERE seatNumber = '" . $seatSelections[$ii] . "'";
+//         $conn->query($oldSeatQuery);
+//     }
+//     for ($ii = 0; $ii < count($_POST["seat"]); $ii++) {
+//         $selected = strlen($_POST["seat"][$ii]) > 0;
+//         if ($selected == 1) {
+//             array_push($selectedList, sanitize($_POST["seat"][$ii]));
+//             $seatNumber[$ii] = sanitize($_POST["seat"][$ii]);
+//             $timestamp = date("Y-m-d H:i:s"); // Create a timestamp
+//             $randomShowID = "your_show_id"; // Replace with an actual show ID
 
-    echo '<script>console.log("Database update success.")</script>';
-    echo "<script>console.log('" . $_SESSION["seatSelections"] . "');</script>";
-    echo "<script>console.log('" . $_SESSION["bookingID"] . "');</script>";
-    echo "<script>window.location.pathname = 'moovflix/booking-details/payment-details/payment-details-form/index.php'</script>";
+//             $newSeatQuery = "UPDATE Seating SET available = 0, bookingID = '" . $bookingID . "' WHERE seatNumber = '" . $seatNumber[$ii] . "'";
+//             $conn->query($query);
+//             $conn->query($newSeatQuery);
+//         }
+//     }
+//     $query = 'SELECT price FROM Seating WHERE seatNumber = "' . $selectedList[0] . '"';
+//     $priceQuery = $conn->query($query);
+//     while ($row = mysqli_fetch_assoc($priceQuery)) {
+//         $price = $row['price'];
+//     }
+//     $_SESSION['bookingID'] = $bookingID;
+//     $_SESSION['seatSelections'] = $selectedList;
+//     $_SESSION['showID'] = "random_ID";
+//     $_SESSION['seatPrice'] = $price;
 
-} else {
-    echo '<script>console.log("End.")</script>';
-}
+//     echo '<script>console.log("Database update success.")</script>';
+//     echo "<script>console.log('selections seats " . json_encode($_SESSION["seatSelections"]) . "');</script>";
+//     echo "<script>console.log('" . $_SESSION["bookingID"] . "');</script>";
+//     echo "<script>window.location.pathname = 'moovflix/success-update/index.php'</script>";
 
-/**
- * Generate unique booking ID
- */
-function generateUniqueId()
-{
-    $letters = "ABCDEFGHJKMNPQRSTUXYabcdefghjkmnpqrstuxy0123456789";
-    $text = '';
+// } else {
+//     echo '<script>console.log("End.")</script>';
+// }
 
-    for ($i = 0; $i < 24; $i++) {
-        $text .= $letters[rand(0, strlen($letters) - 1)];
-    }
-
-    return $text;
-}
 
 /**
  * Sanitize
@@ -128,7 +113,7 @@ function sanitize($data)
 
     <body>
         <div class="booking-details">
-            <form id="seatForm" method="POST" action="index.php" class="booking-details">
+            <form id="seatForm" method="POST" action="../../success-update/index.php" class="booking-details">
                 <div class="header">
                     <span class="title">BOOKING DETAILS</span>
                     <div class="content">
@@ -142,6 +127,9 @@ function sanitize($data)
                             <span id="show-date"><img src='../../assets/calendar.svg' class="icon" />22 September,
                                 2023</span>
                             <span id="show-time"><img src='../../assets/time.svg' class="icon" />9.15 PM</span>
+                            <span id="seat-numbers"><img src='../../assets/seat.svg' class="icon" />
+                                <?= implode(', ', $seatSelections) ?>
+                            </span>
                         </div>
                         <div class="booking-detail">
                             <span class="total-title">Total Booking</span>
@@ -186,11 +174,11 @@ function sanitize($data)
                                         if ($idx <= $x * 10) {
                                             if ($eachRow['available'] == 1) {
                                                 echo '
-                                                <div id="' . $eachRow['seatNumber'] . '" onclick={onSeatSelected(' . $eachRow['seatNumber'] . ')} onmouseover={onSeatHover(' . $eachRow['seatNumber'] . ')} onmouseleave={onSeatHoverEnd(' . $eachRow['seatNumber'] . ')} class="seat-box available"><span>' . $eachRow['seatNumber'] . '</span><input id="input-' . $eachRow['seatNumber'] . '" name="seat[]" value="" readOnly></input></div>
+                                                <div id="' . $eachRow['seatNumber'] . '" onclick={onSeatSelected(' . $eachRow['seatNumber'] . ',' . json_encode($seatSelections) . ')} onmouseover={onSeatHover(' . $eachRow['seatNumber'] . ')} onmouseleave={onSeatHoverEnd(' . $eachRow['seatNumber'] . ')} class="seat-box available"><span>' . $eachRow['seatNumber'] . '</span><input id="input-' . $eachRow['seatNumber'] . '" name="seat[]" value="" readOnly></input></div>
                                             ';
                                             } else {
                                                 echo '
-                                                <div id="' . $eachRow['seatNumber'] . '" onclick={onSeatSelected(' . $eachRow['seatNumber'] . ')} onmouseover={onSeatHover(' . $eachRow['seatNumber'] . ')} onmouseleave={onSeatHoverEnd(' . $eachRow['seatNumber'] . ')} class="seat-box unavailable"><span>' . $eachRow['seatNumber'] . '</span><input id="input-' . $eachRow['seatNumber'] . '" name="seat[]" value="" readOnly></input></div>
+                                                <div id="' . $eachRow['seatNumber'] . '" onclick={onSeatSelected(' . $eachRow['seatNumber'] . ',' . json_encode($seatSelections) . ')} onmouseover={onSeatHover(' . $eachRow['seatNumber'] . ')} onmouseleave={onSeatHoverEnd(' . $eachRow['seatNumber'] . ')} class="seat-box unavailable"><span>' . $eachRow['seatNumber'] . '</span><input id="input-' . $eachRow['seatNumber'] . '" name="seat[]" value="" readOnly></input></div>
                                             ';
                                             }
 
