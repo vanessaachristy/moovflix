@@ -1,5 +1,7 @@
 <?php
 
+session_start();
+
 $servername = "localhost";
 $username = "root";
 $dbname = "moovlix";
@@ -19,6 +21,14 @@ $showID = "";
 $seatIDs = array();
 $isEmpty = true;
 
+$cinemaID = 0;
+$movieID = 0;
+$showDate = "";
+$showTime = "";
+$cinemaName = "";
+$movieName = "";
+$moviePoster = "";
+
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $email = $_POST["email"];
     $bookingID = $_POST["bookingID"];
@@ -27,17 +37,60 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     if ($bookingData) {
         while ($row = mysqli_fetch_assoc($bookingData)) {
             $showID = $row['showID'];
-            echo '<script>console.log("' . $row["seatID"] . '")</script>';
             array_push($seatIDs, $row["seatID"]);
         }
     }
     if (count($seatIDs) > 0) {
         $isEmpty = false;
 
+        $showQuery = 'SELECT * from shows WHERE id ="' . $showID . '"';
+        $showResults = $conn->query($showQuery);
+
+        while ($row = mysqli_fetch_assoc($showResults)) {
+            $cinemaID = $row["screenID"];
+            $movieID = $row["movieID"];
+            $showDate = explode(" ", $row["dates"])[0];
+            $showTime = explode(" ", $row["dates"])[1];
+        }
+
+        $screenQuery = 'SELECT * from screen WHERE id = "' . $cinemaID . '"';
+        $screenResults = $conn->query($screenQuery);
+        while ($row = mysqli_fetch_assoc($screenResults)) {
+            $cinemaName = $row['cinema_name'];
+        }
+
+        $movieQuery = 'SELECT * from movie WHERE id = "' . $movieID . '"';
+
+        $movieResults = $conn->query($movieQuery);
+        while ($row = mysqli_fetch_assoc($movieResults)) {
+            $movieName = $row['movie_name'];
+            $moviePoster = $row['poster'];
+        }
     }
     ;
 }
 ;
+
+$elapsed = false;
+
+// Convert the date to a timestamp
+$timestampToCheck = strtotime($showDate);
+
+if ($timestampToCheck !== false) {
+    // Get the current timestamp
+    $currentTimestamp = time();
+
+    // Compare the two timestamps
+    if ($timestampToCheck < $currentTimestamp) {
+        $elapsed = true;
+    }
+} else {
+    echo '<script>console.log("Invalid date format)</script>';
+}
+
+$_SESSION['seatSelections'] = $seatIDs;
+$_SESSION['bookingID'] = $bookingID;
+
 
 ?>
 
@@ -55,7 +108,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </head>
 
     <div class="navigation">
-    <a href="../../index.html"><img src="../../img/logo.svg" class="logo"></a>
+        <a href="../../index.html"><img src="../../img/logo.svg" class="logo"></a>
         <div class="links">
             <a href="../../index.html"><img src="../../img/movieslogo.svg"></a>
             <a href="../../cinema.html"><img src="../../img/cinemaslogo.svg"></a>
@@ -82,18 +135,18 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         </span>
                         <div class="details-group">
                             <div class="image">
-                                <img src="../../assets/john-wick.png" width="92" height="134" />
+                                <img src="../../' . $moviePoster . '" width="92" height="134" />
                             </div>
                             <div class="movie-detail">
-                                <span class="movie-title" id="title">' . $showID . '</span>
+                                <span class="movie-title" id="title">' . $movieName . '</span>
                                 <span id="cinema-name">
-                                    <img src="../../assets/location.svg" class="icon" />' . $showID . '
+                                    <img src="../../assets/location.svg" class="icon" />' . $cinemaName . '
                                 </span>
                                 <span id="show-date">
-                                    <img src="../../assets/calendar.svg" class="icon" />' . $showID . '
+                                    <img src="../../assets/calendar.svg" class="icon" />' . $showDate . '
                                 </span>
                                 <span id="show-time">
-                                    <img src="../../assets/time.svg" class="icon">' . $showID . '
+                                    <img src="../../assets/time.svg" class="icon">' . $showTime . '
                 </span>
                 <span id="tickets-total">
                     <img src="../../assets/ticket.svg" class="icon">' . count($seatIDs) . ' Tickets
@@ -105,6 +158,11 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         </div>
         </div>
         <div class="qr-code">
+        ';
+                    if (!$elapsed) {
+                        echo ' <div onclick={editSeatingOnClick()} class="edit-btn">Edit booking <img src="../../assets/edit.svg"/></div>';
+                    }
+                    echo '
             <div class="qr-image">
                 <img src="../../assets/mockQR.png" />
             </div>

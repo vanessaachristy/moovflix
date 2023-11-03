@@ -2,12 +2,60 @@
 
 session_start();
 
-$bookingID = "";
-// Access the session variable
-if (isset($_SESSION['bookingID'])) {
-    $bookingID = $_SESSION['bookingID'];
+$servername = "localhost";
+$username = "root";
+$dbname = "moovlix";
+
+// Create connection
+$conn = new mysqli($servername, $username, '', $dbname);
+if ($conn->connect_error) {
+    die("Connection failed: " . $conn->connect_error);
+}
+echo '<script>console.log("Connected")</script>';
+
+$seatSelections = $_SESSION['seatSelections'];
+
+echo "<script>console.log('" . json_encode($seatSelections) . "');</script>";
+
+$bookingID = $_SESSION['bookingID'];
+$totalSelected = $_SESSION['totalSelected'];
+$selectedList = array();
+$cnt = 0;
+
+
+if ($_SERVER["REQUEST_METHOD"] == "POST") {
+    for ($ii = 0; $ii < count($seatSelections); $ii++) {
+        $oldSeatQuery = "UPDATE Seating SET available = 1, bookingID = NULL WHERE seatNumber = '" . $seatSelections[$ii] . "'";
+        $conn->query($oldSeatQuery);
+    }
+
+    for ($ii = 0; $ii < count($_POST["seat"]); $ii++) {
+        $selected = strlen($_POST["seat"][$ii]) > 0;
+        if ($selected == 1) {
+            array_push($selectedList, $_POST["seat"][$ii]);
+            $seatNumber[$ii] = $_POST["seat"][$ii];
+
+            $newSeatQuery = "UPDATE Seating SET available = 0, bookingID = '" . $bookingID . "' WHERE seatNumber = '" . $seatNumber[$ii] . "'";
+            $newBookQuery = "UPDATE Booking SET seatID = '" . $seatNumber[$ii] . "' WHERE seatID = '" . $seatSelections[$cnt] . "' AND referenceID = '" . $bookingID . "'";
+            $conn->query($newSeatQuery);
+            $conn->query($newBookQuery);
+            $cnt++;
+        }
+    }
+
 } else {
-    echo '<script>console.log("Booking ID session variable not set.")</script>';
+    echo '<script>console.log("End.")</script>';
+}
+
+/**
+ * Sanitize
+ */
+function sanitize($data)
+{
+    $data = trim($data);
+    $data = stripslashes($data);
+    $data = htmlspecialchars($data);
+    return $data;
 }
 
 
@@ -26,7 +74,7 @@ if (isset($_SESSION['bookingID'])) {
     </head>
 
     <div class="navigation">
-        <a href="../../index.html"><img src="../img/logo.svg" class="logo"></a>
+        <img src="../img/logo.svg" class="logo">
         <div class="links">
             <a href="../index.html"><img src="../img/movieslogo.svg"></a>
             <a href="../cinema.html"><img src="../img/cinemaslogo.svg"></a>
@@ -36,7 +84,7 @@ if (isset($_SESSION['bookingID'])) {
 
     <body>
         <div class="success">
-            <h1>Your booking is successfully created!</h1>
+            <h1>Your seat details are successfully changed!</h1>
             <p>Please check your email for a booking confirmation details. </p>
             <p>Booking ID: <?= $bookingID ?> </p>
             <img src="../assets/check.svg" />
