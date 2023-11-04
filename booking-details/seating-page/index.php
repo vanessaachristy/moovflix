@@ -22,7 +22,6 @@ if ($conn->connect_error) {
 echo '<script>console.log("Connected")</script>';
 
 
-
 $distinctRows = mysqli_query($conn, "SELECT DISTINCT rowNumber FROM " . $tablename . " ORDER BY rowNumber DESC");
 $referenceID = generateUniqueId();
 $selectedList = array();

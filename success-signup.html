@@ -24,7 +24,7 @@
             <h1>Your account is successfully created!</h1>
             <p>Please click continue to log in and book a movie ticket. </p>
             <img src="assets/check.svg" />
-                <input class="home-button" type="submit" value="CONTINUE" id="continueButton" />
+            <input class="home-button" type="submit" value="CONTINUE" id="continueButton" />
         </div>
 
         <footer>
@@ -52,10 +52,18 @@
     </body>
 
     <script>
-        document.getElementById("continueButton").addEventListener("click", function() {
-            window.location.href = "login.php";
+        const queryString = window.location.search;
+
+        // Create a URLSearchParams object to parse the query string
+        const urlParams = new URLSearchParams(queryString);
+
+        // Get the value of the 'id' parameter
+        const id = urlParams.get('id');
+
+        document.getElementById("continueButton").addEventListener("click", function () {
+            window.location.href = `login.php?id=${id}`;
         });
-        </script> 
-        
+    </script>
+
 
 </html>
