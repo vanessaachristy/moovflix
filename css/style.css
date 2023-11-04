@@ -2,8 +2,6 @@ body{
     background-color: black;
     -webkit-text-size-adjust: 100%; 
     -webkit-tap-highlight-color: transparent;
-    -ms-overflow-style: none; /* for Internet Explorer, Edge */
-    scrollbar-width: none; /* for Firefox */
     overflow-y: scroll; 
     overflow-x:hidden; 
     width: 100%; 
@@ -11,6 +9,7 @@ body{
     margin: 0px;
     padding: 0px;
     box-sizing: border-box; 
+    font-family: 'Inter'; 
 }
 
 .navigation{
@@ -64,7 +63,7 @@ h1{
     position: absolute; 
     color: white; 
     font-size: 80px; 
-    font-family: Inter; 
+    font-family: 'Inter'; 
     font-weight: 700; 
     word-wrap: break-word;
 }
@@ -107,7 +106,7 @@ h1{
 h3{
     color: white; 
     font-size: 20px; 
-    font-family: Inter; 
+    font-family: 'Inter'; 
     font-weight: 400; 
     word-wrap: break-word; 
     margin: 5px;
@@ -145,15 +144,26 @@ h3{
 }
 
 .direction{
-    width: 100vw; height: 41.26px; left: -70px; top: -172px; position: relative;
+    width: 100vw; 
+    height: 41.26px; 
+    left: -70px; 
+    top: -172px; 
+    position: relative;
 }
 
 .arrow{
-    width: 20px; height: 41.26px; left: 0px; top: 0px; position: absolute; 
+    width: 20px; 
+    height: 41.26px; 
+    left: 0px; 
+    top: 0px; 
+    position: absolute; 
 }
 
 .arrow-right{
-    transform: rotate(-180deg); transform-origin: 0 0; left: 1400px; top: 41.26px;
+    transform: rotate(-180deg); 
+    transform-origin: 0 0; 
+    left: 1400px; 
+    top: 41.26px;
 }
 
 .movie-row{
@@ -189,7 +199,7 @@ a{
 
 h2{
     color: #000;
-    font-family: Inter;
+    font-family: 'Inter';
     font-size: 20px;
     font-style: normal;
     font-weight: 600;
@@ -311,7 +321,7 @@ h2{
 .detailing h3{
     color: #F5CB5C; 
     font-weight: bold; 
-    font-size: 30px; 
+    font-size: 28px; 
     margin-left: 30px; 
     margin-top: 25px;  
 }
@@ -324,8 +334,8 @@ h3.cast{
     width: 679px !important; 
 }
 
-.synopsis{
-    width: 679px !important; 
+h3.synopsis{
+    width: 750px !important; 
 }
 
 .movie-carousel{
@@ -482,4 +492,132 @@ h3.cast{
     margin-top: 4px; 
     margin-left: 30px;
 }
+
+
+/*Login Form*/
+.login-body{
+    display: flex; 
+    justify-content: center; 
+    align-items: center; 
+}
+
+.login-form{
+    width: 800px; 
+    min-height: 553px;  
+    margin-left: auto; 
+    margin-right: auto;
+    background-color: #F5CB5C; 
+    border-radius: 10px; 
+    align-items: center; 
+    display: flex; 
+    flex-direction: column; 
+    align-items: center;
+    margin-top: 50px;
+    margin-bottom: 100px; 
+}
+
+.form-title{
+    background-color: #8B591C; 
+    border-radius: 10px; 
+    width: 800px; 
+    height: 110px; 
+    display: flex; 
+    align-items: center; 
+    justify-content: center; 
+
+}
+.login-form h2{
+    font-size: 40px; 
+    font-weight: 700;
+    color: #FFFFFF; 
+    margin-left: 0; 
+}
+
+.login-form form{
+    text-align: center; 
+}
+
+.form-group{
+    margin-bottom: 10px; 
+}
+
+.input-fields{
+    width: 424px; 
+    height: 45px; 
+    border-radius: 10px; 
+    border: 2px solid #FFF; 
+    display: block; 
+    margin: 0 auto; 
+    font-size: 20px; 
+}
+
+.input-fields::placeholder{
+    margin-left: 17px; 
+    font-size: 20px; 
+    font-weight: 500; 
+}
+
+.fields-title{
+    font-weight:bold;  
+    display: block; 
+    font-size: 20px; 
+    text-align: left; 
+    margin-bottom: 20px; 
+    margin-top: 22px; 
+}
+
+.login-button{
+    margin-top: 30px; 
+    width: 424px; 
+    height: 51px; 
+    font-size: 23px; 
+    background-color:#8B591C; 
+    color: #F5CB5C; 
+    font-weight: bold; 
+    text-align: center; 
+    border-radius: 10px; 
+    border: none; 
+    display: inline-block; 
+    cursor: pointer; 
+}
+
+.horizontal-line {
+    display: block;
+    height: 1px;
+    width: 424px;
+    margin-top: 34px; 
+    background-color: black;
+}
+
+.login-form h3{
+    color: black; 
+    font-weight: bold;
+    margin-top: 25px; 
+    margin-left: 55px; 
+    padding-bottom: 40px; 
+}
+
+
+.sign-up-link a{
+    color: #8B591C; 
+}
+
+.sign-up-link a:hover{
+    text-decoration:underline; 
+}
+
+.sign-up-form{
+    min-height: 812px; 
+}
+
+.error{
+	color: #FF2500;
+    font-weight: bold; 
+    margin-top: 7px; 
+    font-size: 18px; 
+	display: none;
+    text-align: left; 
+    word-break: break-all;
+}
+
 

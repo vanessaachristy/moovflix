@@ -41,6 +41,18 @@ CREATE TABLE `Booking` (
 
 -- --------------------------------------------------------
 
+-- Table structure for table `signup`
+--
+
+CREATE TABLE `signup` (
+  `id` int(11) NOT NULL,
+  `name` varchar(250) DEFAULT NULL,
+  `email` varchar(500) DEFAULT NULL,
+  `password` varchar(500) DEFAULT NULL
+) ENGINE=InnoDB DEFAULT CHARSET=utf8mb4 COLLATE=utf8mb4_general_ci;
+
+-- --------------------------------------------------------
+
 --
 -- Table structure for table `movie`
 --
@@ -751,6 +763,12 @@ ALTER TABLE `Booking`
   ADD PRIMARY KEY (`id`);
 
 --
+-- Indexes for table `signup`
+--
+ALTER TABLE `signup`
+  ADD PRIMARY KEY (`id`);
+
+--
 -- Indexes for table `movie`
 --
 ALTER TABLE `movie`
@@ -785,6 +803,12 @@ ALTER TABLE `shows`
 --
 ALTER TABLE `Booking`
   MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=99;
+
+--
+-- AUTO_INCREMENT for table `signup`
+--
+ALTER TABLE `signup`
+  MODIFY `id` int(11) NOT NULL AUTO_INCREMENT, AUTO_INCREMENT=0;
 
 --
 -- Constraints for dumped tables
