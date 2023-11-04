@@ -21,18 +21,6 @@ if ($conn->connect_error) {
 }
 echo '<script>console.log("Connected")</script>';
 
-// $to = "vanessa@localhost";
-// $subject = "My subject";
-// $txt = "Hello world!";
-// $headers = "From: moovlix@localhost" . "\r\n";
-
-// // $smtpServer = 'localhost';
-// // $smtpPort = 25; // The SMTP server's port
-
-// // ini_set('SMTP', $smtpServer);
-// // ini_set('smtp_port', $smtpPort);
-
-// mail($to, $subject, $txt, $headers);
 
 
 $distinctRows = mysqli_query($conn, "SELECT DISTINCT rowNumber FROM " . $tablename . " ORDER BY rowNumber DESC");

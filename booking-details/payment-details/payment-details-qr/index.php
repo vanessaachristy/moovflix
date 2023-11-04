@@ -1,4 +1,6 @@
 <?php
+require "../../../mail_patch.php";
+use function mail_patch\mail;
 
 session_start();
 
@@ -88,6 +90,123 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
         ;
     }
+
+
+
+    $to = $email;
+    $subject = 'Booking Confirmation for Reference ID: ' . $bookingID . '';
+    $message = "
+<html>
+
+    <head>
+        <title>Moovlix: Booking Acknowledgement Email</title>
+        <style>
+            body {
+                font-family: Arial, sans-serif;
+                text-align: center;
+                margin: 0;
+                background-color: #1f222c;
+            }
+
+            p {
+                font-size: 16px;
+                text-align: left;
+                color: #ffedbe;
+            }
+
+            table {
+                border-collapse: collapse;
+                text-align: center;
+
+            }
+
+            th,
+            td {
+                padding: 10px;
+                border: 1px solid #000;
+            }
+
+            th {
+                background-color: #F5CB5C;
+            }
+
+            td {
+                background-color: #f2f2f2;
+            }
+
+            tfoot td {
+                background-color: #F5CB5C;
+            }
+        </style>
+    </head>
+
+    <body style='background-color: #191B24;'>
+        <div style='background-color: black; padding: 12px;'>
+            <h1 style='color:#F5CB5C'>Moovlix</h1>
+        </div>
+           <div style='margin-left: 24px;'>
+        <p>Dear, <strong>$name</strong></p>
+        <br />
+        <p>Thank you for booking your favorite movie with us! Here is your booking reference ID:
+        </p>
+        <div style='background-color: #F5CB5C; padding: 12px; border-radius: 12px; width: 30%;'>$bookingID</div>
+        <p>Please kindly query in your booking ID and email if you wish to <strong>check</strong> or
+            <strong>edit</strong> your booking in
+        </p>
+        <div style='background-color: #F5CB5C; padding: 12px; border-radius: 12px; width: 30%;'><a style='text-decoration: none; color: #fff;'
+                href='http://localhost:8000/moovflix/check-booking/check-booking-form/index.php'>Check Booking</a></div>
+        <br />
+
+        <p>Here is a summary of your booking:</p>
+        <table>
+            <tr>
+                <th>Field</th>
+                <th>Value</th>
+            </tr>
+            <tr>
+                <td>Name</td>
+                <td>$name</td>
+            </tr>
+            <tr>
+                <td>Email</td>
+                <td style='text-decoration: none; color: #fff;'>$email</td>
+            </tr>
+            <tr>
+                <td>Cinema</td>
+                <td>$screenName</td>
+            </tr>
+            <tr>
+                <td>Date & Time</td>
+                <td>$screenDate $screenTime</td>
+            </tr>
+            <td>Seats</td>
+            <td>" . implode(', ', $seatIDList) . "</td>
+            </tr>
+            <tfoot>
+                <td>Total</td>
+                <td>400</td>
+            </tfoot>
+        </table>
+        <br />
+        <br />
+
+        <p>Best regards,<br /><br />
+            <h1 style='color: #F5CB5C; text-align: left;'>Moovlix</h1>
+        </p>
+        </div>
+
+    </body>
+
+</html>
+";
+    $headers = 'From: moovlix@localhost' . "\r\n" .
+        'Reply-To: moovlix@localhost' . "\r\n" .
+        'X-Mailer: PHP/' . phpversion();
+    $headers .= "MIME-Version: 1.0" . "\r\n";
+    $headers .= "Content-type: text/html; charset=UTF-8" . "\r\n";
+
+    mail($to, $subject, $message, $headers);
+
     // If the update was successful, redirect to another page
     header('Location: http://localhost:8000/moovflix/success-booking/index.php');
     exit; // Make sure to exit to prevent further script execution
