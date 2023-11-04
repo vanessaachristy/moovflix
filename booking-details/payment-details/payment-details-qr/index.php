@@ -69,8 +69,6 @@ if ($conn->connect_error) {
 }
 echo '<script>console.log("Connected")</script>';
 
-echo '<script>console.log("' . $showID . '")</script>';
-
 
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
