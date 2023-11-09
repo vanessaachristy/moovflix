@@ -25,6 +25,13 @@ echo '<script>console.log("Connected")</script>';
 $seatSelections = $_SESSION['seatSelections'];
 $totalSelected = count($seatSelections);
 $bookingID = $_SESSION['bookingID'];
+$email = $_SESSION['email'];
+$cinemaName = $_SESSION['cinemaName'];
+$movieName = $_SESSION['movieName'];
+$showDate = $_SESSION['showDate'];
+$showTime = $_SESSION['showTime'];
+$moviePoster = $_SESSION['moviePoster'];
+
 
 echo '<script>console.log("' . $bookingID . '")</script>';
 
@@ -34,9 +41,15 @@ $distinctRows = mysqli_query($conn, "SELECT DISTINCT rowNumber FROM " . $tablena
 $selectedList = array();
 $price = 12.5;
 
-$_SESSION['$seatSelections'] = $seatSelections;
-$_SESSION['$totalSelected'] = $totalSelected;
+$_SESSION['seatSelections'] = $seatSelections;
+$_SESSION['totalSelected'] = $totalSelected;
 $_SESSION['bookingID'] = $bookingID;
+$_SESSION['email'] = $email;
+$_SESSION['cinemaName'] = $cinemaName;
+$_SESSION['movieName'] = $movieName;
+$_SESSION['showDate'] = $showDate;
+$_SESSION['showTime'] = $showTime;
+
 
 /**
  * Sanitize
@@ -80,18 +93,15 @@ function sanitize($data)
                     <span class="title">BOOKING DETAILS</span>
                     <div class="content">
                         <div class="image">
-                            <img src="../../assets/john-wick.png" width="92" height="134" />
+                            <img src="../../<?php echo $moviePoster; ?>" width="92" height="134" />
                         </div>
                         <div class="movie-detail">
-                            <span class="movie-title" id="title">John Wick 4</span>
-                            <span id="cinema-name"><img src='../../assets/location.svg' class="icon" />Cinema
-                                Name</span>
-                            <span id="show-date"><img src='../../assets/calendar.svg' class="icon" />22 September,
-                                2023</span>
-                            <span id="show-time"><img src='../../assets/time.svg' class="icon" />9.15 PM</span>
-                            <span id="seat-numbers"><img src='../../assets/seat.svg' class="icon" />
-                                <?= implode(', ', $seatSelections) ?>
-                            </span>
+                            <span class="movie-title" id="title"><?= $movieName ?></span>
+                            <span id="cinema-name"><img src='../../assets/location.svg'
+                                    class="icon" /><?= $cinemaName ?></span>
+                            <span id="show-date"><img src='../../assets/calendar.svg'
+                                    class="icon" /><?= $showDate ?></span>
+                            <span id="show-time"><img src='../../assets/time.svg' class="icon" /><?= $showTime ?></span>
                         </div>
                         <div class="booking-detail">
                             <span class="total-title">Total Booking</span>

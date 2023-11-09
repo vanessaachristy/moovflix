@@ -173,6 +173,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <td>Cinema</td>
                 <td>$screenName</td>
             </tr>
+              <tr>
+                <td>Movie</td>
+                <td>$movieName</td>
+            </tr>
             <tr>
                 <td>Date & Time</td>
                 <td>$screenDate $screenTime</td>
@@ -182,7 +186,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </tr>
             <tfoot>
                 <td>Total</td>
-                <td>400</td>
+                <td>$totalPayment</td>
             </tfoot>
         </table>
         <br />
