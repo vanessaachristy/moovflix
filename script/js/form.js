@@ -1,6 +1,6 @@
 function validateName() {
     let userName = document.getElementById("userName").value;
-    let regExpName = /^[a-zA-Z\s]+$/;
+    let regExpName = /^[A-Za-z\s'-]+$/;
     let invalidName = document.getElementById("invalidName");
     let isValid = true;
 
@@ -18,7 +18,7 @@ function validateName() {
 
 function validateEmail() {
     let userEmail = document.getElementById("userEmail").value;
-    let regExpEmail = /^[\w.-]+@[A-Za-z0-9.-]+\.[A-Za-z]{2,4}(?:\.[a-zA-Z]{1,3})?$/;
+    let regExpEmail = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     let invalidEmail = document.getElementById("invalidEmail");
     let isValid = true;
 
