@@ -170,15 +170,17 @@ document.addEventListener("DOMContentLoaded", function () {
         });
     }
 
-    function setupDateCarousel(dateCarousel, cinemaIndex) {
+    function setupDateCarousel(dateCarousel) {
         const nextButton = dateCarousel.querySelector("#nextDate");
         const prevButton = dateCarousel.querySelector("#prevDate");
 
         let currentDateIndex = 0;
         let firstDateIndex = 0;
+        let selectedDateIndex = 0;
         const dateItems = dateCarousel.querySelectorAll('.date-items h3');
 
         const updateSelection = (index) => {
+            selectedDateIndex = index; 
             dateItems.forEach((item, i) => {
                 if (i === index) {
                     item.style.color = "#F5CB5C";
@@ -190,7 +192,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         const updateDateItems = () => {
             dateItems.forEach((dateItem, index) => {
-                if (index === firstDateIndex) {
+                if (index === selectedDateIndex) {
                     setTimeout(() => {
                         dateItem.click();
                     }, 0);
@@ -213,25 +215,31 @@ document.addEventListener("DOMContentLoaded", function () {
         nextButton.addEventListener("click", function (event) {
             event.preventDefault();
             if (currentDateIndex < 14) {
-                updateSelection(firstDateIndex);
-                updateDateItems();
                 currentDateIndex++;
+                selectedDateIndex--; 
+                if (selectedDateIndex < 0) {
+                    selectedDateIndex = firstDateIndex; 
+                }
+                updateSelection(selectedDateIndex);
+                updateDateItems();
                 updateDates(dateCarousel, currentDateIndex);
             }
         });
-
+        
         prevButton.addEventListener("click", function (event) {
             event.preventDefault();
             if (currentDateIndex > 0) {
+                selectedDateIndex++; 
                 currentDateIndex--;
+                updateSelection(selectedDateIndex);
                 updateDates(dateCarousel, currentDateIndex);
-                updateSelection(firstDateIndex);
                 updateDateItems();
             }
         });
+        
 
         updateDates(dateCarousel, currentDateIndex);
-        updateSelection(firstDateIndex);
+        updateSelection(selectedDateIndex);
     }
 
 
