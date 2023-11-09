@@ -47,10 +47,7 @@ $name = "";
 $email = "";
 $payment = "";
 
-// while ($row = mysqli_fetch_assoc($priceDetails)) {
-//     $seatPrice = $row["price"];
-//     $totalPayment = $bookingFee + count($seatIDList) * $seatPrice;
-// }
+
 
 if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $name = $_POST["name"];
@@ -161,8 +158,11 @@ function sanitize($data)
                 <form id="payment-detail-form" method="POST" action="index.php" onsubmit="return validateInput()">
                     <div class="payment-detail-form">
                         <div class="input-field">
-                            <span><label for="buyer-name">Name</label> <input type="name" id="buyer-name" name="name"
-                                    placeholder="Enter your name here" required size="30"></span>
+
+                            <span><label for="buyer-name">Name</label>
+                                <input type="name" id="buyer-name" name="name" placeholder="Enter your name here"
+                                    required size="30">
+                            </span>
                             <span><label for="buyer-email">E-mail</label> <input type="email" id="buyer-email"
                                     name="email" placeholder="Enter your email here" required size="30"></span>
                         </div>

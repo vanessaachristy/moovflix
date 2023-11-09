@@ -247,9 +247,13 @@ document.addEventListener("DOMContentLoaded", function () {
     fetchCinemas();
 
     function redirectToSeating(showID) {
-        const url = `booking-details/seating-page/index.php?id=${showID}`;
+        let userEmail = localStorage.getItem("userEmail");
+        let userName = localStorage.getItem("userName");
+        let url = `login.php?id=${showID}`;
+        if (userEmail && userName) {
+            url = `booking-details/seating-page/index.php?id=${showID}`;
+        }
         window.location.href = `${url}`
-
     }
 
 });

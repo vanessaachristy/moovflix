@@ -27,3 +27,20 @@ function validateEmail(email) {
     var pattern = /^[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}$/;
     return pattern.test(email);
 }
+
+window.onload = () => {
+    let userEmail = localStorage.getItem("userEmail");
+    let email = document.getElementById('buyer-email');
+    if (userEmail) {
+        email.value = atob(userEmail);
+        email.readOnly = true;
+    }
+
+    let userName = localStorage.getItem("userName");
+    let name = document.getElementById('buyer-name');
+    if (userName) {
+        name.value = atob(userName);
+        name.readOnly = true;
+    }
+
+}

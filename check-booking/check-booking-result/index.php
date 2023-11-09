@@ -88,8 +88,16 @@ if ($timestampToCheck !== false) {
     echo '<script>console.log("Invalid date format)</script>';
 }
 
+
+$_SESSION['email'] = $email;
+$_SESSION['cinemaName'] = $cinemaName;
+$_SESSION['movieName'] = $movieName;
+$_SESSION['showDate'] = $showDate;
+$_SESSION['showTime'] = $showTime;
 $_SESSION['seatSelections'] = $seatIDs;
 $_SESSION['bookingID'] = $bookingID;
+$_SESSION['moviePoster'] = $moviePoster;
+
 
 
 ?>
