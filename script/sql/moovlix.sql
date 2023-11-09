@@ -101,10 +101,10 @@ CREATE TABLE `screen` (
 --
 
 INSERT INTO `screen` (`id`, `cinema_name`, `cinema_location`, `images`) VALUES
-(1, 'MOOVLIX ION ORCHARD', '2 Orchard Turn, Singapore 238801', 'img/orchard.jpg'),
-(2, 'MOOVLIX MARINA BAY SANDS', '10 Bayfront Ave, Singapore 018956', 'img/marina.png'),
-(3, 'MOOVLIX NANYANG', '50 Nanyang Ave, Singapore 639798', 'img/ntu.png'),
-(4, 'MOOVLIX JURONG EAST', '50 Jurong Gateway Rd, Singapore 608549', 'img/jem.png');
+(1, 'MOOVFLIX ION ORCHARD', '2 Orchard Turn, Singapore 238801', 'img/orchard.jpg'),
+(2, 'MOOVFLIX MARINA BAY SANDS', '10 Bayfront Ave, Singapore 018956', 'img/marina.png'),
+(3, 'MOOVFLIX NANYANG', '50 Nanyang Ave, Singapore 639798', 'img/ntu.png'),
+(4, 'MOOVFLIX JURONG EAST', '50 Jurong Gateway Rd, Singapore 608549', 'img/jem.png');
 
 -- --------------------------------------------------------
 
