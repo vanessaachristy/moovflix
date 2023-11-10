@@ -90,6 +90,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     fetchShows(cinemaId, (data) => {
                         const showsByDate = {};
+                        const currentTime = new Date();
 
                         console.log(data); 
 
@@ -98,8 +99,11 @@ document.addEventListener("DOMContentLoaded", function () {
 
                             if (movies.id === show.movieID && formattedSelectedDate === show.dates.split(' ')[0]) {
                                 const showTime = show.dates.split(' ')[1].slice(0, 5);
-                                showsByDate[showTime] = showsByDate[showTime] || 0;
-                                showsByDate[showTime]++;
+                                const showDateTime = new Date(`${formattedSelectedDate}T${showTime}:00`);
+                                if (showDateTime > currentTime){
+                                    showsByDate[showTime] = showsByDate[showTime] || 0;
+                                    showsByDate[showTime]++;
+                                }
                             }
                         }
 

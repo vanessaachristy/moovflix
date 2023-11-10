@@ -170,13 +170,13 @@ h3{
 
 .movie-row{
     display:inline-flex; 
+    gap: 133px; 
 }
 
 .movie-name{
     height: 562px; 
     background-color: white;
     width: 320px; 
-    margin-left: 130px; 
     border-radius: 10px; 
     margin-bottom: 80px;
     transition: all .3s ease-in; 
@@ -212,6 +212,13 @@ h2{
     text-decoration: none; 
 }
 
+.movie-list, .cinema-list{
+    display: flex; 
+    flex-direction: column; 
+    margin-left: auto; 
+    margin-right: auto; 
+}
+
 .movie-list-details{
     margin-top: -150px; 
     margin-left: 40px; 
@@ -225,9 +232,9 @@ h2{
 }
 
 .cinema-name{
+    align-self: flex-start; 
     height:385px; 
     width: 318px;  
-    margin-bottom: 0px; 
     margin-top: 60px;
     margin-bottom: 40px;  
 }
