@@ -9,6 +9,7 @@ $_SESSION = array();
 session_destroy();
 
 // Redirect to a page after session is destroyed (optional)
-header("Location: http://localhost:8000/moovflix/index.html");
+$newUrl = str_replace('/success-update/logout.php', '/', $_SERVER['REQUEST_URI']);
+header('Location: ' . $newUrl);
 exit();
 ?>
