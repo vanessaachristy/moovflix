@@ -52,7 +52,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     }
 
     $to = $email;
-    $subject = 'Booking Confirmation for Reference ID: ' . $bookingID . '';
+    $subject = 'Update Booking Confirmation for Reference ID: ' . $bookingID . '';
     $message = "
 <html>
 

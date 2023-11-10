@@ -107,10 +107,10 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     <script>
     console.log('" . $_SESSION["cinemaName"] . "');
     </script>";
-    echo "
-    <script>
-    window.location.pathname = 'moovflix/booking-details/payment-details/payment-details-form/index.php'
-    </script>";
+    $newUrl = str_replace('/seating-page/index.php', '/payment-details/payment-details-form/', $_SERVER['REQUEST_URI']);
+
+    // Perform the redirection
+    header('Location: ' . $newUrl);
 
 } else {
     echo '

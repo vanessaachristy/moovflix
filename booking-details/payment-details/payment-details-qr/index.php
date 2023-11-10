@@ -210,7 +210,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     mail($to, $subject, $message, $headers);
 
     // If the update was successful, redirect to another page
-    header('Location: http://localhost:8000/moovflix/success-booking/index.php');
+    $newUrl = str_replace('/booking-details/payment-details/payment-details-qr/index.php', '/success-booking/index.php', $_SERVER['REQUEST_URI']);
+    header('Location: ' . $newUrl);
     exit; // Make sure to exit to prevent further script execution
     ;
 }

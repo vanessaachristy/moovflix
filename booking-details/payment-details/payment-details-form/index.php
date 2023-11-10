@@ -72,8 +72,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     // $result = $conn->query($updateBookingQuery);
 
     // If the update was successful, redirect to another page
-    header('Location: http://localhost:8000/moovflix/booking-details/payment-details/payment-details-qr/index.php');
-    exit; // Make sure to exit to prevent further script execution
+    $newUrl = str_replace('/payment-details-form/index.php', '/payment-details-qr/index.php', $_SERVER['REQUEST_URI']);
+    header('Location: ' . $newUrl);
+    exit;
 
 }
 ;
