@@ -90,6 +90,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
                     fetchShows(cinemaId, (data) => {
                         const showsByDate = {};
+                        const showIDs = {};
                         const currentTime = new Date();
 
                         console.log(data); 
@@ -103,6 +104,7 @@ document.addEventListener("DOMContentLoaded", function () {
                                 if (showDateTime > currentTime){
                                     showsByDate[showTime] = showsByDate[showTime] || 0;
                                     showsByDate[showTime]++;
+                                    showIDs[showTime] = show.id;
                                 }
                             }
                         }
@@ -111,6 +113,10 @@ document.addEventListener("DOMContentLoaded", function () {
                             const showTimes = Object.keys(showsByDate);
                             if (index < showTimes.length) {
                                 button.value = showTimes[index];
+                                button.id = showIDs[showTimes[index]];
+                                button.onclick = () => {
+                                    redirectToSeating(showIDs[showTimes[index]]);
+                                }
                                 button.style.display = 'block';
                             } else {
                                 button.style.display = 'none';
@@ -229,4 +235,14 @@ document.addEventListener("DOMContentLoaded", function () {
 
     fetchCinemaDetails(cinemaId);
     fetchMovies()
+
+    function redirectToSeating(showID) {
+        let userEmail = localStorage.getItem("userEmail");
+        let userName = localStorage.getItem("userName");
+        let url = `login.php?id=${showID}`;
+        if (userEmail && userName) {
+            url = `booking-details/seating-page/index.php?id=${showID}`;
+        }
+        window.location.href = `${url}`
+    }
 });
