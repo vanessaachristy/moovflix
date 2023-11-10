@@ -105,13 +105,17 @@ document.addEventListener("DOMContentLoaded", function () {
                     fetchShows(movieId, (data) => {
                         const showsByDate = {};
                         const showIDs = {};
+                        const currentTime = new Date();
                         for (let i = 0; i < data.length; i++) {
                             const show = data[i];
                             if (screen.id === show.screenID && formattedSelectedDate === show.dates.split(' ')[0]) {
                                 const showTime = show.dates.split(' ')[1].slice(0, 5);
-                                showsByDate[showTime] = showsByDate[showTime] || 0;
-                                showsByDate[showTime]++;
-                                showIDs[showTime] = show.id;
+                                const showDateTime = new Date(`${formattedSelectedDate}T${showTime}:00`);
+                                if (showDateTime > currentTime) {
+                                    showsByDate[showTime] = showsByDate[showTime] || 0;
+                                    showsByDate[showTime]++;
+                                    showIDs[showTime] = show.id;
+                                }
                             }
                         }
 
