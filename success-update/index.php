@@ -57,7 +57,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <html>
 
     <head>
-        <title>Moovlix: Update Booking Acknowledgement Email</title>
+        <title>MoovFlix: Update Booking Acknowledgement Email</title>
         <style>
             body {
                 font-family: Arial, sans-serif;
@@ -100,7 +100,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <body style='background-color: #191B24;'>
         <div style='background-color: black; padding: 12px;'>
-            <h1 style='color:#F5CB5C'>Moovlix</h1>
+            <h1 style='color:#F5CB5C'>MoovFlix</h1>
         </div>
            <div style='margin-left: 24px;'>
         <p>Dear, <strong>$email</strong></p>
@@ -138,14 +138,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 <td>$showDate $showTime</td>
             </tr>
             <td>Seats</td>
-            <td>" . implode(', ', $seatSelections) . "</td>
+            <td>" . implode(', ', $selectedList) . "</td>
             </tr>
         </table>
         <br />
         <br />
 
         <p>Best regards,<br /><br />
-            <h1 style='color: #F5CB5C; text-align: left;'>Moovlix</h1>
+            <h1 style='color: #F5CB5C; text-align: left;'>MoovFlix</h1>
         </p>
         </div>
 
@@ -153,8 +153,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 </html>
 ";
-    $headers = 'From: moovlix@localhost' . "\r\n" .
-        'Reply-To: moovlix@localhost' . "\r\n" .
+    $headers = 'From: moovflix@localhost' . "\r\n" .
+        'Reply-To: moovflix@localhost' . "\r\n" .
         'X-Mailer: PHP/' . phpversion();
     $headers .= "MIME-Version: 1.0" . "\r\n";
     $headers .= "Content-type: text/html; charset=UTF-8" . "\r\n";
@@ -186,7 +186,7 @@ function sanitize($data)
 <html lang="en">
 
     <head>
-        <title>Choose Seating</title>
+        <title>MoovFlix: Success Update</title>
         <meta charset="UTF-8" />
         <link rel="stylesheet" href="../header/index.css" />
         <link rel="stylesheet" href="../footer/index.css" />
@@ -228,9 +228,9 @@ function sanitize($data)
                 </div>
             </div>
             <div class="right">
-                <a href="https://google.com">MOVIES</a>
-                <a href="https://google.com">CINEMAS</a>
-                <a href="https://google.com">CHECK BOOKING</a>
+                <a href="../index.html">MOVIES</a>
+                <a href="../cinema.html">CINEMAS</a>
+                <a href="../check-booking/check-booking-form/index.php">CHECK BOOKING</a>
             </div>
         </div>
         <div class="copyright">Copyright &copy 2023 MoovFlix</div>

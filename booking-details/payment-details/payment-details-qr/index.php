@@ -97,7 +97,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <html>
 
     <head>
-        <title>Moovlix: Booking Acknowledgement Email</title>
+        <title>MoovFlix: Booking Acknowledgement Email</title>
         <style>
             body {
                 font-family: Arial, sans-serif;
@@ -140,7 +140,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
     <body style='background-color: #191B24;'>
         <div style='background-color: black; padding: 12px;'>
-            <h1 style='color:#F5CB5C'>Moovlix</h1>
+            <h1 style='color:#F5CB5C'>MoovFlix</h1>
         </div>
            <div style='margin-left: 24px;'>
         <p>Dear, <strong>$name</strong></p>
@@ -201,8 +201,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 </html>
 ";
-    $headers = 'From: moovlix@localhost' . "\r\n" .
-        'Reply-To: moovlix@localhost' . "\r\n" .
+    $headers = 'From: moovflix@localhost' . "\r\n" .
+        'Reply-To: moovflix@localhost' . "\r\n" .
         'X-Mailer: PHP/' . phpversion();
     $headers .= "MIME-Version: 1.0" . "\r\n";
     $headers .= "Content-type: text/html; charset=UTF-8" . "\r\n";
@@ -235,7 +235,7 @@ function sanitize($data)
 <html lang="en">
 
     <head>
-        <title>Choose Seating</title>
+        <title>MoovFlix: Payment</title>
         <meta charset="UTF-8" />
         <link rel="stylesheet" href="../../../header/index.css" />
         <link rel="stylesheet" href="../../../footer/index.css" />
@@ -318,8 +318,9 @@ function sanitize($data)
                                     placeholder="CVV" required size="3"></span>
                               <span><label for="expiry">Expiry date</label> <input type="date" min=' . $today . ' id="expiry" name="expiry"
                                     ></span>
-                          
                     </div>
+                    <br/>
+                    <span id="booking-ID">Booking ID:' . $bookingID . '</span>
                   
                 </form>';
                 }
@@ -347,9 +348,9 @@ function sanitize($data)
                 </div>
             </div>
             <div class="right">
-                <a href="https://google.com">MOVIES</a>
-                <a href="https://google.com">CINEMAS</a>
-                <a href="https://google.com">CHECK BOOKING</a>
+                <a href="../../../index.html">MOVIES</a>
+                <a href="../../../cinema.html">CINEMAS</a>
+                <a href="../../../check-booking/check-booking-form/index.php">CHECK BOOKING</a>
             </div>
         </div>
         <div class="copyright">Copyright &copy 2023 MoovFlix</div>

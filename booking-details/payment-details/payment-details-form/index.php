@@ -95,7 +95,7 @@ function sanitize($data)
 <html lang="en">
 
     <head>
-        <title>Choose Seating</title>
+        <title>MoovFlix: Payment Details</title>
         <meta charset="UTF-8" />
         <link rel="stylesheet" href="../../../header/index.css" />
         <link rel="stylesheet" href="../../../footer/index.css" />
@@ -198,9 +198,9 @@ function sanitize($data)
                 </div>
             </div>
             <div class="right">
-                <a href="https://google.com">MOVIES</a>
-                <a href="https://google.com">CINEMAS</a>
-                <a href="https://google.com">CHECK BOOKING</a>
+                <a href="../../../index.html">MOVIES</a>
+                <a href="../../../cinema.html">CINEMAS</a>
+                <a href="../../../check-booking/check-booking-form/index.php">CHECK BOOKING</a>
             </div>
         </div>
         <div class="copyright">Copyright &copy 2023 MoovFlix</div>

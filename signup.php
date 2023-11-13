@@ -54,7 +54,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <html Lang="en">
 
     <head>
-        <title>Moovlix</title>
+        <title>MoovFlix: Sign Up</title>
         <meta charset="UTF-8">
         <link rel="stylesheet" href="css/style.css">
         <link rel="stylesheet" href="header/index.css">
@@ -136,9 +136,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                     </div>
                 </div>
                 <div class="right">
-                    <a href="https://google.com">MOVIES</a>
-                    <a href="https://google.com">CINEMAS</a>
-                    <a href="https://google.com">CHECK BOOKING</a>
+                    <a href="index.html">MOVIES</a>
+                    <a href="cinema.html">CINEMAS</a>
+                    <a href="check-booking/check-booking-form/index.php">CHECK BOOKING</a>
                 </div>
             </div>
             <div class="copyright">Copyright &copy 2023 MoovFlix</div>
@@ -148,14 +148,14 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     </body>
 
     <script>
-        if (<?php echo $signupFailed ? 'true' : 'false'; ?>) {
-            document.getElementById("userName").style.border = "2px solid #FF2500";
-            document.getElementById("userEmail").style.border = "2px solid #FF2500";
-            document.getElementById("userPassword").style.border = "2px solid #FF2500";
-            document.getElementById("confirmPassword").style.border = "2px solid #FF2500";
-            document.getElementById("passwordUnmatch").style.display = "block";
-            document.getElementById("passwordUnmatch").innerText = "Sign up failed. Please try again!"
-        }
+    if (<?php echo $signupFailed ? 'true' : 'false'; ?>) {
+        document.getElementById("userName").style.border = "2px solid #FF2500";
+        document.getElementById("userEmail").style.border = "2px solid #FF2500";
+        document.getElementById("userPassword").style.border = "2px solid #FF2500";
+        document.getElementById("confirmPassword").style.border = "2px solid #FF2500";
+        document.getElementById("passwordUnmatch").style.display = "block";
+        document.getElementById("passwordUnmatch").innerText = "Sign up failed. Please try again!"
+    }
     </script>
 
 </html>

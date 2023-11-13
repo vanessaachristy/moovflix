@@ -12,7 +12,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 <html lang="en">
 
     <head>
-        <title>Choose Seating</title>
+        <title>MoovFlix: Check Booking</title>
         <meta charset="UTF-8" />
         <link rel="stylesheet" href="../../header/index.css" />
         <link rel="stylesheet" href="../../footer/index.css" />
@@ -23,7 +23,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 
     <div class="navigation">
-    <a href="../../index.html"><img src="../../img/logo.svg" class="logo"></a>
+        <a href="../../index.html"><img src="../../img/logo.svg" class="logo"></a>
         <div class="links">
             <a href="../../index.html"><img src="../../img/movieslogo.svg"></a>
             <a href="../../cinema.html"><img src="../../img/cinemaslogo.svg"></a>
@@ -65,9 +65,9 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                 </div>
             </div>
             <div class="right">
-                <a href="https://google.com">MOVIES</a>
-                <a href="https://google.com">CINEMAS</a>
-                <a href="https://google.com">CHECK BOOKING</a>
+                <a href="../../index.html">MOVIES</a>
+                <a href="../../cinema.html">CINEMAS</a>
+                <a href="index.php">CHECK BOOKING</a>
             </div>
         </div>
         <div class="copyright">Copyright &copy 2023 MoovFlix</div>
