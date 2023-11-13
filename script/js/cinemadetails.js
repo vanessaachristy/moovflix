@@ -204,7 +204,7 @@ document.addEventListener("DOMContentLoaded", function () {
 
         nextButton.addEventListener("click", function (event) {
             event.preventDefault();
-            if (currentDateIndex < 14) {
+            if (currentDateIndex < 10) {
                 currentDateIndex++;
                 selectedDateIndex--; 
                 if (selectedDateIndex < 0) {

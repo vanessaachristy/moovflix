@@ -80,7 +80,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         <section class="login-body">
             <div class="login-form">
                 <div class="form-title">
-                    <h2 class="login-text">Log in to your account</h2>
+                    <h2 class="login-text">Login to your account</h2>
                 </div>
                 <div class="input-field">
                     <form action="" method="post" id="userForm" onsubmit="return validateForm()">
@@ -104,7 +104,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                             echo '<div class="error" id="loginFailed">Login failed. Please try again!</div>';
                         }
                         ?>
-                        <span><input class="login-button" type="submit" value="LOG IN"></span>
+                        <span><input class="login-button" type="submit" value="LOGIN"></span>
                     </form>
                     <span class="horizontal-line"></span>
                     <h3>Don't have an account? <span class="sign-up-link"><a href="signup.php?id=<?= $showID ?>">Sign
