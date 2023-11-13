@@ -1,12 +1,9 @@
 <?php
 
-
 session_start();
-
 $totalRows = 5;
 $totalColumns = 2;
 $totalEachRow = 10;
-
 $servername = "localhost";
 $username = "root";
 $dbname = "moovlix";
@@ -26,8 +23,6 @@ $distinctRows = mysqli_query($conn, "SELECT DISTINCT rowNumber FROM " . $tablena
 $referenceID = generateUniqueId();
 $selectedList = array();
 $price = 0;
-
-
 $showID = 0;
 $cinemaID = 0;
 $cinemaName = "";
@@ -80,12 +75,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             array_push($selectedList, sanitize($_POST["seat"][$ii]));
             $seatNumber[$ii] = sanitize($_POST["seat"][$ii]);
             $timestamp = date("Y-m-d H:i:s"); // Create a timestamp
-            $randomShowID = "your_show_id"; // Replace with an actual show ID
-            ;
-            // $seatQuery = "UPDATE Seating SET available = 0, bookingID = '" . $referenceID . "' WHERE seatNumber = '" .
             $seatNumber[$ii] . "'";
-            // $conn->query($query);
-            // $conn->query($seatQuery);
         }
     }
     $query = 'SELECT price FROM Seating WHERE seatNumber = "' . $selectedList[0] . '"';
@@ -108,7 +98,6 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     console.log('" . $_SESSION["cinemaName"] . "');
     </script>";
     $newUrl = str_replace('/seating-page/index.php', '/payment-details/payment-details-form/', $_SERVER['REQUEST_URI']);
-
     // Perform the redirection
     header('Location: ' . $newUrl);
 

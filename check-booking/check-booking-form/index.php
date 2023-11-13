@@ -1,13 +1,3 @@
-<?php
-
-
-if ($_SERVER["REQUEST_METHOD"] == "POST") {
-    $email = $_POST["email"];
-    $bookingID = $_POST["bookingID"];
-
-}
-;
-?>
 <!DOCTYPE html>
 <html lang="en">
 

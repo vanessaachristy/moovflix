@@ -33,9 +33,7 @@ function onSeatSelected(seatIdx, selectedSeats) {
     } else if (selectionList.includes(idx)) {
         seatIdx.style.backgroundColor = 'white';
         input.value = "";
-        console.log(selectionList.indexOf(idx), selectionList)
         selectionList = selectionList.filter(a => a !== idx);
-        console.log(selectionList)
     } else {
         alert("You've reached your selected seats limit! Please unselect the seat you've chosen first!")
     }
@@ -44,9 +42,6 @@ function onSeatSelected(seatIdx, selectedSeats) {
 }
 
 function resetSelectedSeats(seatArray) {
-    console.log("test")
-    console.log(seatArray);
-
     selectionList = seatArray;
     totalSelected = seatArray.length;
 

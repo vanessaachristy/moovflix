@@ -21,19 +21,11 @@ $dbname = "moovlix";
 
 // Create connection
 $conn = new mysqli($servername, $username, '', $dbname);
-
 // Check connection
 if ($conn->connect_error) {
     die("Connection failed: " . $conn->connect_error);
 }
 echo '<script>console.log("Connected")</script>';
-
-// $fetchBookingQuery = 'SELECT showID, seatID, referenceID FROM `Booking` WHERE referenceID = "' . $bookingID . '" ORDER BY seatID';
-// $bookingDetails = $conn->query($fetchBookingQuery);
-
-// $fetchPriceQuery = 'SELECT price, bookingID FROM `Seating` WHERE bookingID = "' . $bookingID . '" GROUP BY price, bookingID';
-// $fetchPriceQuery = 'SELECT price FROM `Seating` WHERE seatNumber = "' . $seatSelections[0] . '" GROUP BY price';
-// $priceDetails = $conn->query($fetchPriceQuery);
 
 $screenName = $_SESSION['cinemaName'];
 $screenDate = $_SESSION['showDate'];
@@ -68,10 +60,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
     $_SESSION["movieName"] = $movieName;
     $_SESSION["moviePoster"] = $moviePoster;
 
-    // $updateBookingQuery = "UPDATE Booking SET name = '" . $name . "', email = '" . $email . "',  payment = '" . $payment . "'  WHERE referenceID = '" . $bookingID . "'";
-    // $result = $conn->query($updateBookingQuery);
-
-    // If the update was successful, redirect to another page
+    // If the update was successful, redirect to payment confirmation page
     $newUrl = str_replace('/payment-details-form/index.php', '/payment-details-qr/index.php', $_SERVER['REQUEST_URI']);
     header('Location: ' . $newUrl);
     exit;
@@ -156,7 +145,7 @@ function sanitize($data)
                 </div>
             </div>
             <div class="areas">
-                <form id="payment-detail-form" method="POST" action="index.php" onsubmit="return validateInput()">
+                <form id="payment-detail-form" method="POST" action="index.php">
                     <div class="payment-detail-form">
                         <div class="input-field">
 

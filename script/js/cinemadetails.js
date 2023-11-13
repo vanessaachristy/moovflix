@@ -6,22 +6,22 @@ document.addEventListener("DOMContentLoaded", function () {
         fetch(`script/php/get_cinema_details.php?id=${cinemaId}`)
             .then(response => response.json())
             .then(data => {
-                updateCinemaDetails(data); 
+                updateCinemaDetails(data);
             })
             .catch(error => console.error('Error fetching cinemas:', error));
     }
 
-    function updateCinemaDetails(cinemaDetails){
+    function updateCinemaDetails(cinemaDetails) {
         const cinemaName = document.getElementById('cinema-name');
 
-        cinemaName.textContent = cinemaDetails.cinema_name; 
+        cinemaName.textContent = cinemaDetails.cinema_name;
     }
 
     function fetchMovies() {
         fetch('script/php/get_movies.php')
             .then(response => response.json())
             .then(data => {
-                updateMovieCarouselList(data); 
+                updateMovieCarouselList(data);
             })
             .catch(error => console.error('Error fetching movies:', error));
     }
@@ -30,7 +30,7 @@ document.addEventListener("DOMContentLoaded", function () {
         fetch(`script/php/get_shows_cinemas.php?id=${cinemaId}`)
             .then(response => response.json())
             .then(data => {
-                callback(data); 
+                callback(data);
             })
             .catch(error => console.error('Error fetching shows:', error));
     }
@@ -43,14 +43,14 @@ document.addEventListener("DOMContentLoaded", function () {
         let currentMovieBox = null;
 
         movies.forEach((movies, index) => {
-            
+
             currentMovieBox = document.createElement('div');
             currentMovieBox.classList.add('cinema-box', 'movie-box');
 
-            const movieName = movies.movie_name; 
-            const movieLanguage = movies.languages; 
-            const movieRating = movies.rating; 
-            
+            const movieName = movies.movie_name;
+            const movieLanguage = movies.languages;
+            const movieRating = movies.rating;
+
             const movieTitle = document.createElement('h2');
             movieTitle.innerHTML = `${movieName} &#40;<span class="languages">${movieLanguage}</span>&#41; <span class="rating">${movieRating}</span>`;
             currentMovieBox.appendChild(movieTitle);
@@ -69,8 +69,8 @@ document.addEventListener("DOMContentLoaded", function () {
             <a href="#" id="nextDate" role="button"><img class="next-arrow next-arrow-right" src="img/arrow-right.svg" alt=""></a>
             `;
 
-            const movieTime = document.createElement('div'); 
-            movieTime.classList.add('cinema-time-list', 'movie-time-list'); 
+            const movieTime = document.createElement('div');
+            movieTime.classList.add('cinema-time-list', 'movie-time-list');
 
             movieTime.innerHTML = `
                     <img src="${movies.poster}" alt="" class="movie-picture">
@@ -93,15 +93,13 @@ document.addEventListener("DOMContentLoaded", function () {
                         const showIDs = {};
                         const currentTime = new Date();
 
-                        console.log(data); 
-
                         for (let i = 0; i < data.length; i++) {
                             const show = data[i];
 
                             if (movies.id === show.movieID && formattedSelectedDate === show.dates.split(' ')[0]) {
                                 const showTime = show.dates.split(' ')[1].slice(0, 5);
                                 const showDateTime = new Date(`${formattedSelectedDate}T${showTime}:00`);
-                                if (showDateTime > currentTime){
+                                if (showDateTime > currentTime) {
                                     showsByDate[showTime] = showsByDate[showTime] || 0;
                                     showsByDate[showTime]++;
                                     showIDs[showTime] = show.id;
@@ -125,10 +123,10 @@ document.addEventListener("DOMContentLoaded", function () {
                     });
                 });
             });
-    
+
             currentMovieBox.appendChild(dateCarousel);
             currentMovieBox.appendChild(movieTime);
-    
+
             movieCarouselContainer.appendChild(currentMovieBox);
 
             setupDateCarousel(currentMovieBox.querySelector('.date-carousel'), index + 1);
@@ -140,18 +138,18 @@ document.addEventListener("DOMContentLoaded", function () {
         const date = new Date(selectedDateText);
 
         const currentDate = new Date();
-    
+
         const year = currentDate.getFullYear();
         const month = String(date.getMonth() + 1).padStart(2, '0');
         const day = String(date.getDate()).padStart(2, '0');
-    
+
         return `${year}-${month}-${day}`;
     }
 
     function updateDates(carousel, currentDateIndex) {
         const dateItems = carousel.querySelectorAll('.date-items h3');
-        const today = new Date(); 
-        today.setHours(0,0,0,0); 
+        const today = new Date();
+        today.setHours(0, 0, 0, 0);
         dateItems.forEach((item, index) => {
             const date = new Date(today);
             date.setDate(today.getDate() + currentDateIndex + index);
@@ -170,7 +168,7 @@ document.addEventListener("DOMContentLoaded", function () {
         const dateItems = dateCarousel.querySelectorAll('.date-items h3');
 
         const updateSelection = (index) => {
-            selectedDateIndex = index; 
+            selectedDateIndex = index;
             dateItems.forEach((item, i) => {
                 if (i === index) {
                     item.style.color = "#F5CB5C";
@@ -206,32 +204,32 @@ document.addEventListener("DOMContentLoaded", function () {
             event.preventDefault();
             if (currentDateIndex < 10) {
                 currentDateIndex++;
-                selectedDateIndex--; 
+                selectedDateIndex--;
                 if (selectedDateIndex < 0) {
-                    selectedDateIndex = firstDateIndex; 
+                    selectedDateIndex = firstDateIndex;
                 }
                 updateSelection(selectedDateIndex);
                 updateDateItems();
                 updateDates(dateCarousel, currentDateIndex);
             }
         });
-        
+
         prevButton.addEventListener("click", function (event) {
             event.preventDefault();
             if (currentDateIndex > 0) {
-                selectedDateIndex++; 
+                selectedDateIndex++;
                 currentDateIndex--;
                 updateSelection(selectedDateIndex);
                 updateDates(dateCarousel, currentDateIndex);
                 updateDateItems();
             }
         });
-        
+
 
         updateDates(dateCarousel, currentDateIndex);
         updateSelection(selectedDateIndex);
     }
-    
+
 
     fetchCinemaDetails(cinemaId);
     fetchMovies()

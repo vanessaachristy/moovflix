@@ -17,8 +17,6 @@ echo '<script>console.log("Connected")</script>';
 
 $seatSelections = $_SESSION['seatSelections'];
 
-echo "<script>console.log('" . json_encode($seatSelections) . "');</script>";
-
 $bookingID = $_SESSION['bookingID'];
 $totalSelected = $_SESSION['totalSelected'];
 $selectedList = array();
@@ -234,7 +232,6 @@ function sanitize($data)
             </div>
         </div>
         <div class="copyright">Copyright &copy 2023 MoovFlix</div>
-
     </footer>
 
 </html>

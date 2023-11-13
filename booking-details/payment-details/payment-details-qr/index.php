@@ -18,7 +18,6 @@ $payment = "";
 $showID = "";
 
 
-
 // Access the session variable
 $bookingID = $_SESSION['bookingID'];
 $seatIDList = $_SESSION["seatSelections"];
@@ -34,27 +33,7 @@ $screenDate = $_SESSION['showDate'];
 $screenTime = $_SESSION['showTime'];
 $movieName = $_SESSION['movieName'];
 $moviePoster = $_SESSION['moviePoster'];
-
 $today = date('Y-m-d');
-
-// if (isset($_SESSION['bookingID']) && isset($_SESSION["screenName"]) && isset($_SESSION["screenDate"]) && isset($_SESSION["screenTime"]) && isset($_SESSION["seatSelections"]) && isset($_SESSION["seatPrice"]) && isset($_SESSION["bookingFee"]) && isset($_SESSION["totalPayment"]) && isset($_SESSION["name"]) && isset($_SESSION["email"]) && isset($_SESSION["payment"]) && isset($_SESSION['showID'])) {
-//     $bookingID = $_SESSION['bookingID'];
-//     $screenName = $_SESSION["screenName"];
-//     $screenDate = $_SESSION["screenDate"];
-//     $screenTime = $_SESSION["screenTime"];
-//     $seatIDList = $_SESSION["seatSelections"];
-//     $seatPrice = $_SESSION["seatPrice"];
-//     $bookingFee = $_SESSION["bookingFee"];
-//     $totalPayment = $_SESSION["totalPayment"];
-//     $name = $_SESSION["name"];
-//     $email = $_SESSION["email"];
-//     $payment = $_SESSION["payment"];
-//     $showID = $_SESSION['showID'];
-// } else {
-//     echo '<script>console.log("One or more session variables are not set.")</script>';
-// }
-// ;
-
 
 $servername = "localhost";
 $username = "root";

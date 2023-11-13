@@ -33,8 +33,6 @@ $showTime = $_SESSION['showTime'];
 $moviePoster = $_SESSION['moviePoster'];
 
 
-echo '<script>console.log("' . $bookingID . '")</script>';
-
 echo '<script>window.onload = () => resetSelectedSeats(' . json_encode($seatSelections) . ')</script>';
 
 $distinctRows = mysqli_query($conn, "SELECT DISTINCT rowNumber FROM " . $tablename . " ORDER BY rowNumber DESC");
