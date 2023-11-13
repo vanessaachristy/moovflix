@@ -1,6 +1,6 @@
 function validateName() {
     let userName = document.getElementById("userName").value;
-    let regExpName = /^[A-Za-z\s'-]+$/;
+    let regExpName = /^[A-Za-z][A-Za-z\s'-]{2,}$/;
     let invalidName = document.getElementById("invalidName");
     let isValid = true;
 

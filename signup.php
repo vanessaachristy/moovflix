@@ -117,8 +117,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
                         <span><input class="login-button" type="submit" value="SIGN UP"></span>
                     </form>
                     <span class="horizontal-line"></span>
-                    <h3>Already have an account? <span class="sign-up-link"><a href="login.php?id=<?= $showID ?>">Log
-                                In</a></span></h3>
+                    <h3>Already have an account? <span class="sign-up-link"><a href="login.php?id=<?= $showID ?>">Login</a></span></h3>
                 </div>
             </div>
         </section>
