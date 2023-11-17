@@ -10,7 +10,7 @@ function validateName() {
         isValid = false;
     } else {
         invalidName.style.display = "none";
-        document.getElementById("userEmail").style.border = "2px solid #FFFFFF";
+        document.getElementById("userName").style.border = "2px solid #FFFFFF";
     }
 
     return isValid;
