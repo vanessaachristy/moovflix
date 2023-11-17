@@ -1,7 +1,7 @@
 function homeButtonOnClick() {
-    window.location.pathname = "moovflix/booking-details/seating-page/";
+    window.location.href = "moovflix/booking-details/seating-page/";
 }
 
 function editSeatingOnClick() {
-    window.location.pathname = "moovflix/booking-details/edit-seating/";
+    window.location.href = "moovflix/booking-details/edit-seating/";
 }

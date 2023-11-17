@@ -49,7 +49,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
         }
     }
 
-    $to = $email;
+    $to = explode("@", $email)[0] . '@localhost';
     $subject = 'Update Booking Confirmation for Reference ID: ' . $bookingID . '';
     $message = "
 <html>
@@ -121,7 +121,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
             </tr>
             <tr>
                 <td>Email</td>
-                <td style='text-decoration: none; color: #fff;'>$email</td>
+                <td style='text-decoration: none;'>$email</td>
             </tr>
             <tr>
                 <td>Cinema</td>
@@ -151,8 +151,8 @@ if ($_SERVER["REQUEST_METHOD"] == "POST") {
 
 </html>
 ";
-    $headers = 'From: moovflix@localhost' . "\r\n" .
-        'Reply-To: moovflix@localhost' . "\r\n" .
+    $headers = 'From: f31ee@localhost' . "\r\n" .
+        'Reply-To: f31ee@localhost' . "\r\n" .
         'X-Mailer: PHP/' . phpversion();
     $headers .= "MIME-Version: 1.0" . "\r\n";
     $headers .= "Content-type: text/html; charset=UTF-8" . "\r\n";
